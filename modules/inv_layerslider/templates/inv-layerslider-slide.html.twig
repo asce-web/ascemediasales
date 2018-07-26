@@ -1,0 +1,22 @@
+<li {{ attributes }}>
+    <img 
+      src="{{ slide.background_image_url }}"
+      {% if slide.data_kenburns %}
+      data-kenburns="{{ slide.data_kenburns }}"
+      {% endif %}
+      {% if slide.data_bgposition %}
+      data-bgposition="{{ slide.data_bgposition }}"
+      {% endif %}
+      {% if slide.data_bgpositionend %}
+      data-bgpositionend="{{ slide.data_bgpositionend }}"
+      {% endif %}
+      data-duration="{{ slide.data_delay }}"
+      {% if (slide.data_kenburns == 'on') %}
+      data-bgfit="200" 
+      data-bgfitend="100"
+      data-zoomstart=""
+      {% endif %}/>
+    {% for key, layer in layers  %}
+        {{ layer }}
+    {% endfor %}
+</li>

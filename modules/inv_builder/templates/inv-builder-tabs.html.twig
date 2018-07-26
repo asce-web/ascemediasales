@@ -1,0 +1,14 @@
+<div{{ attributes.addClass('inv-builder-tabs').addClass(class).addClass(tab_style) }}>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    {% for tab in tabs %}
+      <li role="presentation" class="{% if loop.first %}active{% endif %}"><a href="#{{ tab.tab_id }}" aria-controls="{{ tab.tab_id }}" role="tab" data-toggle="tab">{% if tab.icon is not empty %}<i class="{{ tab.icon}}"></i> {% endif %}{{ tab.title }}</a></li>
+    {% endfor %}
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    {% for tab in tabs %}
+      <div role="tabpanel" id="{{ tab.tab_id }}" class="{{ tab.class }}{% if fade == 'fade' %} fade {% endif %}{% if loop.first %} in {% endif %}">{{ tab.content|raw }}</div>
+    {% endfor %}
+  </div>
+</div>

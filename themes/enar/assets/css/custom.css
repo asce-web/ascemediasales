@@ -1,0 +1,155 @@
+.jelly-bean {
+  background: #e4624a !important;
+}
+.js-form-type-checkbox label,
+.js-form-type-radio label {
+  display: inline-block;
+}
+.di-height {
+  min-height: 120px;
+}
+.region-logo img {
+  max-height: 75px;
+}
+ul.list1 li {
+  margin-bottom: 0;
+  width: 100%;
+}
+.region-primary_menu .nav .media-kit a {
+  background-color: #0c5fa8;
+  color: white;
+}
+.region-primary_menu .nav .media-kit a:hover {
+  background-color: #083C3B !important;
+  color: white !important;
+}
+.region-primary_menu .nav i {
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  display: inline-block;
+}
+.region-primary_menu .nav i.dd-indicator {
+  color: #9b9b9b;
+}
+.region-primary_menu .nav .dropdown.open .dropdown-toggle i {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.contact-icon {
+  float: left;
+  width: 70px;
+  height: 70px;
+}
+.contact-icon img {
+  max-width: 100%;
+}
+#persistent-contact {
+  z-index: 99999;
+  text-align: center;
+  width: 43px;
+  height: 43px;
+  padding: 8px 4px;
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  cursor: pointer;
+  overflow: auto;
+  background: #0c5fa8;
+  color: #ffffff;
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  border-radius: 3px 3px 3px 3px;
+}
+#persistent-contact a {
+  color: #fff;
+}
+#persistent-contact:hover {
+  background: rgba(12, 95, 168, 0.7);
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+#persistent-contact i {
+  font-size: 25px;
+}
+.callout {
+  background: #e4624a;
+  color: #ffffff;
+}
+.white-text {
+  color: #ffffff;
+}
+.white-text .inv-pie-chart-wrapper .inv-pie-chart .ppc-percents span {
+  color: #ffffff;
+}
+.white-text .inv-pie-chart-wrapper .inv-pie-chart-title {
+  color: #ffffff;
+}
+.tb-megamenu-nav.nav .dropdown-menu ul {
+  background: #333333;
+}
+.tb-megamenu-nav.nav .dropdown-menu ul li a {
+  color: #9b9b9b;
+}
+.tb-megamenu-nav.nav .dropdown-menu ul li a:hover {
+  color: #005dab;
+  background: #ffffff;
+}
+#section-page-title.has-banner .region-breadcrumb {
+  z-index: 10;
+}
+.job-posting-options h3 {
+  font-size: 1.3em;
+  font-weight: normal;
+}
+.job-posting-options h4 {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+.job-posting-options .posting-detail {
+  font-size: 1.25em;
+  margin-bottom: 10px;
+}
+.job-posting-options .price-detail span {
+  font-size: 1.55em;
+}
+.job-posting-options .addon-packages {
+  font-size: 1.2em;
+  text-align: center;
+  border-top: 2px solid #e5e5e5;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+.job-posting-options .package-details .package-item-label {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 6px;
+}
+.job-posting-options .package-details .package-item-label span {
+  font-weight: bold;
+}
+.job-posting-options .package-details .package-item-details {
+  padding: 16px 0 10px;
+}
+.top-padding {
+  padding-top: 2em;
+}
+.team-item.flip_effect .f1_card .person_desc:after {
+  display: none;
+}
+.team-item .person_desc {
+  margin-top: 15px;
+}
+.team-item .site-link {
+  padding-top: 0.2em;
+}
+.team-item .site-link a {
+  color: #ffffff;
+}
+.team-item .site-link a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+.pricing-table .plan_col.plan_column1 li {
+  padding: 13px 30px;
+}
+/*# sourceMappingURL=custom.css.map */

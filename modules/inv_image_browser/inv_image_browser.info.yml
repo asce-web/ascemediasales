@@ -1,0 +1,10 @@
+name: Innovation Image Browser
+type: module
+description: Provide Image Browser for uploading image
+core: 8.x
+package: Innovation
+version: 8.x-1.0
+dependencies:
+  - views
+  - entity_browser
+  - token

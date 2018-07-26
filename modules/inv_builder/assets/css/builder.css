@@ -1,0 +1,21 @@
+/* Builder row */
+.builder-row.row-flex{
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+.builder-row.row-flex:before, .builder-row.row-flex:after{
+  width: 0;
+  display: none;
+}
+
+.inv-builder-title.backword .inv-title{
+  position: relative;
+  z-index: 0;
+}
+.inv-builder-title.backword .inv-title:before{
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}

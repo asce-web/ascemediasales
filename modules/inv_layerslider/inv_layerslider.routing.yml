@@ -1,0 +1,127 @@
+
+# Slider routing definition
+entity.inv_slider.canonical:
+  path: '/admin/content/inv_layerslider/{inv_slider}'
+  defaults:
+    # _entity_view: 'inv_slider'
+    _form: 'Drupal\inv_layerslider\Form\SlidesEditForm'
+    _title: 'Slider'
+  requirements:
+    #_entity_access: 'inv_slider.view'
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.collection:
+  path: '/admin/content/inv_layerslider'
+  defaults:
+    _entity_list: 'inv_slider'
+    _title: 'Layer Sliders'
+  requirements:
+    _permission: 'view slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.add_form:
+  path: '/admin/content/inv_layerslider/add'
+  defaults:
+    _entity_form: inv_slider.add
+    _title: 'Add Slider'
+  requirements:
+    _permission: 'add slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.edit_form:
+  path: '/admin/content/inv_layerslider/{inv_slider}/edit'
+  defaults:
+    _entity_form: inv_slider.edit
+    _title: 'Edit Slider'
+  requirements:
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.edit_slides_form:
+  path: '/admin/content/inv_layerslider/{inv_slider}/edit_slides'
+  defaults:
+    _form: 'Drupal\inv_layerslider\Form\SlidesEditForm'
+    _title: 'Edit Slides'
+  requirements:
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.settings_form:
+  path: '/admin/content/inv_layerslider/{inv_slider}/settings'
+  defaults:
+    _form: 'Drupal\inv_layerslider\Form\SliderSettingsForm'
+    _title: 'Slider Settings'
+  requirements:
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.duplicate:
+  path: '/admin/content/inv_layerslider/{inv_slider}/duplicate'
+  defaults:
+    _form: 'Drupal\inv_layerslider\Entity\Form\SliderDuplicate'
+    _title: 'Duplicate Slider'
+  requirements:
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+    
+entity.inv_slider.file_upload_form:
+  path: '/admin/content/inv_layerslider/file_upload/{name}/{default_value}'
+  defaults:
+    _form: 'Drupal\inv_layerslider\Form\SliderFileUploadForm'
+    _title: 'Upload File'
+  requirements:
+    _permission: 'edit slider entities'
+  options:
+    _admin_route: TRUE
+
+entity.inv_slider.delete_form:
+  path: '/admin/content/inv_layerslider/{inv_slider}/delete'
+  defaults:
+    _entity_form: inv_slider.delete
+    _title: 'Delete Slider'
+  requirements:
+    _permission: 'delete slider entities'
+  options:
+    _admin_route: TRUE
+
+inv_slider.settings:
+  path: 'admin/structure/inv_slider'
+  defaults:
+   _form: '\Drupal\inv_layerslider\Entity\Form\SliderSettingsForm'
+   _title: 'Slider settings'
+  requirements:
+    _permission: 'administer slider entities'
+  options:
+    _admin_route: TRUE
+
+inv_slider.export:
+  path: 'admin/content/inv_layerslider/{inv_slider}/export'
+  defaults:
+    _controller: '\Drupal\inv_layerslider\Controller\SliderController::export'
+    _title: 'Export'
+  requirements:
+    _permission: 'administer slider entities'
+    
+inv_slider.import:
+  path: 'admin/content/inv_layerslider/import'
+  defaults:
+    _form: '\Drupal\inv_layerslider\Form\SliderImportForm'
+    _title: 'Import Slider'
+  requirements:
+    _permission: 'administer slider entities'
+    
+inv_slider.image_browser_field:
+  path: 'admin/content/inv_layserslider/image_browser'
+  defaults:
+    _controller: '\Drupal\inv_layerslider\Controller\SliderController::buildForm'
+    _title: 'Import Slider'
+  requirements:
+    _permission: 'administer slider entities'

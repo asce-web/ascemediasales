@@ -1,0 +1,8 @@
+services:
+  plugin.manager.fonticon:
+    class: Drupal\inv_builder\FontIcon\FontIconPluginManager
+    parent: default_plugin_manager
+  inv_builder.shortcode:
+    class: Drupal\inv_builder\Controller\BuilderShortcodeService
+  inv_builder.fonticon:
+    class: Drupal\inv_builder\FontIcon\FontIconService

@@ -1,0 +1,11 @@
+name: Filebrowser Extra
+description: 'Example module how to generate custom metadata for your files. This example adds "modified" metadata.'
+# core: 8.x
+package: Filebrowser
+# project: filebrowser_extra
+type: module
+# Information added by Drupal.org packaging script on 2017-01-26
+version: '8.x-2.0-beta4'
+core: '8.x'
+project: 'filebrowser'
+datestamp: 1485394390

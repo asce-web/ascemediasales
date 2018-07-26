@@ -1,0 +1,8 @@
+name: 'Innovation Title Background Settings'
+type: module
+description: 'Provide option to set background title settings'
+package: Innovation
+core: '8.x'
+version: 8.x-1.0
+dependencies:
+  - inv_image_browser

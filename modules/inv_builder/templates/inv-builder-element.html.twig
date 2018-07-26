@@ -1,0 +1,25 @@
+{% set element_class = [
+    'builder-element'
+] %}
+{% if shortcode == 'col' %}
+{% set  element_class = element_class|merge(['col-xs-'~attr.xs, 'col-sm-'~attr.sm, 'col-md-'~attr.md, 'col-lg-'~attr.lg]) %}
+{% endif %}
+<div {{ attributes.addClass(element_class) }}>
+  <ul class="element-toolbar">
+    <li class="pull-left"><span class="fa fa-arrows"></span> {{ title }}</li>
+    <li><span class="fa {% if attributes.hasClass('collapse') %}fa-caret-left{% else %}fa-sort-desc{% endif %} toggle-element"></span></li>
+    {% if haschild %}<li><span class="fa fa-plus add-element"></span></li>{% endif %}
+    <li><span class="fa fa-edit edit-element"></span></li>
+    <li><span class="fa fa-copy clone-element"></span></li>
+    <li><span class="fa fa-trash-o delete-element"></span></li>
+  </ul>
+  <div class="builder-element-inner">
+  {% if shortcode == 'row' %}
+      <div class="container-fluid"><div class="row">
+      {% endif %}
+      <div class="element-content{% if haschild %} has-child{% endif %}">{{ content|raw }}</div>
+      {% if shortcode == 'row' %}
+      </div></div>
+      {% endif %}
+  </div>
+</div>

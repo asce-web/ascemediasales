@@ -1,0 +1,6 @@
+# Gmap API Key menu
+gmap.config:
+  title: 'Gmap API Key'
+  route_name: inv_builder.gmap_settings
+  description: 'Gmap API Key Setting'
+  parent: system.admin_config

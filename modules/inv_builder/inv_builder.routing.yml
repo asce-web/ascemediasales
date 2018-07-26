@@ -1,0 +1,47 @@
+inv_builder.shortcode_parse:
+  path: 'inv_builder/parse'
+  defaults:
+    _controller: '\Drupal\inv_builder\Controller\BuilderController::parse'
+    _title: 'Admin Shortcode Parse'
+  requirements:
+    _permission: 'use text format innovation_builder'
+
+inv_builder.shortcode_list:
+  path: 'inv_builder/shortcode_list'
+  defaults:
+    _form: '\Drupal\inv_builder\Form\ShortcodeSelectForm'
+    _title: 'Choose element'
+  requirements:
+    _permission: 'use text format innovation_builder'
+    
+inv_builder.shortcode_settings:
+  path: 'inv_builder/shortcode_settings/{shortcode_id}/{action}'
+  defaults:
+    _form: '\Drupal\inv_builder\Form\ShortcodeSettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'use text format innovation_builder'
+
+inv_builder.gmap_settings:
+  path: '/admin/config/gmap'
+  defaults:
+    _title: 'Gmap API Settings'
+    _form: '\Drupal\inv_builder\Form\GmapSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+    
+inv_builder.icon_list:
+  path: 'inv_builder/icons'
+  defaults:
+    _form: '\Drupal\inv_builder\Form\IconSelectForm'
+    _title: 'Choose Icon'
+  requirements:
+    _permission: 'use text format innovation_builder'
+
+inv_builder.custom_css:
+  path: 'inv_builder/custom_css'
+  defaults:
+    _form: '\Drupal\inv_builder\Form\CustomCssForm'
+    _title: 'Custom CSS'
+  requirements:
+    _permission: 'use text format innovation_builder'

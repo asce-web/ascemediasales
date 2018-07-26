@@ -1,0 +1,8 @@
+enaricon:
+  css:
+    base:
+      fonts/font-ideatheme/css/icon-fonts.css: {}
+
+preview_style:
+  js:
+    assets/js/preview.js: {}

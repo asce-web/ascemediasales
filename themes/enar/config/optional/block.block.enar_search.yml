@@ -1,0 +1,23 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - inv_block_custom
+    - search
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: enar_search
+theme: enar
+region: '-1'
+weight: -72
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: '0'
+visibility: {  }

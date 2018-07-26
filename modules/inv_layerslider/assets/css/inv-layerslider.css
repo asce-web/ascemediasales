@@ -1,0 +1,13 @@
+.layerslider-banner{
+  opacity: 0;
+}
+.layerslider-banner ul{
+  margin: 0;
+  padding: 0;
+}
+.layerslider-banner ul li{
+  list-style: none;
+}
+.tp-dottedoverlay{
+  z-index: 0;
+}

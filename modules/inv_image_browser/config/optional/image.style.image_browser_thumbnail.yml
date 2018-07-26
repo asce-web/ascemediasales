@@ -1,0 +1,13 @@
+langcode: und
+status: true
+dependencies: {  }
+name: image_browser_thumbnail
+label: 'Image browser thumbnail'
+effects:
+  7fec9932-966f-4850-879b-0ad054754053:
+    uuid: 7fec9932-966f-4850-879b-0ad054754053
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 100
+      height: 100

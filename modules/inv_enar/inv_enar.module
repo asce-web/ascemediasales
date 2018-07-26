@@ -1,0 +1,244 @@
+<?php
+
+function inv_enar_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    if ($form_id == "inv_builder_shortcode_settings") {
+        $shortcode_id = $form['shortcode_id']['#default_value'];
+ 
+		if ($shortcode_id == 'box') {
+            processBoxStyle($form);
+        }
+
+		if ($shortcode_id == 'title') {
+			processTitleStyle($form);
+		}
+		
+		if ($shortcode_id == 'icon') {
+			processIconStyle($form);
+		}
+
+		if ($shortcode_id == 'inv_button') {
+			processButtonStyle($form);
+		}
+		
+		if ($shortcode_id == 'progress') {
+			processProgessStyle($form);
+		}
+		if ($shortcode_id == 'tabs') {
+			processTabsStyle($form);
+		}
+    }
+}
+
+function processBoxStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['box_style']) {
+		$default_style = \Drupal::request()->get('attr')['box_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/box-preview/box-style-01.png',
+			'style02'=>$path.'/assets/images/box-preview/box-style-02.png',
+			'style03'=>$path.'/assets/images/box-preview/box-style-03.png',
+			'style04'=>$path.'/assets/images/box-preview/box-style-04.png',
+			'style05'=>$path.'/assets/images/box-preview/box-style-05.png',
+			'style06'=>$path.'/assets/images/box-preview/box-style-06.png',
+			'style07'=>$path.'/assets/images/box-preview/box-style-07.png',
+			'style08'=>$path.'/assets/images/box-preview/box-style-08.png',
+			'style09'=>$path.'/assets/images/box-preview/box-style-09.png',
+			'style10'=>$path.'/assets/images/box-preview/box-style-10.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['box_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose box style'),
+		'style01'=>t('Box Center Style 01'),
+		'style02'=>t('Box Center Style 02'),
+		'style03'=>t('Box Center Style 03'),
+		'style04'=>t('Box Center Style 04'),
+		'style05'=>t('Box Center Style 05'),
+		'style06'=>t('Box Left Style 06'),
+		'style07'=>t('Box Left Style 07'),
+		'style08'=>t('Box Left Medium Style 08'),
+		'style09'=>t('Box Left Small Style 09'),
+		'style10'=>t('Box Right Small Style 10'),		
+	 ),
+	 '#title' => t('Style box'),
+	 '#default_value' => $default_style,
+	 '#suffix' => "<h3>Preview Style</h3><img class='preview-box-style' src='".$preview_image."'>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}
+
+function processTitleStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['title_style']) {
+		$default_style = \Drupal::request()->get('attr')['title_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/title-preview/title-style-01.png',
+			'style02'=>$path.'/assets/images/title-preview/title-style-02.png',
+			'style03'=>$path.'/assets/images/title-preview/title-style-03.png',
+			'style04'=>$path.'/assets/images/title-preview/title-style-04.png',
+			'style05'=>$path.'/assets/images/title-preview/title-style-05.png',
+			'style06'=>$path.'/assets/images/title-preview/title-style-06.png',
+			'style07'=>$path.'/assets/images/title-preview/title-style-07.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['title_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose title style'),
+		 'style01'=>t('Title Center Dot icon line bottom'), 
+		 'style02'=>t('Title Center Icon line bottom'),
+		 'style03'=>t('Title Center Light'),
+		 'style04'=>t('Title Left Dot icon line bottom'), 
+		 'style05'=>t('Title Left Icon line bottom'),
+		 'style06'=>t('Title Left Light'),
+		 'style07'=>t('Title Main Color Style'),	
+	 ),
+	 '#title' => t('Style Title'),
+	 '#prefix' => '<div class="col-md-12">',
+	 '#default_value' => $default_style,
+	 '#suffix' => "<img class='preview-title-style' src='".$preview_image."'></div>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}
+
+function processIconStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['icon_style']) {
+		$default_style = \Drupal::request()->get('attr')['icon_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/icon-preview/icon-style-01.png',
+			'style02'=>$path.'/assets/images/icon-preview/icon-style-02.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['icon_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose icon style'),
+		 'style01'=>t('Icon Hover Style'), 
+		 'style02'=>t('Icon Square Style'), 
+	 ),
+	 '#title' => t('Style Icon'),
+	 '#default_value' => $default_style,
+	 '#suffix' => "<img class='preview-icon-style' src='".$preview_image."'>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}
+
+function processButtonStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['button_style']) {
+		$default_style = \Drupal::request()->get('attr')['button_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/button-preview/button-style01.png',
+			'style02'=>$path.'/assets/images/button-preview/button-style02.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['button_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose button style'),
+		 'style01'=>t('Animation Button Style 01'),
+		 'style02'=>t('Animation Button Style 02'), 
+	 ),
+	 '#title' => t('Style Button'),
+	 '#default_value' => $default_style,
+	 '#suffix' => "<h3>Preview Style</h3><img class='preview-button-style' src='".$preview_image."'>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}
+
+function processProgessStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['skillbar_style']) {
+		$default_style = \Drupal::request()->get('attr')['skillbar_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/progress-preview/progress-style01.png',
+			'style02'=>$path.'/assets/images/progress-preview/progress-style02.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['skillbar_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose Progress style'),
+		 'style01'=>t('Progress Style 01'),
+		 'style02'=>t('Progress Style 02'), 
+	 ),
+	 '#title' => t('Pre-define Progress Style'),
+	 '#default_value' => $default_style,
+	 '#prefix' => '<div class="col-md-12">',
+	 '#suffix' => "<img class='preview-progress-style' src='".$preview_image."'></div>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}
+
+function processTabsStyle(&$form) {
+	$path = base_path().drupal_get_path('module', 'inv_enar');
+	$default_style = '';
+	if (null !== \Drupal::request()->get('attr')['tab_style']) {
+		$default_style = \Drupal::request()->get('attr')['tab_style'];
+	}
+	$style_to_image_location = array(
+		'preview' => array(
+			'' => '',
+			'style01'=>$path.'/assets/images/tab-preview/tab-style01.png',
+			'style02'=>$path.'/assets/images/tab-preview/tab-style02.png',
+			'style03'=>$path.'/assets/images/tab-preview/tab-style03.png',
+			'style04'=>$path.'/assets/images/tab-preview/tab-style04.png',
+			'style05'=>$path.'/assets/images/tab-preview/tab-style05.png',
+			'style06'=>$path.'/assets/images/tab-preview/tab-style06.png',
+			'style07'=>$path.'/assets/images/tab-preview/tab-style07.png',
+			'style08'=>$path.'/assets/images/tab-preview/tab-style08.png',
+		)
+	);
+	$preview_image = $style_to_image_location['preview'][$default_style];
+	$form['general_options']['tab_style'] = array(
+	 '#type' => 'select',
+	 '#options' => array(
+		 ''=>t('Choose Tab style'),
+		 'style01'=>t('Tab Horizontal Style 01'),
+		 'style02'=>t('Tab Horizontal Style 02'), 
+		 'style03'=>t('Tab Horizontal Style 03'),
+		 'style04'=>t('Tab Horizontal Style 04'), 
+		 'style05'=>t('Tab Horizontal Style 05'),
+		 'style06'=>t('Tab Horizontal Style 06'), 
+		 'style07'=>t('Tab Horizontal Style 07'),
+		 'style08'=>t('Tab Vertical Style 01'), 
+	 ),
+	 '#title' => t('Tab Style'),
+	 '#default_value' => $default_style,
+	 '#suffix' => "<img class='preview-tab-style' src='".$preview_image."'>"
+	);
+	$form['#attached']['library'][] = 'inv_enar/preview_style';
+	$form['#attached']['drupalSettings'] = $style_to_image_location;
+}

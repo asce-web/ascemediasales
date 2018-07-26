@@ -1,0 +1,21 @@
+<div class="inv-pie-chart-wrapper  {{class}}">
+    <div class="inv-pie-chart" data-percent="{{ percent }}" data-pieicon="{{icon}}" data-iconstyle="{{icon_style}}" data-barcolor="{{bar_color}}" data-barwidth="{{bar_width}}"></div>
+    {% if title is not empty %}
+        {{ heading|raw }}
+    {% endif %}
+</div>
+<style>
+.inv-pie-chart.gt-50 {
+    background-color: {{bar_color}};
+}
+.ppc-progress .ppc-progress-fill {
+    background: {{bar_color}};
+}
+
+.ppc-percents {
+    left: calc(50% - {{200-bar_width}}px/2);
+    top: calc(50% - {{200-bar_width}}px/2);
+    width: {{200-bar_width}}px;
+    height: {{200-bar_width}}px;
+}
+</style>

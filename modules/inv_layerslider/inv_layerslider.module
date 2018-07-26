@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * @file
+ * Contains inv_layerslider.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function inv_layerslider_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the inv_layerslider module.
+    case 'help.page.inv_layerslider':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('LayerSlider Module base on Revolution Plugin') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function inv_layerslider_theme() {
+  $theme = [];
+  
+  $theme['inv_edit_slides'] = array(
+    'variables' => [
+      'slides' => []
+    ],
+  );
+  
+  $theme['inv_layerslider_slider'] = array(
+    'variables' => [
+      'slider' => [],
+      'html_id' => '',
+    ],
+  );
+  
+  $theme['inv_layerslider_slide'] = array(
+    'variables' => [
+      'slide' => []
+    ],
+  );
+  
+  $theme['inv_layerslider_layer'] = array(
+    'variables' => [
+      'layer' => []
+    ],
+  );
+  return $theme;
+}
+
+function template_preprocess_inv_layerslider_slider(&$vars){
+  $slider = $vars['slider'];
+  $slides = $slider->getSlides();
+  $settings = $slider->getSettings();
+  if(count($slides) == 1 && $settings->loopsingle){
+    $slides[] = $slides[0];
+  }
+  $vars['slides'] = [];
+  $vars['settings'] = $settings;
+  $vars['attributes']['id'] = $vars['html_id'];
+  foreach($slides as $slide){
+    $vars['slides'][] = array(
+      '#theme' => 'inv_layerslider_slide',
+      '#slide' => $slide,
+    );
+  }
+}
+
+function template_preprocess_inv_layerslider_slide(&$vars){
+  $slide = $vars['slide'];
+  $vars['layers'] = [];
+  foreach($slide->layers as $k => $layer){
+    $layer->z_index = $k + 1;
+    $vars['layers'][] = array(
+      '#theme' => 'inv_layerslider_layer',
+      '#layer' => $layer,
+    );
+  }
+  $vars['attributes']['data-title'] = $slide->title;
+  $vars['attributes']['data-transition'] = $slide->data_transition;
+  $vars['attributes']['data-slotamount'] = $slide->data_slotamount;
+  $vars['attributes']['data-masterspeed'] = $slide->data_masterspeed;
+  if(isset($slide->background_color) && $slide->background_color != ''){
+    $vars['attributes']['style'] = 'background-color:' . $slide->background_color;
+  }
+  if($slide->data_delay){
+    $vars['attributes']['data-delay'] = $slide->data_delay;
+  }
+  if($slide->data_link){
+    $vars['attributes']['data-link'] = $slide->data_link;
+  }
+  if(!isset($slide->background_image_url) || empty($slide->background_image_url)){
+    //Transparent image
+    $slide->background_image_url = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NzFGQTVFNTA3OEQxMUU3ODY0QUNDQTI5NTM4MDNFMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NzFGQTVFNjA3OEQxMUU3ODY0QUNDQTI5NTM4MDNFMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjY3MUZBNUUzMDc4RDExRTc4NjRBQ0NBMjk1MzgwM0UyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3MUZBNUU0MDc4RDExRTc4NjRBQ0NBMjk1MzgwM0UyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Y3eSIgAAABBJREFUeNpi+P//PwNAgAEACPwC/tuiTRYAAAAASUVORK5CYII=";
+  }
+  if($slide->slide_thumbnail_image){
+    $vars['attributes']['data-thumb'] = $slide->slide_thumbnail_image_url;
+  }else{
+    $vars['attributes']['data-thumb'] = $slide->background_image_url;
+  }
+  
+  //data-masterspeed 
+}
+
+function template_preprocess_inv_layerslider_layer(&$vars){
+  $layer = $vars['layer'];
+  $vars['attributes']['class'][] = 'tp-caption';
+  $vars['attributes']['class'][] = $layer->incomingclasses;
+  $vars['attributes']['class'][] = $layer->outgoingclasses;
+  $inner_attribute = new \Drupal\Core\Template\Attribute();
+  if($layer->incomingclasses == 'customin'){
+    $vars['attributes']['data-customin'] = $layer->customin;
+  }
+  if($layer->outgoingclasses == 'customout'){
+    $vars['attributes']['data-customout'] = $layer->customout;
+  }
+  if($layer->resizeme){
+    $vars['attributes']['class'][] = 'tp-resizeme';
+  }
+  if($layer->custom_class){
+    $vars['attributes']['class'][] = $layer->custom_class;
+  }
+  $vars['attributes']['data-x'] = $layer->left;
+  $vars['attributes']['data-y'] = $layer->top;
+  if($layer->hoffset){
+    $vars['attributes']['data-hoffset'] = $layer->hoffset;
+  }
+  if($layer->voffset){
+    $vars['attributes']['data-voffset'] = $layer->voffset;
+  }
+  $vars['attributes']['data-start'] = $layer->data_start;
+  $vars['attributes']['data-speed'] = $layer->data_speed;
+  $vars['attributes']['data-easing'] = $layer->data_easing;
+  if($layer->data_end){
+    $vars['attributes']['data-end'] = $layer->data_end;
+    $vars['attributes']['data-endspeed'] = $layer->data_endspeed;
+    $vars['attributes']['data-endeasing'] = $layer->data_endeasing;
+  }
+  $css = [];
+  switch($layer->type){
+    case 'text':
+      $custom_css = $string = trim(preg_replace('/\s\s+/', ' ', $layer->custom_css));
+      $css = explode(';', $custom_css);
+      foreach($css as $k => $v){
+        if(count(explode(':', $v)) != 2){
+          unset($css[$k]);
+        }
+      }
+      if($layer->font_size){
+        $css[] = 'font-size:' . $layer->font_size;
+      }
+      if($layer->font_color){
+        $css[] = 'color:' . $layer->font_color;
+      }
+      if($layer->google_font){
+        $google_fonts = file_get_contents(drupal_get_path('module', 'inv_layerslider').'/vendor/google-fonts-api/google-fonts-api.json');
+        $google_fonts = json_decode($google_fonts);
+        foreach($google_fonts->items as $font){
+          if($font->family == $layer->google_font){
+            $vars['#attached']['drupalSettings']['inv_layerslider_google_fonts'][$layer->google_font.$layer->font_style] = array(
+              'family' => $layer->google_font,
+              'variant' => $layer->font_style,
+            );
+          }
+        }
+        $font_weight = preg_replace('/[a-z]+/', '', $layer->font_style);
+        $font_style = preg_replace('/[0-9]+/', '', $layer->font_style);
+        $font_weight = is_numeric($font_weight)?$font_weight:400;
+        $font_style = $font_style == 'italic'?'italic':'normal';
+        $font_family = $layer->google_font;
+        $css[] = 'font-family:\'' . $font_family.'\'';
+        $css[] = 'font-weight:' . $font_weight;
+        $css[] = 'font-style:' . $font_style;
+      }
+      break;
+    case 'image':
+      $layer->image_alt  = basename($layer->image_url);
+      break;
+    case 'video':
+      $vars['attributes']['class'][] = 'tp-videolayer';
+      if($layer->video_fullwidth){
+        $vars['attributes']['class'][] = 'fullscreenvideo';
+        $layer->video_width = '100%';
+        $layer->video_height = '100%';
+        $vars['attributes']['data-x'] = 0;
+        $vars['attributes']['data-y'] = 0;
+        unset($vars['attributes']['data-hoffset']);
+        unset($vars['attributes']['data-voffset']);
+        $vars['attributes']['data-dottedoverlay'] = $layer->video_dottedoverlay;
+      }
+      $vars['attributes']['data-autoplay'] = $layer->video_autoplay?'true':'false';
+      $vars['attributes']['data-autoplayonlyfirsttime'] = $layer->autoplayonlyfirsttime == 'true'?'true':'false';
+      if($layer->video_type == 'youtube'){
+        $vars['attributes']['data-ytid'] = $layer->youtube_video;
+      }elseif($layer->video_type == 'vimeo'){
+        $vars['attributes']['data-vimeoid'] = $layer->vimeo_video;
+      }else{
+        $vars['attributes']['data-videomp4'] = $layer->html5_video_mp4;
+        $vars['attributes']['data-videowebm'] = $layer->html5_video_webm;
+        $vars['attributes']['data-videoogv'] = $layer->html5_video_ogv;
+      }
+      $vars['attributes']['data-videowidth'] = $layer->video_width;
+      $vars['attributes']['data-videoheight'] = $layer->video_height;
+      $vars['attributes']['data-videoattributes'] = "enablejsapi=1&html5=1&hd=1&wmode=opaque&showinfo=0&rel=0";
+      $vars['attributes']['data-videocontrols'] = $layer->video_controls?'controls':'none';
+      if($layer->video_mute){
+        $vars['attributes']['data-volume'] = 'mute';
+      }
+      if(isset($layer->html5_video_poster_url)){
+        $vars['attributes']['data-videoposter'] = $layer->html5_video_poster_url;
+      }
+      break;
+  }
+  $css[] = 'z-index:' . $layer->z_index;
+  //$vars['attributes']['style'] = implode(';', $css);
+  $vars['inner_css'] = implode(';', $css);
+  if($layer->link){
+    $vars['attributes']['data-link'] = $layer->link;
+  }
+}

@@ -1,0 +1,13 @@
+.inv-button.icon-right i{
+    float: right;
+    line-height: 22px;
+    margin-left: 5px;
+}
+
+.inv-button.btn-right{
+    float: right;
+}
+.inv-button.btn-center{
+    margin: 0 auto;
+    display: table;
+}

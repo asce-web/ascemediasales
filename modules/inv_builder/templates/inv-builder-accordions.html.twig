@@ -1,0 +1,20 @@
+<div id="{{ wrapper_id }}" class="inv-accordions panel-group {{ class }}">
+{% for accordion in accordions %}
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a class="{{ accordion.collapsed }}" {% if type =='accordion'%} data-parent="#{{wrapper_id}}" {%endif%} data-toggle="collapse" href="#{{ accordion.accordion_id }}">
+                {% if accordion.icon is not empty %}
+                    <i class ="{{ accordion.icon }}"></i>
+                {% endif %}
+                {{ accordion.title }}
+				<i class="toggle-button pull-right"></i>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse {% if accordion.collapsed is empty %} in {%endif%}" id="{{ accordion.accordion_id }}">
+        <div class="panel-body">{{ accordion.content | raw }}</div>
+    </div>
+</div>
+{% endfor %}
+</div>

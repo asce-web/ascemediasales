@@ -1,0 +1,10 @@
+<ul id="{{view_id}}" class="inv-bxslider">
+	{% for i in range(0,rows|length - 1, num_rows) %}
+		<li class="bxslide">
+			{% for j in i .. i + num_rows - 1 %}
+				{{ rows[j] }}
+			{% endfor %}
+		</li>
+	    {% set i = i + num_rows  %}		
+	{% endfor %}
+</ul>

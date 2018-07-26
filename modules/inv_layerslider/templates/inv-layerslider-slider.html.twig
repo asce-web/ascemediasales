@@ -1,0 +1,8 @@
+<div{{ attributes.addClass('layerslider-banner') }} style="position: relative">
+  <ul>
+      {% for key, slide in slides  %}
+          {{ slide }}
+      {% endfor %}
+  </ul>
+  <div class="tp-bannertimer{% if (settings.timer == 'bottom') %} tp-bottom {% endif %}"></div> 
+</div>

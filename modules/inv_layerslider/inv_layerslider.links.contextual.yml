@@ -1,0 +1,12 @@
+inv_layerslider_block_edit:
+  title: 'Edit Slides'
+  route_name: entity.inv_slider.edit_slides_form
+  group: inv_layerslider
+inv_layerslider_block_settings:
+  title: 'Slider Settings'
+  route_name: entity.inv_slider.settings_form
+  group: inv_layerslider
+inv_layerslider_block_export:
+  title: 'Export Slider'
+  route_name: inv_slider.export
+  group: inv_layerslider

@@ -1,0 +1,15 @@
+<span {{ attributes }}>
+    {% if link is empty %}
+        {% if tooltip is empty %}
+            <i {{ icon_attributes|without('class') }} class="{{ icon }}"></i> <span class="icon-text">{{ title|raw }}</span>
+        {% else %}
+            <i {{ icon_attributes|without('class') }} data-placement="auto" data-toggle="tooltip" title="{{ tooltip }}" class="dtooltip {{ icon }}"></i> <span class="icon-text">{{ title|raw }}</span>
+        {% endif %}
+    {% else %}
+        {% if tooltip is empty %}
+            <a href="{{ link }}" target="{{ target }}"><i {{ icon_attributes|without('class') }} class="{{ icon }}"></i><span class="icon-text">{{ title|raw }}</span></a>
+        {% else %}
+            <a data-placement="auto" data-toggle="tooltip" title="{{ tooltip }}" href="{{ link }}" target="{{ target }}" class="dtooltip"><i {{ icon_attributes|without('class') }} class="{{ icon }}"></i><span class="icon-text">{{ title|raw }}</span></a>
+        {% endif %}
+    {% endif %}
+</span>

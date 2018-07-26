@@ -1,0 +1,43 @@
+backend:
+  js:
+    assets/js/file.js: {}
+    assets/js/font.js: {}
+    assets/js/admin.js: {}
+    assets/js/jqColorPicker.min.js: {}
+    assets/js/inv-colorpicker.js: {}
+  css:
+    base:
+      assets/css/backend.css: {}
+      vendor/font-awesome/css/font-awesome.min.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax
+    - core/jquery.ui.autocomplete
+    - core/jquery.ui.draggable
+    - core/jquery.ui.sortable
+    - core/drupal.vertical-tabs
+    - core/drupal.states
+settings:
+  js:
+    assets/js/settings.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    
+frontend:
+  js:
+    vendor/rs-plugin/js/jquery.themepunch.tools.min.js: {}
+    vendor/rs-plugin/js/jquery.themepunch.revolution.js: {}
+    assets/js/inv-layerslider.js: {}
+  css:
+    base:
+      vendor/rs-plugin/css/settings.css: {}
+      assets/css/inv-layerslider.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

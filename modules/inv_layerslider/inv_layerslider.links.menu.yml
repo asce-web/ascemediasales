@@ -1,0 +1,18 @@
+# Slider menu items definition
+inv_slider.manager:
+  title: 'Layer Sliders'
+  route_name: entity.inv_slider.collection
+  description: 'List Slider entities'
+  parent: system.admin_content
+
+inv_slider.manager.add:
+  title: 'Add Slider'
+  route_name: entity.inv_slider.add_form
+  parent: inv_slider.manager
+
+inv_slider.manager.import:
+  title: 'Import Slider'
+  route_name: inv_slider.import
+  parent: inv_slider.manager
+
+

@@ -1,0 +1,14 @@
+<div class="inv-builder-skill-bar {{ class }}" data-percent="{{ percent }}%">
+  <div class="progress">
+    <div class="progress-bar"  role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+      <div class="progress-title">
+        <span class="progress-text">
+          {% if  icon is not empty %}<i class="{{ icon }}"></i> {% endif %}{{ title }}
+        </span>
+        <span class="progress-percent">
+          {{percent~'%' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

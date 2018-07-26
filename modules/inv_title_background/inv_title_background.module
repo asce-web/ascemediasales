@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * @file
+ * Module for title background setting.
+ */
+
+use Drupal\node\Entity\Node;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
+use Drupal\inv_title_background\InvTitleBackground;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+
+function inv_title_background_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+	$node = \Drupal::routeMatch()->getParameter('node');
+
+	$nid = 0;
+	if($node instanceof \Drupal\node\NodeInterface){
+		$nid = $node->id();
+	}
+	$settings = new InvTitleBackground($nid);
+
+	if(!isset($form['advanced']['inv_title_background'])){
+		$form['advanced']['inv_title_background'] = array();
+	}
+	$form['advanced']['inv_title_background'] += array(
+		'#type' => 'details',
+		'#title' => t('Title Background Settings'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#weight' => 100
+	);
+  
+  $form['advanced']['inv_title_background']['node_title_background'] = array(
+    '#type' => 'image_browser',
+    '#title' => t('Background Image'),
+    '#attributes' => ['class' =>['image-browser']],
+    '#default_value' => $settings->get('node_title_background', 0),
+  );
+
+  $form['advanced']['inv_title_background']['node_title_background_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Background Type'),
+	'#options' => array('default' => 'Default', 'parallax' => 'Parallax', 'cover' => 'Cover'),
+    '#default_value' => $settings->get('node_title_background_type'),
+  );
+
+  $form['advanced']['inv_title_background']['node_title_background_size'] = array(
+    '#type' => 'select',
+    '#title' => t('Background Size'),
+	'#options' => array('' => 'Default', 'top left' => 'Top Left', 'top center' => 'Top Center', 'top right' => 'Top Right', 'center left' => 'Center Left', 'center center' => 'Center Center', 'center right' => 'Center Right', 'bottom left' => 'Bottom Left', 'bottom center' => 'Bottom Center', 'bottom right' => 'Bottom Right'),
+    '#default_value' => $settings->get('node_title_background_size'),
+  );
+
+  $form['advanced']['inv_title_background']['node_title_padding'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title Background Padding'),
+    '#default_value' => $settings->get('node_title_padding'),
+  );
+ 
+  $form['advanced']['inv_title_background']['node_title_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title Color'),
+    '#default_value' => $settings->get('node_title_color'),
+  );
+  
+  $form['#attached']['library'][] = 'inv_image_browser/image_browser';
+  
+  foreach (array_keys($form['actions']) as $action) {
+		if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+			$form['actions'][$action]['#submit'][] = 'inv_title_background_node_form_submit';
+		}
+	}
+}
+
+function inv_title_background_node_form_submit(&$form, FormStateInterface $form_state){
+  if($nid = $form_state->getValue('nid')){
+
+    $node_title_background = $form_state->getValue('node_title_background');
+	$node_title_background_type = $form_state->getValue('node_title_background_type');
+	$node_title_background_size = $form_state->getValue('node_title_background_size');
+	$node_title_padding = $form_state->getValue('node_title_padding');
+	$node_title_color = $form_state->getValue('node_title_color');
+
+    $fid = str_replace('file:', '', $node_title_background);
+    $file = File::load($fid);
+    if($file){
+      $file->setPermanent();
+      $file->save();
+      $file_usage = \Drupal::service('file.usage');
+      $file_usage->add($file, 'inv_title_background', 'node', $nid);
+    }
+    $settings = new InvTitleBackground($nid);
+
+    $settings->set('node_title_background', $node_title_background);
+	$settings->set('node_title_background_type', $node_title_background_type);
+	$settings->set('node_title_background_size', $node_title_background_size);
+	$settings->set('node_title_padding', $node_title_padding);
+	$settings->set('node_title_color', $node_title_color);
+	$settings->set('node_title_color', $node_title_color);
+  }
+}
+
+/**
+ * Implement hook_preprocess_page_title()
+ */
+function inv_title_background_preprocess_page_title(&$variables){
+    $variables['#cache']['max-age'] = 0;
+    if($nid = \Drupal::routeMatch()->getRawParameter('node')){
+      $title_settings = new InvTitleBackground($nid);
+	  $styles = [];	
+	  if($title_background = $title_settings->get('node_title_background','')){
+        $fid = str_replace('file:', '', $title_background);
+        $file = File::load($fid);
+        if($file){
+		  $url = file_create_url($file->getFileUri());
+		  $styles[] = "background-image:url({$url})";
+        }
+      }
+	  $background_position = $title_settings->get('node_title_background_size');
+	  if ($background_position) {
+		 $styles[] = "background-position:{$background_position}"; 
+	  }
+
+	  $background_size = $title_settings->get('node_title_background_type');
+	  if ($background_size) {
+		if ($background_size == 'cover') {
+			$styles[] = "background-size:cover";
+		} else {
+			if ($background_size == 'parallax') {
+				$variables['class'] = 'inv-parallax';
+				$variables['#attached']['library'][] = 'inv_block_custom/innovation_parallax';
+			}
+		}
+	  }
+	  
+	  $padding = $title_settings->get('node_title_padding');
+	  if ($padding) {
+		 $styles[] = "padding:{$padding}";
+	  }
+	  $title_color = $title_settings->get('node_title_color');
+	  if ($title_color) {
+		  $variables['title_color'] = $title_color;
+	  }
+	  $variables['style'] =  implode(";", $styles);
+    }
+}
+
+function inv_title_background_theme_registry_alter(&$theme_registry) {
+	$module_handler = Drupal::service('module_handler');
+	$path = $module_handler->getModule('inv_title_background')->getPath();
+	$theme_registry['page_title']['path'] = $path.'/templates';
+}

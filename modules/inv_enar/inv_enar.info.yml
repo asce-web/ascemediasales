@@ -1,0 +1,6 @@
+name: Enar Ext
+description: Provide features for Enar theme
+type: module
+
+core: 8.x
+package: Innovation

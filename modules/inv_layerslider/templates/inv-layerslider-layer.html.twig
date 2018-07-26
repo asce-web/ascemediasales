@@ -1,0 +1,9 @@
+<div {{ attributes }}>
+  <div class="tp-caption-inner" style="{{ inner_css }}">
+    {% if layer.type == 'text' %}
+        {{ layer.text|raw }}
+    {% elseif layer.type == 'image' %}
+        <img src="{{ layer.image_url }}" alt="{{ layer.image_alt }}"/>
+    {% endif %}
+  </div>
+</div>

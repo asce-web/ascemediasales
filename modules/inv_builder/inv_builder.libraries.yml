@@ -1,0 +1,134 @@
+backend:
+  version: 1.x
+  js:
+    assets/js/jqColorPicker.min.js: {}
+    assets/js/modal.js: {}
+    assets/js/builder.js: {}
+    assets/js/inv-colorpicker.js: {}
+    assets/js/custom_css.js: {}
+  css:
+    component:
+      vendor/font-awesome/css/font-awesome.css: {}
+      assets/css/bootstrap.css: {}
+      assets/css/admin.style.css: {}
+  dependencies:
+  - core/jquery
+  - core/jquery.once
+  - core/jquery.ui.sortable
+  - core/jquery.ui.dialog
+  - core/drupal.dialog
+frontend:
+  js:
+    assets/js/inv-builder.js: {}
+  css:
+    base:
+      assets/css/builder.css: {}
+  dependencies:
+    - core/jquery
+fontawesome:
+  css:
+    base:
+      vendor/font-awesome/css/font-awesome.css: {}
+streamline:
+  css:
+    base:
+      vendor/streamline-icon/streamline-icon.css: {}
+etline:
+  css:
+    base:
+      vendor/et-line/style.css: {}
+glyphicons:
+  css:
+    base:
+      vendor/glyphicon/css/glyphicon.css: {}
+
+jquery-appear:
+  js:
+    assets/js/jquery.appear.min.js: {}
+  dependencies:
+    - core/jquery
+animate:
+  version: 8.x-1.0
+  js:
+    assets/js/inv.animate.js: {}
+  css:
+    theme:
+      assets/css/animate.css: {}
+  dependencies:
+    - inv_builder/jquery-appear
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+jquery-stellar:
+  js:
+    assets/js/jquery.stellar.min.js: {}
+  dependencies:
+    - core/jquery
+parallax:
+  version: 8.x-1.0
+  js:
+    assets/js/inv.parallax.js: {}
+  dependencies:
+    - inv_builder/jquery-stellar
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+
+inv-button:
+  css:
+    base:
+      assets/css/inv-button.css: {}
+
+inv_carousel:
+  css:
+    base:
+      assets/css/inv-carousel.css: {}
+      
+skillbar:
+  js:
+    assets/js/inv-skillbar.js: {}
+  dependencies:
+    - inv_builder/jquery-appear
+    
+stats:
+  js:
+    assets/js/inv-stats.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - inv_builder/jquery-appear
+
+piegraph:
+  js:
+    assets/js/inv-piegraph.js: {}
+  css:
+    base:
+      assets/css/inv-piegraph.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - inv_builder/jquery-appear
+
+video-popup:
+  js:
+    assets/js/inv-video-popup.js: {}
+
+gmap:
+  js:
+    assets/js/inv-gmap.js: {}
+  css:
+    base:
+      assets/css/inv-gmap.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+gmap-admin:
+  js:
+    assets/js/inv-gmap-admin.js: {}
+  dependencies:
+    - core/jquery    

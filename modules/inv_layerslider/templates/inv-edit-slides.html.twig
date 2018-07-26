@@ -1,0 +1,297 @@
+<div id="inv_layerslider">
+  <div id="slidesdesign">
+    
+    <div id="inv_layerslider_main">
+      <div>
+        <div id="slide-design" style="height: 400px;">
+
+        </div>
+        
+        <div class="layer-toolbar" style="margin: 15px 0;">
+          <a href="#" class="button button--small button-action add-layer" data-type="text">Add Text</a>
+          <a href="#" class="button button--small button-action add-layer" data-type="image">Add Image</a>
+          <a href="#" class="button button--small button-action add-layer" data-type="video">Add Video</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-form-item form-item js-form-type-vertical-tabs form-type-vertical-tabs js-form-item- form-item- form-no-label">
+  <label for="edit-drupalexp-theme-settings" class="visually-hidden">Vertical Tabs</label>
+  <div class="vertical-tabs clearfix">
+    <ul id="layer-list" class="vertical-tabs__menu">
+      <li class="vertical-tabs__menu-item first is-selected" tabindex="-1">
+        <a href="#"><strong class="vertical-tabs__menu-item-title">Layout settings</strong></a>
+      </li>
+      <li class="vertical-tabs__menu-item" tabindex="-1">
+        <a href="#"><strong class="vertical-tabs__menu-item-title">Layout settings</strong></a>
+      </li>
+    </ul>
+    <div class="vertical-tabs__panes" style="background-color: #fff;">
+      <details data-drupal-selector="edit-layer-settings" id="edit-layer-settings" class="js-form-wrapper form-wrapper vertical-tabs__pane" open="open">
+        <summary role="button" aria-controls="edit-slide-options" aria-expanded="true" aria-pressed="true">Slide Settings</summary>
+        <div class="details-wrapper">
+          <details open="TRUE">
+            <summary role="button" aria-controls="edit-slide-options" aria-expanded="true" aria-pressed="true">General Settings</summary>
+            <div class="details-wrapper">
+              <div class="row layer-text-option">
+                <div class="layer-text col-md-12">
+                  <label>Text</label>
+                  <textarea name="text" id="layer-text" class="form-textarea layer-option" style="width:100%"></textarea>
+                </div>
+                <div class="layer-text col-md-3">
+                  <label>Font</label>
+                  <input type="text" name="google_font" class="form-text layer-option"/>
+                </div>
+                <div class="layer-text col-md-3">
+                  <label>Font Style</label>
+                  <select name="font_style" class="form-select layer-option"></select>
+                </div>
+                <div class="layer-text col-md-3">
+                  <label>Font Size</label>
+                  <input name="font_size" class="form-text layer-option"/>
+                </div>
+                <div class="layer-text col-md-3">
+                  <label>Font Color</label>
+                  <input type="text" name="font_color" class="color form-text layer-option"/>
+                </div>
+                <div class="layer-text col-md-12">
+                  <label>Custom Style</label>
+                  <textarea name="custom_css" class="form-textarea layer-option" style="width:100%"></textarea>
+                </div>
+              </div>
+              <div class="layer-image-option row">
+                <div class="layer-text col-md-12">
+                  <label>Image</label>
+                  <input type="hidden" name="image" class="form-text image-browser-js layer-option"/>
+                </div>
+              </div>
+              <div class="layer-video-option">
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Video type</label>
+                    <select class="form-select layer-option" name="video_type">
+                      <option value="youtube">YouTube</option>
+                      <option value="vimeo">Vimeo</option>
+                      <option value="html5">HTML5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-12 js-form-item">
+                    <label>Youtube ID</label>
+                    <input data-drupal-states='{"visible":{":input[name=video_type]":{"value":"youtube"}}}' class="layer-option form-text" name="youtube_video"/>
+                    <div class="description">https://www.youtube.com/watch?v=VIDEO_ID</div>
+                  </div>
+                  <div class="col-md-12 js-form-item">
+                    <label>Vimeo ID</label>
+                    <input data-drupal-states='{"visible":{":input[name=video_type]":{"value":"vimeo"}}}' class="layer-option form-text" name="vimeo_video"/>
+                    <div class="description">https://vimeo.com/VIDEO_ID</div>
+                  </div>
+                  <div class="html5-video-options js-form-item">
+                    <div class="col-md-12" style="margin: 10px 0">
+                      <label>Poster</label>
+                      <input data-drupal-states='{"visible":{":input[name=video_type]":{"value":"html5"}}}' type="hidden" class="layer-option form-text image-browser-js" name="html5_video_poster"/>
+                    </div>
+                    <div class="col-md-3">
+                      <label>MP4 file</label>
+                      <input class="layer-option form-text" name="html5_video_mp4"/>
+                    </div>
+                    <div class="col-md-3">
+                      <label>WEBM file</label>
+                      <input class="layer-option form-text" name="html5_video_webm"/>
+                    </div>
+                    <div class="col-md-3">
+                      <label>OGV file</label>
+                      <input class="layer-option form-text" name="html5_video_ogv"/>
+                    </div>
+                  </div>  
+                </div>
+                <div class="row" style="margin-top: 10px">
+                  <div class="col-md-3">
+                    <label>Video Ratio</label>
+                    <select class="form-select layer-option" name="aspectratio">
+                      <option value="16:9">16:9</option>
+                      <option value="4:3">4:3</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Autoplay</label>
+                    <select name="video_autoplay" class="form-select layer-option">
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Autoplay first time only</label>
+                    <select class="form-select layer-option" name="autoplayonlyfirsttime">
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                    <div class="description">After first Autplay the video will not be played automatically</div>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Force rewind</label>
+                    <select class="form-select layer-option" name="forcerewind">
+                      <option value="on">On</option>
+                      <option value="off">Off</option>
+                    </select>
+                    <div class="description">Every time the Slide is shown, the Video will rewind to the start.</div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                  <div class="col-md-3">
+                    <label>Full slide width</label>
+                    <select class="form-select layer-option" name="video_fullwidth">
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 js-form-item">
+                    <label>Width</label>
+                    <input data-drupal-states='{"visible":{":input[name=video_fullwidth]":{"value":"0"}}}' type="text" class="form-text layer-option" name="video_width"/>
+                  </div>
+                  <div class="col-md-3 js-form-item">
+                    <label>Height</label>
+                    <input data-drupal-states='{"visible":{":input[name=video_fullwidth]":{"value":"0"}}}' type="text" class="form-text layer-option" name="video_height"/>
+                  </div>
+                  <div class="col-md-3 js-form-item">
+                    <label>Dotted Overlay</label>
+                    <select data-drupal-states='{"visible":{":input[name=video_fullwidth]":{"value":"1"}}}' name="video_dottedoverlay" class="form-select layer-option">
+                      <option value="none">none</option>
+                      <option value="twoxtwo">twoxtwo</option>
+                      <option value="threexthree">threexthree</option>
+                      <option value="twoxtwowhite">twoxtwowhite</option>
+                      <option value="threexthreewhite">threexthreewhite</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                  <div class="col-md-3">
+                    <label>Loop</label>
+                    <select name="video_loop" class="form-select layer-option">
+                      <option value="none">None</option>
+                      <option value="loop">Loop</option>
+                      <option value="loopandnoslidestop">Loop and no slide stop</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Mute</label>
+                    <select name="video_mute" class="form-select layer-option">
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Controls</label>
+                    <select name="video_controls" class="form-select layer-option">
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Next Slide at end</label>
+                    <select name="video_nextslideatend" class="form-select layer-option">
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px">
+                <div class="col-md-3">
+                  <label>Top</label>
+                  <input type="text" name="top" class="layer-option form-text"/>
+                </div>
+                <div class="col-md-3">
+                  <label>V-Offset</label>
+                  <input type="text" name="voffset" class="layer-option form-text"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Left</label>
+                  <input type="text" name="left" class="layer-option form-text"/>
+                </div>
+                <div class="col-md-3">
+                  <label>H-Offset</label>
+                  <input type="text" name="hoffset" class="layer-option form-text"/>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 10px">
+                <div class="col-md-3">
+                  <label>Auto resize on mobile</label>
+                  <select name="resizeme" class="form-select layer-option">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Custom Class</label>
+                  <input type="text" name="custom_class" class="layer-option form-text"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Layer link to</label>
+                  <input type="text" name="link" class="layer-option form-text"/>
+                  <div class="description">Use slide-N to jump to slide. Example: slide-2 to link layer to second slide.</div>
+                </div>
+              </div>
+            </div>
+          </details>
+          <details>
+            <summary role="button" aria-expanded="true" aria-pressed="true">Layer Transition Effects</summary>
+            <div class="details-wrapper">
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Incoming Effect</label>
+                  <select name="incomingclasses" class="form-select layer-option"><option value="sft">Short from Top</option><option value="sfb">Short from Bottom</option><option value="sfr">Short from Right</option><option value="sfl">Short from Left</option><option value="lft">Long from Top</option><option value="lfb">Long from Bottom</option><option value="lfr">Long from Right</option><option value="lfl">Long from Left</option><option value="skewfromleft">Skew from Left</option><option value="skewfromright">Skew from Right</option><option value="skewfromleftshort">Skew Short from Left</option><option value="skewfromrightshort">Skew Short from Right</option><option value="fade">fading</option><option value="randomrotate">Random</option><option value="customin">Custom</option></select>
+                </div>
+                <div class="col-md-8">
+                  <label>Custom Incoming Effect</label>
+                  <input class="layer-option form-text" name="customin" style="width:100%;max-width:100%" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Outgoing Effect</label>
+                  <select name="outgoingclasses" class="form-select layer-option"><option value="">-None-</option><option value="stt">Short to Top</option><option value="stb">Short to Bottom</option><option value="str">Short to Right</option><option value="stl">Short to Left</option><option value="ltt">Long to Top</option><option value="ltb">Long to Bottom</option><option value="ltr">Long to Right</option><option value="ltl">Long to Left</option><option value="skewtoleft">Skew to Left</option><option value="skewtoright">Skew to Right</option><option value="skewtoleftshort">Skew Short to Left</option><option value="skewtorightshort">Skew Short to Right</option><option value="fadeout">fading</option><option value="randomrotateout">Random</option><option value="customout">Custom</option></select>
+                </div>
+                <div class="col-md-8">
+                  <label>Custom Outgoing Effect</label>
+                  <input class="layer-option form-text" name="customout" style="width:100%;max-width:100%" type="text">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Start</label>
+                  <input name="data_start" class="layer-option form-text">
+                </div>
+                <div class="col-md-4">
+                  <label>Start Speed</label>
+                  <input name="data_speed" class="layer-option form-text">
+                </div>
+                <div class="col-md-4">
+                  <label>Easing</label>
+                  <select name="data_easing" class="form-select layer-option"><option value="Linear.easeNone">Linear.easeNone</option><option value="Power0.easeIn">Power0.easeIn</option><option value="Power0.easeInOut">Power0.easeInOut</option><option value="Power0.easeOut">Power0.easeOut</option><option value="Power1.easeIn">Power1.easeIn</option><option value="Power1.easeInOut">Power1.easeInOut</option><option value="Power1.easeOut">Power1.easeOut</option><option value="Power2.easeIn">Power2.easeIn</option><option value="Power2.easeInOut">Power2.easeInOut</option><option value="Power2.easeOut">Power2.easeOut</option><option value="Power3.easeIn">Power3.easeIn</option><option value="Power3.easeInOut">Power3.easeInOut</option><option value="Power3.easeOut">Power3.easeOut</option><option value="Power4.easeIn">Power4.easeIn</option><option value="Power4.easeInOut">Power4.easeInOut</option><option value="Power4.easeOut">Power4.easeOut</option><option value="Quad.easeIn">Quad.easeIn</option><option value="Quad.easeInOut">Quad.easeInOut</option><option value="Quad.easeOut">Quad.easeOut</option><option value="Cubic.easeIn">Cubic.easeIn</option><option value="Cubic.easeInOut">Cubic.easeInOut</option><option value="Cubic.easeOut">Cubic.easeOut</option><option value="Quart.easeIn">Quart.easeIn</option><option value="Quart.easeInOut">Quart.easeInOut</option><option value="Quart.easeOut">Quart.easeOut</option><option value="Quint.easeIn">Quint.easeIn</option><option value="Quint.easeInOut">Quint.easeInOut</option><option value="Quint.easeOut">Quint.easeOut</option><option value="Strong.easeIn">Strong.easeIn</option><option value="Strong.easeInOut">Strong.easeInOut</option><option value="Strong.easeOut">Strong.easeOut</option><option value="Back.easeIn">Back.easeIn</option><option value="Back.easeInOut">Back.easeInOut</option><option value="Back.easeOut">Back.easeOut</option><option value="Bounce.easeIn">Bounce.easeIn</option><option value="Bounce.easeInOut">Bounce.easeInOut</option><option value="Bounce.easeOut">Bounce.easeOut</option><option value="Circ.easeIn">Circ.easeIn</option><option value="Circ.easeInOut">Circ.easeInOut</option><option value="Circ.easeOut">Circ.easeOut</option><option value="Elastic.easeIn">Elastic.easeIn</option><option value="Elastic.easeInOut">Elastic.easeInOut</option><option value="Elastic.easeOut">Elastic.easeOut</option><option value="Expo.easeIn">Expo.easeIn</option><option value="Expo.easeInOut">Expo.easeInOut</option><option value="Expo.easeOut">Expo.easeOut</option><option value="Sine.easeIn">Sine.easeIn</option><option value="Sine.easeInOut">Sine.easeInOut</option><option value="Sine.easeOut">Sine.easeOut</option><option value="SlowMo.ease">SlowMo.ease</option><option value="easeOutBack">easeOutBack</option><option value="easeInQuad">easeInQuad</option><option value="easeOutQuad">easeOutQuad</option><option value="easeInOutQuad">easeInOutQuad</option><option value="easeInCubic">easeInCubic</option><option value="easeOutCubic">easeOutCubic</option><option value="easeInOutCubic">easeInOutCubic</option><option value="easeInQuart">easeInQuart</option><option value="easeOutQuart">easeOutQuart</option><option value="easeInOutQuart">easeInOutQuart</option><option value="easeInQuint">easeInQuint</option><option value="easeOutQuint">easeOutQuint</option><option value="easeInOutQuint">easeInOutQuint</option><option value="easeInSine">easeInSine</option><option value="easeOutSine">easeOutSine</option><option value="easeInOutSine">easeInOutSine</option><option value="easeInExpo">easeInExpo</option><option value="easeOutExpo">easeOutExpo</option><option value="easeInOutExpo">easeInOutExpo</option><option value="easeInCirc">easeInCirc</option><option value="easeOutCirc">easeOutCirc</option><option value="easeInOutCirc">easeInOutCirc</option><option value="easeInElastic">easeInElastic</option><option value="easeOutElastic">easeOutElastic</option><option value="easeInOutElastic">easeInOutElastic</option><option value="easeInBack">easeInBack</option><option value="easeInOutBack">easeInOutBack</option><option value="easeInBounce">easeInBounce</option><option value="easeOutBounce">easeOutBounce</option><option value="easeInOutBounce">easeInOutBounce</option></select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>End</label>
+                  <input name="data_end" class="layer-option form-text">
+                </div>
+                <div class="col-md-4">
+                  <label>End Speed</label>
+                  <input name="data_endspeed" class="layer-option form-text">
+                </div>
+                <div class="col-md-4">
+                  <label>End Easing</label>
+                  <select name="data_endeasing" class="form-select layer-option"><option value="">-None-</option><option value="Linear.easeNone">Linear.easeNone</option><option value="Power0.easeIn">Power0.easeIn</option><option value="Power0.easeInOut">Power0.easeInOut</option><option value="Power0.easeOut">Power0.easeOut</option><option value="Power1.easeIn">Power1.easeIn</option><option value="Power1.easeInOut">Power1.easeInOut</option><option value="Power1.easeOut">Power1.easeOut</option><option value="Power2.easeIn">Power2.easeIn</option><option value="Power2.easeInOut">Power2.easeInOut</option><option value="Power2.easeOut">Power2.easeOut</option><option value="Power3.easeIn">Power3.easeIn</option><option value="Power3.easeInOut">Power3.easeInOut</option><option value="Power3.easeOut">Power3.easeOut</option><option value="Power4.easeIn">Power4.easeIn</option><option value="Power4.easeInOut">Power4.easeInOut</option><option value="Power4.easeOut">Power4.easeOut</option><option value="Quad.easeIn">Quad.easeIn</option><option value="Quad.easeInOut">Quad.easeInOut</option><option value="Quad.easeOut">Quad.easeOut</option><option value="Cubic.easeIn">Cubic.easeIn</option><option value="Cubic.easeInOut">Cubic.easeInOut</option><option value="Cubic.easeOut">Cubic.easeOut</option><option value="Quart.easeIn">Quart.easeIn</option><option value="Quart.easeInOut">Quart.easeInOut</option><option value="Quart.easeOut">Quart.easeOut</option><option value="Quint.easeIn">Quint.easeIn</option><option value="Quint.easeInOut">Quint.easeInOut</option><option value="Quint.easeOut">Quint.easeOut</option><option value="Strong.easeIn">Strong.easeIn</option><option value="Strong.easeInOut">Strong.easeInOut</option><option value="Strong.easeOut">Strong.easeOut</option><option value="Back.easeIn">Back.easeIn</option><option value="Back.easeInOut">Back.easeInOut</option><option value="Back.easeOut">Back.easeOut</option><option value="Bounce.easeIn">Bounce.easeIn</option><option value="Bounce.easeInOut">Bounce.easeInOut</option><option value="Bounce.easeOut">Bounce.easeOut</option><option value="Circ.easeIn">Circ.easeIn</option><option value="Circ.easeInOut">Circ.easeInOut</option><option value="Circ.easeOut">Circ.easeOut</option><option value="Elastic.easeIn">Elastic.easeIn</option><option value="Elastic.easeInOut">Elastic.easeInOut</option><option value="Elastic.easeOut">Elastic.easeOut</option><option value="Expo.easeIn">Expo.easeIn</option><option value="Expo.easeInOut">Expo.easeInOut</option><option value="Expo.easeOut">Expo.easeOut</option><option value="Sine.easeIn">Sine.easeIn</option><option value="Sine.easeInOut">Sine.easeInOut</option><option value="Sine.easeOut">Sine.easeOut</option><option value="SlowMo.ease">SlowMo.ease</option><option value="easeOutBack">easeOutBack</option><option value="easeInQuad">easeInQuad</option><option value="easeOutQuad">easeOutQuad</option><option value="easeInOutQuad">easeInOutQuad</option><option value="easeInCubic">easeInCubic</option><option value="easeOutCubic">easeOutCubic</option><option value="easeInOutCubic">easeInOutCubic</option><option value="easeInQuart">easeInQuart</option><option value="easeOutQuart">easeOutQuart</option><option value="easeInOutQuart">easeInOutQuart</option><option value="easeInQuint">easeInQuint</option><option value="easeOutQuint">easeOutQuint</option><option value="easeInOutQuint">easeInOutQuint</option><option value="easeInSine">easeInSine</option><option value="easeOutSine">easeOutSine</option><option value="easeInOutSine">easeInOutSine</option><option value="easeInExpo">easeInExpo</option><option value="easeOutExpo">easeOutExpo</option><option value="easeInOutExpo">easeInOutExpo</option><option value="easeInCirc">easeInCirc</option><option value="easeOutCirc">easeOutCirc</option><option value="easeInOutCirc">easeInOutCirc</option><option value="easeInElastic">easeInElastic</option><option value="easeOutElastic">easeOutElastic</option><option value="easeInOutElastic">easeInOutElastic</option><option value="easeInBack">easeInBack</option><option value="easeInOutBack">easeInOutBack</option><option value="easeInBounce">easeInBounce</option><option value="easeOutBounce">easeOutBounce</option><option value="easeInOutBounce">easeInOutBounce</option></select>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>

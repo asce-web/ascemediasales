@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - simplenews
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_classes: line-top
+    block_padding: '30px 0 0'
+id: simplenewssubscription
+theme: enar
+region: footer_first
+weight: -70
+provider: null
+plugin: simplenews_subscription_block
+settings:
+  id: simplenews_subscription_block
+  label: 'NEWSLETTER SIGNUP'
+  provider: simplenews
+  label_display: visible
+  newsletters:
+    default: default
+  message: 'By subscribing to our mailing list you will always be update with the latest news:'
+  unique_id: 00e7bd2d-aec2-4c2b-b000-d0571bbebb5e
+visibility: {  }

@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: enar_local_tasks
+theme: enar
+region: content
+weight: -72
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

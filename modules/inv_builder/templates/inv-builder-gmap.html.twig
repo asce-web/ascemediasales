@@ -1,0 +1,5 @@
+<div{{ attributes }}>
+    {% for marker in markers %}
+        <div class="inv-builder-gmap-marker" data-icon="{{ marker.icon }}" data-lng="{{ marker.lng }}" data-lat="{{ marker.lat }}" data-image="{{ marker.image }}">{{ marker.title }}</div>
+    {% endfor %}
+</div>

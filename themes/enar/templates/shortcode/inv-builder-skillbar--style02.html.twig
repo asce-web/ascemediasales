@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation for accordion item.
+ *
+ * Available variables:
+ * - progress_id
+ * - percent
+ * - class
+ * - icon
+ * - content
+ */
+#}
+
+<div id="{{ progress_id }}" class="inv-builder-skill-bar {{ class }}" data-percent="{{ percent }}%">
+
+    <div class="progress progress-1">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            <span class="progress-text">{% if icon is not empty %}<i class='{{ icon }}'></i>{% endif %}{{ title }}</span>
+            <span class="progress-percent">{{ percent }}%</span>
+        </div>
+    </div>
+    <div class="progress progress-2">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        </div>
+    </div>
+</div>

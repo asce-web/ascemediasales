@@ -1,0 +1,20 @@
+inv_image_browser.upload:
+  path: '/inv_image_browser/image_upload'
+  defaults:
+    _form: '\Drupal\inv_image_browser\Form\UploadForm'
+  requirements:
+    _access: 'TRUE'
+
+inv_image_browser.library:
+  path: '/inv_image_browser/browser'
+  defaults:
+    _form: '\Drupal\inv_image_browser\Form\LibraryForm'
+  requirements:
+    _access: 'TRUE'
+    
+inv_image_browser.browser:
+  path: '/inv_image_browser/image_browser'
+  defaults:
+    _controller: '\Drupal\inv_image_browser\Controller\ImageBrowserController::page'
+  requirements:
+    _access: 'TRUE'

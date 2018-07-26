@@ -1,0 +1,19 @@
+<div{{ attributes.addClass('inv-builder-box') }}>
+  {% if (icon or icon_text) %}
+    <div{{ icon_attributes.addClass('box-icon') }}>{% if use_text %}<i class="icon-text">{{ icon_text }}</i>{% else %}<i class="{{ icon }}"></i>{% endif %}</div>
+  {% endif %}
+  {% if (icon_image) %}
+	<div{{ icon_attributes.addClass('box-image')}}>{{ icon_image|raw }}</div>
+  {% endif%}
+  <div class="box-content-wrapper">
+  {% if title %}
+    <h3 class="box-title">{% if link %}<a href="{{ link }}">{% endif %}{{ title|raw }}{% if link %}</a>{% endif %}</h3>
+  {% endif %}
+  {% if content %}
+    <div class="box-content">{{ content|raw }}</div>
+  {% endif %}
+  {% if read_more %}
+	<div class="read-more"> <a href="{{ link }}"><span>{{ read_more }}</span></a></div>
+  {% endif%}
+  </div>
+</div>

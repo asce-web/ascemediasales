@@ -1,0 +1,39 @@
+<?php
+
+use Drupal\file\Entity\File;
+
+function inv_image_browser_theme(){
+  return array(
+    'image_browser' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+function template_preprocess_image_browser(&$variables){
+  $element = $variables['element'];
+  if(!isset($element['#value']) && isset($element['#default_value'])){
+    $element['#value'] = $element['#default_value'];
+  }
+  // Remove name attribute if empty, for W3C compliance.
+  if (isset($variables['attributes']['name']) && empty((string) $variables['attributes']['name'])) {
+    unset($variables['attributes']['name']);
+  }
+  if(isset($element['#value'])){
+    $fid = str_replace('file:', '',  $element['#value']);
+    if($file = File::load($fid)){
+      if($file->getMimeType() == 'image/svg+xml'){
+        $variables['preview'] = array(
+          '#markup' => '<img src="' . file_create_url($file->getFileUri()) .'" style="max-width: 100px"/>',
+        );
+      }else{
+        $variables['preview'] = array(
+          '#theme' => 'image_style',
+          '#style_name' => 'image_browser_thumbnail',
+          '#uri' => $file->getFileUri(),
+        );
+      }
+    }
+  }
+  $variables['children'] = $element['#children'];
+}
