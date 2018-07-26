@@ -188,7 +188,11 @@ function innovation_layout_settings_form_alter(&$form){
 		'#size' =>'',
         '#attributes' => array('data-key' => 'sticky'),
 	);
-
+    $form['layout_settings']['innovation_section_settings']['section_sticky_disable_mobile'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Disable stick on mobile'),
+      '#attributes' => array('data-key' => 'sticky_disable_mobile'),
+    );
   $form['layout_settings']['innovation_section_settings']['section_custom_class'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Custom class'),

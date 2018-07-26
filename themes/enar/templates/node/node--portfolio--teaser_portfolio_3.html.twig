@@ -75,7 +75,7 @@
                 <div class="inner">
                     <h6 class="name"> <a href="{{ url }}" rel="bookmark">{{ label }}</a></h6>
                     <div class="portfolio-meta">
-                        <span class="porto_date">{{ node.getDateCreated()|date("MM d, Y") }}</span>
+                        <span class="porto_date">{{ node.getCreatedTime()|date("MM d, Y") }}</span>
                         <a href="#" class="expand_image">{% trans "View Larger" %}</a>
                         <a href="{{ url }}" class="detail_link">{% trans "More Details" %}</a>
                     </div>

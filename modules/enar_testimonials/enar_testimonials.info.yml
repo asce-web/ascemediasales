@@ -5,8 +5,9 @@ core: 8.x
 dependencies:
   - block
   - field
-  - field_collection
   - image
+  - inv_views_bxslider
+  - inv_views_grid
   - inv_block_custom
   - menu_ui
   - node

@@ -2,7 +2,6 @@ global-styling:
   version: 8.x-0.0
   css:
     base:
-      assets/css/style.css: {}
       assets/css/custom.css: {}
       font-ideatheme/css/icon-fonts.css: {}
       /libraries/magnific-popup/magnific-popup.css: {}
@@ -32,4 +31,4 @@ revolution-slider:
     assets/js/jquery.themepunch.tools.min.js: {}
     assets/js/enar-revolution.js: {}
   dependencies:
-    - core/jquery
+    - core/jquery    

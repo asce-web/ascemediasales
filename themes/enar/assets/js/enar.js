@@ -185,5 +185,5 @@
     $('.media-kit a').attr('target', '_blank').append('&nbsp;<i class="ico-file-pdf-o"></i>');
 	}
 });
-})(jQuery);
+})(window.jQuery);
 

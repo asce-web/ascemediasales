@@ -8,6 +8,7 @@ body {
 			max-width: @container_width;
 			margin: 0 auto;
 			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			overflow:hidden;
 		  }
 	}
 }
@@ -245,6 +246,7 @@ body {
     position:relative;
     color:#FFF;
     overflow:hidden;
+	width: 100%;
      .region-breadcrumb a {
       color:#FFF;
     }
@@ -270,10 +272,16 @@ body {
 		position:absolute;
 		.middle();
 		margin:0;
+
 	}
   }
 }
-
+.region-breadcrumb {
+	.breadcrumb {
+		background-color: transparent;
+	}
+}
+	
 #section-page-title:not(.has-banner) {
     background: #fbfbfb;
     border-bottom: 4px solid #fff;
@@ -307,23 +315,25 @@ body {
   font-size: 12px;
   color: #888;
   text-align:right;
-  ol {
-    li {
-      display:inline-block;
-      color: #ccc;
-      &:after {
-        font-family: 'idealtheme';
-        content: "\f105";
-      }
-      &:last-child {
-        &:after {
-          content: "";
-        }
-      }
-	  a {
-		margin: 0 2px;
+  .breadcrumb {
+	  ol {
+		li {
+		  display:inline-block;
+		  color: #ccc;
+		  &:before {
+			font-family: 'idealtheme';
+			content: "\f105";
+		  }
+		  &:first-child {
+			&:before {
+			  content: "";
+			}
+		  }
+		  a {
+			margin: 0 2px;
+		  }
+		}
 	  }
-    }
   }
 }  
 

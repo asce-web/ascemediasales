@@ -11,3 +11,6 @@ h6: 'Open Sans:600:16px:'
 custom_font_2: 'Lato:regular:15px::.hm_new_title_con h4'
 custom_font_3: 'Oswald:regular:24px:33px:h2.title1 a, .title1 .title, .title1 .block-title, .banner-title h2'
 custom_font_4: 'Oswald:700:32px::.counter .stat-count'
+preload: preloader2
+preloader: preloader1
+gototop: '1'

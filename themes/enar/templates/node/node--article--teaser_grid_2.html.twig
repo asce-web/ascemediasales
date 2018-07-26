@@ -88,7 +88,7 @@
         </div>
         <div class="blog-grid-con">
             <ul class="list-inline post-meta-info">
-                <li class="meta-date"><i class="ico-clock7"></i>{{ node.getDateCreated()|date("M d, Y") }}</li>
+                <li class="meta-date"><i class="ico-clock7"></i>{{ node.getCreatedTime()|date("M d, Y") }}</li>
                 <li class="meta-comments"><i class="ico-comment-o"></i> {{ node.comment.comment_count }} {% trans "comment" %}</li>
                 {% if content.field_blog_categories%}
                 <li class="meta-categories"><i class="ico-folder-open-o"></i>{{ content.field_blog_categories }}</li>

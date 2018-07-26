@@ -1,10 +1,12 @@
 name: 'Enar Portfolio'
-description: 'Provides portfolio content type and all related information such as view and configurations.'
+description: 'Provide Portoflio content type & related view for showing your portfolio with multiple style. '
 type: module
 core: 8.x
 dependencies:
   - block
   - carousel_formatter
+  - inv_views_bxslider
+  - inv_views_grid
   - field
   - image
   - inv_block_custom

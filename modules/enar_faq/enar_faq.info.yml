@@ -6,6 +6,7 @@ dependencies:
   - block
   - field
   - inv_block_custom
+  - inv_views_accordion
   - menu_ui
   - node
   - path

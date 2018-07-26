@@ -14,7 +14,7 @@ function enar_form_system_theme_settings_alter(&$form, &$form_state){
 		  ''=>t('Disable'), 
 		  'preloader1'=>t('Preloader Style 01'), 
 		  'preloader2'=>t('Preloader Style 02'),
-		  'preloader3'=>t('Preloader Style 03')
+		  'preloader3'=>t('Preloader Style 03'),
 	  ),
       '#default_value' => theme_get_setting('preloader'),
 	);

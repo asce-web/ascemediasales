@@ -11,6 +11,8 @@ dependencies:
   - file
   - image
   - inv_block_custom
+  - inv_views_bxslider
+  - inv_views_grid
   - menu_ui
   - node
   - options

@@ -22,9 +22,9 @@ function enar_default_presets() {
  */
 function enar_preprocess_html(&$variables) {
   $node = \Drupal::request()->attributes->get('node');
-  if ($node) {
+  if ($node instanceof \Drupal\node\NodeInterface) {
     $variables['attributes']['class'][] = 'page-node-' . $node->id();
-	if (empty($node->get('body')->value)) {
+	if ($node->hasField('body') && empty($node->get('body')->value)) {
 		$variables['attributes']['class'][] = 'no-padding-main-content';
 	}
   }
@@ -47,6 +47,7 @@ function enar_preprocess_breadcrumb(&$variables){
 		 'text' => $node->getTitle(),
 		 'url' => $node->URL()
 	   );
+	   $variables['#cache']['contexts'][] = 'url';
    }
 }
 

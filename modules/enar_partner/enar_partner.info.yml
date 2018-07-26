@@ -6,6 +6,7 @@ dependencies:
   - block
   - field
   - image
+  - inv_views_bxslider
   - inv_block_custom
   - menu_ui
   - node

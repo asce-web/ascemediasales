@@ -7,6 +7,7 @@
 
 use \Drupal\Core\Template\Attribute;
 use \Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Html;
 require_once 'includes/innovation.php';
 require_once 'includes/lessc.php';
 
@@ -47,9 +48,10 @@ function innovation_theme($existing, $type, $theme, $path) {
 
 function innovation_preprocess_html(&$vars) {
   //$vars['#attached']['library'][] = 'innovation/bootstrap';
-  $vars['#attached']['library'][] = 'innovation/font-awesome';
 
   $theme = innovation_get_theme();
+  $vars['#attached']['library'][] = 'innovation/font-awesome';
+  
   $direction = theme_get_setting('innovation_direction');
   if (empty($direction) || $direction == 'default') {
     $direction = \Drupal::languageManager()->getCurrentLanguage()->getDirection();
@@ -59,11 +61,30 @@ function innovation_preprocess_html(&$vars) {
   }
   $vars['attributes']['class'][] = $direction;
   $vars['attributes']['class'][] = $theme->style;
+}
 
-  $less = new innovation_lessc($theme);
-  $path = drupal_get_path('theme',$theme->theme);
-  $css_file = $path . '/assets/css/style.css';
-  $less->complie($css_file);
+/**
+ * Implements hook_library_info_build().
+ * @return array
+ */
+function innovation_library_info_build(){
+  $theme = innovation_get_theme();
+  $libraries = [];
+  foreach($theme->presets as $preset){
+	$preset_key = strtolower($preset->key);
+	$asset_dir = 'public://innovation/'. $theme->theme;
+	$css_dir =  $asset_dir.'/css';
+    $css_file = $css_dir . '/style-'. Html::getClass($preset_key).'.css';
+
+    $libraries['innovation.' . $theme->theme .Html::getClass($preset_key)] = [
+      'css' => [
+        'base' => [
+          $css_file => [],
+        ],
+      ],
+    ];
+  }
+  return $libraries;
 }
 
 /**
@@ -72,7 +93,34 @@ function innovation_preprocess_html(&$vars) {
 function innovation_preprocess_page(&$page){
   $theme = innovation_get_theme();
   $theme->page = &$page;
-//  $page['#attached']['library'][] = 'innovation/innovation-base';
+  $preset_key = strtolower($theme->presets[$theme->preset]->key);
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if($node instanceof \Drupal\node\NodeInterface){
+    if(\Drupal::service('module_handler')->moduleExists('inv_page_settings')){
+      $settings = new \Drupal\inv_page_settings\InvPageSettings($node->id());
+
+	  if (strpos( $settings->get('node_custom_preset', $preset_key), "--" ) !== false) {
+		  $presetPage = explode("--",$settings->get('node_custom_preset', $preset_key));
+		  $preset_key = strtolower($presetPage[1]);
+		  $preset = $theme->presets[$presetPage[0]];
+		  $theme->lessc_vars['base_color'] = $preset->base_color;
+		  $theme->lessc_vars['base_color_opposite'] = isset($preset->base_color_opposite)?$preset->base_color_opposite:$preset->base_color;
+		  $theme->lessc_vars['link_color'] = $preset->link_color;
+		  $theme->lessc_vars['link_hover_color'] = $preset->link_hover_color;
+		  $theme->lessc_vars['text_color'] = $preset->text_color;
+		  $theme->lessc_vars['heading_color'] = $preset->heading_color;
+	  }
+    }
+  }
+  $less = new innovation_lessc($theme);
+  $page['#attached']['library'][] = 'innovation/innovation.'.$theme->theme .Html::getClass($preset_key);
+  $asset_dir = 'public://innovation/'. $theme->theme;
+  $css_dir =  $asset_dir.'/css';
+  file_prepare_directory($css_dir, FILE_CREATE_DIRECTORY);
+  file_prepare_directory($css_dir, FILE_MODIFY_PERMISSIONS);
+  $css_file = $css_dir . '/style-'.Html::getClass($preset_key).'.css';
+  $less->complie($css_file);  
+  
   $page['page']['innovation_markup']  = Markup::create($theme->pageRender());
 }
 
@@ -81,6 +129,9 @@ function template_preprocess_section(&$variables){
   if (isset($section->sticky) && $section->sticky) {
       $variables['attributes']['class'][] = 'inv-sticky';
       $variables['#attached']['library'] = array('innovation/innovation-sticky');
+	  if(isset($section->sticky_disable_mobile) && $section->sticky_disable_mobile){
+		$variables['attributes']['class'][] = 'unsticky-mobile';
+	  }
   }
   if (isset($section->backgroundcolor) && $section->backgroundcolor) {
     $variables['attributes']['style'] = "background-color:{$section->backgroundcolor}";

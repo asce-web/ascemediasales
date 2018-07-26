@@ -9,6 +9,8 @@ dependencies:
   - field
   - image
   - inv_block_custom
+  - inv_views_bxslider
+  - inv_views_grid  
   - node
   - path
   - system

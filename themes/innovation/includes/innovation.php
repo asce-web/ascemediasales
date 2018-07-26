@@ -18,20 +18,21 @@ class InnovationTheme extends stdClass{
   function __construct($key){
     $this->theme = $key;
     $this->layouts();
-    $p = theme_get_setting('innovation_presets', $this->theme);
+    $p = theme_get_setting('innovation_presets');
     $init_presets = 1;
-
+	$base_theme = "";
     if (empty($p)) {
       $func = $this->theme . '_default_presets';
+
       if (function_exists($func)) {
         $p = call_user_func($func);
       } else{
-        //Load layout form base theme
+        //Load presets form base theme
         $themes = system_list('theme');
         if(isset($themes[$this->theme]->info['base theme'])){
           $base_theme = $themes[$this->theme]->info['base theme'];
-          if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/innovation.theme')){
-            require_once DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/innovation.theme';
+          if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme')){
+            require_once DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme';
             $func = $base_theme . '_default_presets';
             if (function_exists($func)) {
               $p = call_user_func($func);
@@ -42,10 +43,21 @@ class InnovationTheme extends stdClass{
     }
 
     $this->presets = json_decode(base64_decode($p));
+
     $infunc = $this->theme . '_init_presets';
     if(function_exists($infunc)){
       $init_presets = call_user_func($infunc);
-    }
+    } else {
+		$themes = system_list('theme');
+        if(isset($themes[$this->theme]->info['base theme'])){
+          $base_theme = $themes[$this->theme]->info['base theme'];
+		  $infunc = $base_theme . '_init_presets';
+		  if(function_exists($infunc)){
+			$init_presets = call_user_func($infunc);
+		  }
+		}
+	}
+
     $this->presets = array_slice($this->presets, 0, $init_presets);
     for($i=0; $i<$init_presets; $i++){
       if(!isset($this->presets[$i])){
@@ -62,13 +74,12 @@ class InnovationTheme extends stdClass{
     }
 	$this->style = theme_get_setting('innovation_layout');
     if(\Drupal::moduleHandler()->moduleExists('inv_quicksettings')){
-	//print $_SESSION['innovation_default_preset'];
       $this->preset = isset($_SESSION['innovation_default_preset']) ? $_SESSION['innovation_default_preset'] : theme_get_setting('innovation_default_preset');
 	  //$this->style = isset($_SESSION['innovation_layout']) ? $_SESSION['innovation_layout'] : theme_get_setting('innovation_layout');
     } else {
       $this->preset = theme_get_setting('innovation_default_preset');
     }
-	//print $this->preset;
+
     if($this->preset == '' || $this->preset == null){
       $this->preset = 0;
     }
@@ -78,21 +89,31 @@ class InnovationTheme extends stdClass{
 
   public function getLessFiles() {
     $path = drupal_get_path('theme',$this->theme);
+	$themes = system_list('theme');
+	$base_less_path = [];
+	if(isset($themes[$this->theme]->info['base theme'])){
+		$base_theme = $themes[$this->theme]->info['base theme'];
+		$base_less_path = drupal_get_path('theme',$base_theme);
+	}
+
     $files = glob($path."/lessc/*.less");
-    return $files;
+	$base_files = glob($base_less_path."/lessc/*.less");
+	
+    return array_merge($base_files,$files) ;
   }
 
   public function setPresetVars($preset = null) {
-	$pagewidth = theme_get_setting('drupalexp_pagewidth');
+	$pagewidth = theme_get_setting('innovation_pagewidth');
     if(empty($pagewidth)) $pagewidth = 1170;
     $this->lessc_vars['container_width'] = $pagewidth.'px';
-    if ($preset == null) {
-      $preset = empty($this->preset)?0:$this->preset;
-    }
-    $default_preset = $this->presets[$preset];
+	if ($preset == null) {
+		  $preset = empty($this->preset)?0:$this->preset;
+		}
+	$default_preset = $this->presets[$preset];
+	
     if ($default_preset) {
       $this->lessc_vars['base_color'] = $default_preset->base_color;
-      $this->lessc_vars['base_color_opposite'] = isset($default_preset->base_color_opposite)      ?$default_preset->base_color_opposite:$default_preset->base_color;
+      $this->lessc_vars['base_color_opposite'] = isset($default_preset->base_color_opposite)?$default_preset->base_color_opposite:$default_preset->base_color;
       $this->lessc_vars['link_color'] = $default_preset->link_color;
       $this->lessc_vars['link_hover_color'] = $default_preset->link_hover_color;
       $this->lessc_vars['text_color'] = $default_preset->text_color;
@@ -124,8 +145,8 @@ class InnovationTheme extends stdClass{
         $themes = system_list('theme');
         if(isset($themes[$this->theme]->info['base theme'])){
           $base_theme = $themes[$this->theme]->info['base theme'];
-          if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/innovation.theme')){
-            require_once DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/innovation.theme';
+          if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme')){
+            require_once DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme';
             $func = $base_theme . '_default_layouts';
             if (function_exists($func)) {
               $default_layouts = call_user_func($func);
@@ -286,17 +307,18 @@ class InnovationTheme extends stdClass{
   }
   
   function get_layout() {
-   $alias = \Drupal::service('path.current')->getPath();
-		$return = 0;
+   $node_path = \Drupal::service('path.current')->getPath();
+   $alias_path = \Drupal::service('path.alias_manager')->getAliasByPath($node_path);
+   $return = 0;
     foreach ($this->layouts as $k => $layout) {
-			if (isset($layout->isdefault) && $layout->isdefault){
-        $return = $k;
+		if (isset($layout->isdefault) && $layout->isdefault){
+			$return = $k;
+			continue;
+		}
+		$pages = isset($layout->pages)?$layout->pages:'';
+		if (empty($pages))
         continue;
-      }
-      $pages = isset($layout->pages)?$layout->pages:'';
-			if (empty($pages))
-        continue;
-			if (\Drupal::service('path.matcher')->matchPath($alias, $pages)) {
+		if (\Drupal::service('path.matcher')->matchPath($node_path, $pages) || \Drupal::service('path.matcher')->matchPath($alias_path, $pages)) {
       	return $k;
       }
     }
