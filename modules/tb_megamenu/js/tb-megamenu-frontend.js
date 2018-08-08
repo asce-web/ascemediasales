@@ -12,6 +12,8 @@ Drupal.TBMegaMenu = Drupal.TBMegaMenu || {};
     if (windowWidth < Drupal.TBMegaMenu.supportedScreens[0]) {
       navCollapse.addClass('collapse');
       if (Drupal.TBMegaMenu.displayedMenuMobile) {
+	      var left = 0-$('.tb-megamenu').children('.btn-navbar').offset().left;
+        navCollapse.css('left',left+'px');				  
         navCollapse.css({height: 'auto', overflow: 'visible'});
       } else {
         navCollapse.css({height: 0, overflow: 'hidden'});
@@ -36,6 +38,7 @@ Drupal.TBMegaMenu = Drupal.TBMegaMenu || {};
         else {
           $(this).parent().children('.nav-collapse').css({height: 'auto', overflow: 'visible'});
           Drupal.TBMegaMenu.displayedMenuMobile = true;
+	        Drupal.TBMegaMenu.menuResponsive();				   
         }
       });
 
