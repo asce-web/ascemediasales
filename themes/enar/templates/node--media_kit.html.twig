@@ -48,7 +48,6 @@
 #}
 
 <article{{ attributes }}>
-
     {{ title_prefix }}
     {% if not page %}
         <h2{{ title_attributes }}>
@@ -56,14 +55,15 @@
         </h2>
     {% endif %}
     {{ title_suffix }}
-
     <div{{ content_attributes }}
-    <div class="col-md-8 col-sm-12">
-        {{ content.body.0 }}
+        <div class="col-xs-12 col-md-8 col-sm-12">
+            <div class="title-wraper title1">
+                <h3 class="title nosubtitle">{{ content.field_kit_subtitle }}</h3>
+            </div>
+            <p>{{ content.body.0 }} </p>
+        </div>
+        <div class="col-md-4 col-sm-12 center">
+            {{ content.field_media_kit_file }}
+        </div>
     </div>
-    <div class="col-md-4 col-sm-12 center">
-        {{ content.field_media_kit_file }}
-    </div>
-    </div>
-
 </article>
