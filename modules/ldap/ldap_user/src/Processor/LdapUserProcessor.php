@@ -2,8 +2,8 @@
 
 namespace Drupal\ldap_user\Processor;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\ldap_servers\Entity\Server;
+use Drupal\ldap_servers\Helper\ConversionHelper;
 use Drupal\ldap_servers\Processor\TokenProcessor;
 use Drupal\ldap_user\Exception\LdapBadParamsException;
 use Drupal\ldap_user\Helper\LdapConfiguration;
@@ -31,11 +31,19 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
   private $detailLog;
 
   /**
+   * Token processor.
+   *
+   * @var \Drupal\ldap_servers\Processor\TokenProcessor
+   */
+  protected $tokenProcessor;
+
+  /**
    * Constructor.
    */
   public function __construct() {
     $this->config = \Drupal::config('ldap_user.settings')->get();
     $this->detailLog = \Drupal::service('ldap.detail_log');
+    $this->tokenProcessor = \Drupal::service('ldap.token_processor');
   }
 
   /**
@@ -50,6 +58,9 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
    *
    * @return array|bool
    *   Successful sync.
+   *
+   * @TODO: $ldapUser and $testQuery are not in use.
+   * Verify that we need actually need those for a missing test case or remove.
    */
   public function syncToLdapEntry(User $account, array $ldapUser = [], $testQuery = FALSE) {
 
@@ -74,16 +85,14 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
       ];
 
       try {
-        $processor = new LdapUserProcessor();
-        $proposedLdapEntry = $processor->drupalUserToLdapEntry($account, $server, $params, $ldapUser);
+        $proposedLdapEntry = $this->drupalUserToLdapEntry($account, $server, $params, $ldapUser);
       }
       catch (\Exception $e) {
-        \Drupal::logger('ldap_user')->error('User or server is missing, drupalUserToLdapEntry() failed.');
+        \Drupal::logger('ldap_user')->error('Unable to prepare LDAP entry: %message', ['%message', $e->getMessage()]);
         return FALSE;
       }
 
       if (is_array($proposedLdapEntry) && isset($proposedLdapEntry['dn'])) {
-        $existing_ldap_entry = $server->dnExists($proposedLdapEntry['dn'], 'ldap_entry');
         // This array represents attributes to be modified; not comprehensive
         // list of attributes.
         $attributes = [];
@@ -110,12 +119,13 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
         }
         else {
           // Stick $proposedLdapEntry in $ldap_entries array for drupal_alter.
-          $proposedDnLowerCase = Unicode::strtolower($proposedLdapEntry['dn']);
+          $proposedDnLowerCase = mb_strtolower($proposedLdapEntry['dn']);
           $ldap_entries = [$proposedDnLowerCase => $attributes];
           $context = [
             'action' => 'update',
             'corresponding_drupal_data' => [$proposedDnLowerCase => $attributes],
             'corresponding_drupal_data_type' => 'user',
+            'account' => $account,
           ];
           \Drupal::moduleHandler()->alter('ldap_entry_pre_provision', $ldap_entries, $server, $context);
           // Remove altered $proposedLdapEntry from $ldap_entries array.
@@ -193,12 +203,11 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
     $direction = isset($params['direction']) ? $params['direction'] : self::PROVISION_TO_ALL;
     $prov_events = empty($params['prov_events']) ? LdapConfiguration::getAllEvents() : $params['prov_events'];
 
-    $tokenHelper = new TokenProcessor();
     $syncMapper = new SyncMappingHelper();
     $mappings = $syncMapper->getSyncMappings($direction, $prov_events);
     // Loop over the mappings.
     foreach ($mappings as $field_key => $field_detail) {
-      list($ldapAttributeName, $ordinal, $conversion) = $tokenHelper->extractTokenParts($field_key);
+      list($ldapAttributeName, $ordinal) = $this->extractTokenParts($field_key);
       $ordinal = (!$ordinal) ? 0 : $ordinal;
       if ($ldapUserEntry && isset($ldapUserEntry[$ldapAttributeName]) && is_array($ldapUserEntry[$ldapAttributeName]) && isset($ldapUserEntry[$ldapAttributeName][$ordinal])) {
         // Don't override values passed in.
@@ -208,7 +217,7 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
       $synced = $syncMapper->isSynced($field_key, $params['prov_events'], self::PROVISION_TO_LDAP);
       if ($synced) {
         $token = ($field_detail['user_attr'] == 'user_tokens') ? $field_detail['user_tokens'] : $field_detail['user_attr'];
-        $value = $tokenHelper->tokenReplace($account, $token, 'user_account');
+        $value = $this->tokenProcessor->tokenReplace($account, $token, 'user_account');
 
         // Deal with empty/unresolved password.
         if (substr($token, 0, 10) == '[password.' && (!$value || $value == $token)) {
@@ -237,6 +246,32 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
     \Drupal::moduleHandler()->alter('ldap_entry', $ldapUserEntry, $params);
 
     return $ldapUserEntry;
+  }
+
+  /**
+   * Extract parts of token.
+   *
+   * @param string $token
+   *   Token or token expression with singular token in it, eg. [dn],
+   *   [dn;binary], [titles:0;binary] [cn]@mycompany.com.
+   *
+   * @return array
+   *   Array triplet containing [<attr_name>, <ordinal>, <conversion>].
+   */
+  private function extractTokenParts($token) {
+    $attributes = [];
+    ConversionHelper::extractTokenAttributes($attributes, $token);
+    if (is_array($attributes)) {
+      $keys = array_keys($attributes);
+      $attr_name = $keys[0];
+      $attr_data = $attributes[$attr_name];
+      $ordinals = array_keys($attr_data['values']);
+      $ordinal = $ordinals[0];
+      return [$attr_name, $ordinal];
+    }
+    else {
+      return [NULL, NULL];
+    }
 
   }
 
@@ -306,7 +341,7 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
       $proposedLdapEntry = $this->drupalUserToLdapEntry($account, $ldapServer, $params, $ldap_user);
     }
     catch (\Exception $e) {
-      \Drupal::logger('ldap_user')->error('User or server is missing during LDAP provisioning.');
+      \Drupal::logger('ldap_user')->error('User or server is missing during LDAP provisioning: %message', ['%message', $e->getMessage()]);
       return [
         'status' => 'fail',
         'ldap_server' => $ldapServer,
@@ -321,8 +356,8 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
     else {
       $proposedDn = NULL;
     }
-    $proposedDnLowercase = Unicode::strtolower($proposedDn);
-    $existingLdapEntry = ($proposedDn) ? $ldapServer->dnExists($proposedDn, 'ldap_entry') : NULL;
+    $proposedDnLowercase = mb_strtolower($proposedDn);
+    $existingLdapEntry = ($proposedDn) ? $ldapServer->checkDnExistsIncludeData($proposedDn, ['objectclass']) : NULL;
 
     if (!$proposedDn) {
       return [
@@ -344,6 +379,7 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
         'action' => 'add',
         'corresponding_drupal_data' => [$proposedDnLowercase => $account],
         'corresponding_drupal_data_type' => 'user',
+        'account' => $account,
       ];
       \Drupal::moduleHandler()->alter('ldap_entry_pre_provision', $ldapEntries, $ldapServer, $context);
       // Remove altered $proposedLdapEntry from $ldapEntries array.
@@ -511,7 +547,7 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
       $proposed_ldap_entry = $this->drupalUserToLdapEntry($account, $ldap_server, $params);
     }
     catch (\Exception $e) {
-      \Drupal::logger('ldap_user')->error('User or server is missing locally for fetching ProvisionRelatedLdapEntry.');
+      \Drupal::logger('ldap_user')->error('Unable to prepare LDAP entry: %message', ['%message', $e->getMessage()]);
       return FALSE;
     }
 
@@ -519,7 +555,7 @@ class LdapUserProcessor implements LdapUserAttributesInterface {
       return FALSE;
     }
 
-    $ldap_entry = $ldap_server->dnExists($proposed_ldap_entry['dn'], 'ldap_entry', []);
+    $ldap_entry = $ldap_server->checkDnExistsIncludeData($proposed_ldap_entry['dn'], []);
     return $ldap_entry;
 
   }

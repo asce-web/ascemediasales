@@ -2,14 +2,17 @@
 
 namespace Drupal\ldap_user\Form;
 
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\Config;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\ldap_query\Controller\QueryController;
-use Drupal\ldap_servers\Processor\TokenProcessor;
+use Drupal\ldap_servers\Helper\ConversionHelper;
 use Drupal\ldap_servers\ServerFactory;
 use Drupal\ldap_user\Helper\LdapConfiguration;
 use Drupal\ldap_servers\LdapUserAttributesInterface;
@@ -23,6 +26,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInterface, ContainerInjectionInterface {
 
   protected $serverFactory;
+  protected $cache;
+  protected $moduleHandler;
 
   protected $drupalAcctProvisionServerOptions;
 
@@ -31,10 +36,13 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, ServerFactory $server_factory) {
+  public function __construct(ConfigFactoryInterface $config_factory, ServerFactory $server_factory, CacheBackendInterface $cache, ModuleHandler $module_handler) {
     parent::__construct($config_factory);
 
     $this->serverFactory = $server_factory;
+    $this->cache = $cache;
+    $this->moduleHandler = $module_handler;
+
     $ldap_servers = $this->serverFactory->getEnabledServers();
     if ($ldap_servers) {
       foreach ($ldap_servers as $sid => $ldap_server) {
@@ -49,12 +57,14 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
   }
 
   /**
-   * Factory for dependency injection.
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static (
       $container->get('config.factory'),
-      $container->get('ldap.servers')
+      $container->get('ldap.servers'),
+      $container->get('cache.default'),
+      $container->get('module_handler')
     );
   }
 
@@ -80,7 +90,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
 
     if (count($this->drupalAcctProvisionServerOptions) == 0) {
       $url = Url::fromRoute('entity.ldap_server.collection');
-      $edit_server_link = \Drupal::l($this->t('@path', ['@path' => 'LDAP Servers']), $url);
+      $edit_server_link = Link::fromTextAndUrl($this->t('@path', ['@path' => 'LDAP Servers']), $url)->toString();
       $message = $this->t('At least one LDAP server must configured and <em>enabled</em> before configuring LDAP user. Please go to @link to configure an LDAP server.',
         ['@link' => $edit_server_link]
       );
@@ -177,7 +187,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
 
     $form['basic_to_drupal']['disableAdminPasswordField'] = [
       '#type' => 'checkbox',
-      '#title' => t('Disable the password fields at /admin/create/people and generate a random password.'),
+      '#title' => $this->t('Disable the password fields at /admin/create/people and generate a random password.'),
       '#default_value' => $config->get('disableAdminPasswordField'),
     ];
 
@@ -187,7 +197,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
       '#description' => $this->t('Allows you to sync the result of an LDAP query with your users. Creates new users and updates existing ones.'),
     ];
 
-    if (\Drupal::moduleHandler()->moduleExists('ldap_query')) {
+    if ($this->moduleHandler->moduleExists('ldap_query')) {
       $updateMechanismOptions = ['none' => $this->t('Do not update')];
       $queries = QueryController::getAllEnabledQueries();
       foreach ($queries as $query) {
@@ -195,7 +205,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
       }
       $form['basic_to_drupal']['userUpdateMechanism']['userUpdateCronQuery'] = [
         '#type' => 'select',
-        '#title' => $this->t('Action to perform on Drupal accounts that no longer have corresponding LDAP entries'),
+        '#title' => $this->t('LDAP query containing the list of entries to update'),
         '#required' => FALSE,
         '#default_value' => $config->get('userUpdateCronQuery'),
         '#options' => $updateMechanismOptions,
@@ -227,18 +237,18 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
       ];
     }
 
+    $form['basic_to_drupal']['orphanedAccounts'] = [
+      '#type' => 'fieldset',
+      '#title' => 'Periodic orphaned accounts update mechanism',
+      '#description' => $this->t('<strong>Warning: Use this feature at your own risk!</strong>'),
+    ];
+
     $form['basic_to_drupal']['orphanedAccounts']['orphanedCheckQty'] = [
       '#type' => 'textfield',
       '#size' => 10,
       '#title' => $this->t('Number of users to check each cron run.'),
       '#default_value' => $config->get('orphanedCheckQty'),
       '#required' => FALSE,
-    ];
-
-    $form['basic_to_drupal']['orphanedAccounts'] = [
-      '#type' => 'fieldset',
-      '#title' => 'Orphaned account cron job',
-      '#description' => $this->t('<strong>Warning: Use this feature at your own risk!</strong>'),
     ];
 
     $account_options = [];
@@ -540,9 +550,9 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
     }
 
     // Make sure only one attribute column is present.
-    $tokenHelper = new TokenProcessor();
     foreach ($processedLdapSyncMappings as $key => $mapping) {
-      $maps = $tokenHelper->getTokenAttributes($mapping['ldap_attr']);
+      $maps = [];
+      ConversionHelper::extractTokenAttributes($maps, $mapping['ldap_attr']);
       if (count(array_keys($maps)) > 1) {
         // TODO: Move this check out of processed mappings to be able to set the
         // error by field.
@@ -635,7 +645,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
     $form_state->getValues();
 
     SemaphoreStorage::flushAllValues();
-    \Drupal::cache()->invalidate('ldap_user_sync_mapping');
+    $this->cache->invalidate('ldap_user_sync_mapping');
     drupal_set_message($this->t('User synchronization configuration updated.'));
   }
 
@@ -723,7 +733,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
           'header' => TRUE,
         ],
       ];
-      foreach ($this->provisionsLdapEvents() as $col_id => $col_name) {
+      foreach ($this->provisionsLdapEvents() as $col_name) {
         $second_header[] = [
           'data' => $col_name,
           'header' => TRUE,
@@ -793,7 +803,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
     // 2. existing configurable mappings rows.
     if (!empty($config->get('ldapUserSyncMappings')[$direction])) {
       // Key could be LDAP attribute name or user attribute name.
-      foreach ($config->get('ldapUserSyncMappings')[$direction] as $target_attr_token => $mapping) {
+      foreach ($config->get('ldapUserSyncMappings')[$direction] as $mapping) {
         if ($direction == self::PROVISION_TO_DRUPAL) {
           $mapping_key = $mapping['user_attr'];
         }
@@ -936,6 +946,7 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
     }
 
     foreach ($syncEvents as $prov_event => $prov_event_name) {
+      // @FIXME: Leftover code.
       // See above.
       // $col++;
       // $id = $id_prefix . implode('__', array('sm', $prov_event, $row));.
@@ -1064,8 +1075,8 @@ class LdapUserAdminForm extends ConfigFormBase implements LdapUserAttributesInte
         // The others are optional.
         if ($columns['configurable_to_drupal'] && $columns['ldap_attr'] && $columns['user_attr']) {
           $mappings[$key] = [
-            'ldap_attr' => $columns['ldap_attr'],
-            'user_attr' => $columns['user_attr'],
+            'ldap_attr' => trim($columns['ldap_attr']),
+            'user_attr' => trim($columns['user_attr']),
             'convert' => $columns['convert'],
             'direction' => $direction,
             'user_tokens' => isset($columns['user_tokens']) ? $columns['user_tokens'] : '',

@@ -3,12 +3,40 @@
 namespace Drupal\Tests\ldap_servers\Unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\ldap_servers\Helper\ConversionHelper;
 use Drupal\ldap_servers\Processor\TokenProcessor;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\ldap_servers\PRocessor\TokenProcessor
+ * Helper class to make it possible to simulate ldap_explode_dn().
+ */
+class LdapExplodeDnMock {
+
+  /**
+   * Simulate explode_dn.
+   *
+   * @return array
+   *   DN exploded, input ignored.
+   */
+  public static function ldapExplodeDn($input) {
+    return [
+      'count' => 4,
+      0 => 'cn=hpotter',
+      1 => 'ou=Gryffindor',
+      2 => 'ou=student',
+      3 => 'ou=people',
+      4 => 'dc=hogwarts',
+      5 => 'dc=edu',
+    ];
+  }
+
+}
+
+/**
+ * @coversDefaultClass \Drupal\ldap_servers\Processor\TokenProcessor
  * @group ldap
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
  */
 class TokenTests extends UnitTestCase {
 
@@ -17,6 +45,7 @@ class TokenTests extends UnitTestCase {
   public $container;
   private $ldapEntry;
   protected $detailLog;
+  protected $fileSystem;
 
   /**
    * Test setup.
@@ -24,7 +53,17 @@ class TokenTests extends UnitTestCase {
   protected function setUp() {
     parent::setUp();
 
+    class_alias(
+      '\Drupal\Tests\ldap_servers\Unit\LdapExplodeDnMock',
+      '\Drupal\ldap_servers\Entity\Server',
+      TRUE
+    );
+
     $this->detailLog = $this->getMockBuilder('\Drupal\ldap_servers\Logger\LdapDetailLog')
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $this->fileSystem = $this->getMockBuilder('\Drupal\Core\File\FileSystem')
       ->disableOriginalConstructor()
       ->getMock();
 
@@ -33,21 +72,10 @@ class TokenTests extends UnitTestCase {
       ->disableOriginalConstructor()
       ->getMock();
 
-    $this->serverFactory->expects($this->any())
-      ->method('ldapExplodeDn')
-      ->willReturn([
-        'count' => 4,
-        0 => 'cn=hpotter',
-        1 => 'ou=Gryffindor',
-        2 => 'ou=student',
-        3 => 'ou=people',
-        4 => 'dc=hogwarts',
-        5 => 'dc=edu',
-      ]);
-
     $this->container = new ContainerBuilder();
     $this->container->set('ldap.servers', $this->serverFactory);
     $this->container->set('ldap.detail_log', $this->detailLog);
+    $this->container->set('file_system', $this->fileSystem);
     \Drupal::setContainer($this->container);
 
     $this->ldapEntry = [
@@ -67,7 +95,7 @@ class TokenTests extends UnitTestCase {
    */
   public function testTokenReplacement() {
 
-    $tokenHelper = new TokenProcessor();
+    $tokenHelper = new TokenProcessor($this->detailLog, $this->fileSystem);
 
     $dn = $tokenHelper->tokenReplace($this->ldapEntry, '[dn]');
     $this->assertEquals($this->ldapEntry['dn'], $dn);
@@ -109,10 +137,10 @@ class TokenTests extends UnitTestCase {
     $this->assertEquals(bin2hex($this->ldapEntry['guid'][0]), $bin2hex);
 
     $msguid = $tokenHelper->tokenReplace($this->ldapEntry, '[guid;msguid]');
-    $this->assertEquals($tokenHelper->convertMsguidToString($this->ldapEntry['guid'][0]), $msguid);
+    $this->assertEquals(ConversionHelper::convertMsguidToString($this->ldapEntry['guid'][0]), $msguid);
 
     $binary = $tokenHelper->tokenReplace($this->ldapEntry, '[guid;binary]');
-    $this->assertEquals($tokenHelper->binaryConversionToString($this->ldapEntry['guid'][0]), $binary);
+    $this->assertEquals(ConversionHelper::binaryConversionToString($this->ldapEntry['guid'][0]), $binary);
 
     $account = $this->prophesize('\Drupal\user\Entity\User');
     $value = new \stdClass();
@@ -127,7 +155,7 @@ class TokenTests extends UnitTestCase {
    * Additional token tests for the reverse behaviour for DN derivatives.
    */
   public function testTokensReverse() {
-    $tokenHelper = new TokenProcessor();
+    $tokenHelper = new TokenProcessor($this->detailLog, $this->fileSystem);
 
     // Test regular reversal (2 elements) at beginning.
     $dc = $tokenHelper->tokenReplace($this->ldapEntry, '[dc:reverse:0]');
