@@ -55,7 +55,6 @@
         "drupal/seckit": "^1.2",
         "drupal/sharethis": "^2.0@beta",
         "drupal/simplenews": "^2.0@beta",
-        "drupal/tb_megamenu": "1.x-dev",
         "drupal/token": "^1.6",
         "drupal/webform": "^5.9",
         "drush/drush": "^9.0.0",

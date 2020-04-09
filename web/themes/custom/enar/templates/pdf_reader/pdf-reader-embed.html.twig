@@ -1,0 +1,18 @@
+<div class = 'pdf-reader'>
+    {% if download_link and top %}
+        <div class ="btn btn main_button small_btn bottom_space color1">
+            <a href = "{{ download_link }}">{{ 'Download PDF'|t }}</a>
+        </div>
+    {% endif %}
+    <div class = "pdf-reader-{{  service }}">
+        <object id="pdf_reader" data= "{{file_url}}" type = "application/pdf" width= "{{width}}" height= "{{height}}">
+            <embed src="{{file_url}}" width= "{{width}} " height= "{{height}}" type="application/pdf"><p> {{file_name}} </p>
+            </embed>
+        </object>
+    </div>
+    {% if download_link and bottom %}
+        <div class ="btn main_button large_btn bottom_space media-kit pdf_reader_btn color1">
+            <a href = "{{ download_link }}">{{ 'Download PDF'|t }}</a>
+         </div>
+    {% endif %}
+</div>
