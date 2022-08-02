@@ -33,7 +33,7 @@ function inv_shortcodes_process_title($attrs, $text) {
         '#sub_title' => $sub_title,
         '#type' => $attributes['type'],
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_title_theme(&$themes, $path) {

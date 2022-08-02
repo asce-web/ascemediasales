@@ -1,6 +1,7 @@
-name: Enar Ext
+name: Enar Extension 
 description: Provide features for Enar theme
 type: module
 
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8 || ^9
 package: Innovation

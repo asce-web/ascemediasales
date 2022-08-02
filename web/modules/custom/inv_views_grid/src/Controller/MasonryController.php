@@ -13,14 +13,18 @@ use Drupal\Core\Controller\ControllerBase;
 
 class MasonryController {
     public function save($view, $item, $width, $height) {
-        $result = db_select('inv_masonry', 'm')
+        // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
+        // You will need to use `\Drupal\core\Database\Database::getConnection()` if you do not yet have access to the container here.
+        $result = \Drupal::database()->select('inv_masonry', 'm')
             ->fields('m')
             ->condition('view', $view, '=')
             ->condition('item', $item, '=')
             ->execute()
             ->fetchAssoc();
         if ($result) {
-            db_update('inv_masonry')
+            // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
+            // You will need to use `\Drupal\core\Database\Database::getConnection()` if you do not yet have access to the container here.
+            \Drupal::database()->update('inv_masonry')
                 ->fields(array(
                     'width' => $width,
                     'height' => $height,
@@ -29,7 +33,9 @@ class MasonryController {
                 ->condition('item', $item, '=')
                 ->execute();
         } else {
-            db_insert('inv_masonry')
+            // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
+            // You will need to use `\Drupal\core\Database\Database::getConnection()` if you do not yet have access to the container here.
+            \Drupal::database()->insert('inv_masonry')
                 ->fields(array(
                     'view' => $view,
                     'item' => $item,

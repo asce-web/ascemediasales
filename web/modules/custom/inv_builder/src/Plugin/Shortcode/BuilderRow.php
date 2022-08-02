@@ -17,11 +17,12 @@ use Drupal\Core\Language\Language;
 
 class BuilderRow extends BuilderElement{
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrObj = $this->createAttribute($attributes);
     $attrs = $this->getAttributes(array(
       'fluid' => 'no',
       'class' => '',
+	  'id' => '',
       'flex' => '',
       'wrapper' => '',
       'wrapper_class' => '',
@@ -33,11 +34,19 @@ class BuilderRow extends BuilderElement{
     }
     $row_class = $attrs['fluid'] == 'yes' ? 'row-fluid' : 'row';
 
+	$class_str = 'class = "'. $row_class . '"';
+	if ($attrs['id']) {
+		// Append id to row
+		$class_str = $class_str. ' id = "'. $attrs['id'].'"';
+	}
+	$return = '<div ' . $class_str . '>' . $text . '</div>';
+
     if($attrs['wrapper']){
-	  return '<div' . $attrObj->__toString() . '><div class="'. $attrs['wrapper_class'] .'"><div class="' . $row_class . '">' . $text . '</div></div></div>';
-    }else{
-      return '<div' . $attrObj->__toString() . '><div class="' . $row_class . '">' . $text . '</div></div>';
+	  // Append wrapper div element
+	  $return = '<div class="'. $attrs['wrapper_class'] .'">'. $return .'</div>';
     }
+	$return = '<div' . $attrObj->__toString() . '>'. $return .'</div>';
+	return $return;
   }
   
   public function settingsForm(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
@@ -49,7 +58,13 @@ class BuilderRow extends BuilderElement{
       '#default_value' => $this->get('flex', ''),
       '#description' => $this->t('Make all columns in row has same height use flex display'),
     );
-    
+  
+    $form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Row HTML ID'),
+      '#default_value' => $this->get('id', ''),
+    );
+	
     $form['general_options']['class'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Class'),

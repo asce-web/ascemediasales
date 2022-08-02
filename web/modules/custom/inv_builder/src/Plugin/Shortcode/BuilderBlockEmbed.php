@@ -17,13 +17,13 @@ use Drupal\Core\Language\Language;
  */
 class BuilderBlockEmbed extends BuilderElement {
 
-  function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrs = $this->getAttributes(array('block' => ''), $attributes);
 
 	$block = \Drupal\block\Entity\Block::load($attrs['block']);
 	if (isset($block)) { 
-		$block_content = \Drupal::entityManager()->getViewBuilder('block')->view($block);
-		return drupal_render($block_content);
+		$block_content = \Drupal::entityTypeManager()->getViewBuilder('block')->view($block);
+		return \Drupal::service('renderer')->render($block_content);
 	}
 	return '';
   }

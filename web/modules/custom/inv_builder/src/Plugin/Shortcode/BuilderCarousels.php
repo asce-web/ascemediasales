@@ -28,7 +28,7 @@ class BuilderCarousels extends BuilderElement {
       /**
    * {@inheritdoc}
    */
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
       // Merge with default attributes.
       $attributes = $this->getAttributes(array(
           'carousel_id' => '',

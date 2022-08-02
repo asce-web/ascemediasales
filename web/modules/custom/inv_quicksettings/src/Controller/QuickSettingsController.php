@@ -8,6 +8,7 @@
 
 namespace Drupal\inv_quicksettings\Controller;
 
+use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Controller\ControllerBase;
 
@@ -20,6 +21,6 @@ class QuickSettingsController {
 			$config->save();
 		}
 		$destination = isset($_GET['destination'])?$_GET['destination']:'<front>';
-		return new RedirectResponse(\Drupal::url($destination));
+		return new RedirectResponse(Url::fromRoute($destination));
     }
 }

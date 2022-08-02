@@ -56,7 +56,7 @@ function inv_shortcodes_process_box($attrs, $text) {
         '#readmore'=> $attributes['readmore'],
         '#content' => $text
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_box_theme(&$themes, $path) {

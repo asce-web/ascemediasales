@@ -17,7 +17,7 @@ use Drupal\Core\Template\Attribute;
  */
 class BuilderBox extends BuilderElement {
 
-  public function process($attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $css = $this->getCSS($attrs);
     $attrs = $this->getAttributes(array(
       'icon' => '',
@@ -31,6 +31,7 @@ class BuilderBox extends BuilderElement {
 	  'read_more' =>'',
 	  'link' => '',
       'class' => '',
+	  'id' => '',
       'animate' => '',
       'animate_delay' => 0,
       'icon_width' => '',
@@ -42,6 +43,9 @@ class BuilderBox extends BuilderElement {
         ), $attrs
     );
     $attribute = new Attribute();
+	if ($attrs['id']) {
+		$attribute['id'] = $attrs['id'];
+	}
     $attribute->addClass($attrs['class']);
 	$attribute->addClass($attrs['box_style']);
     $attribute->setAttribute('style', $css);
@@ -217,6 +221,12 @@ class BuilderBox extends BuilderElement {
       '#title' => $this->t('Readmore Text'),
       '#default_value' => $this->get('read_more', ''),
 	  '#description' => $this->t('Leave empty if you dont want to show it.'),
+    );
+
+	$form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('HTML ID'),
+      '#default_value' => $this->get('id', ''),
     );
 
     $form['general_options']['class'] = array(

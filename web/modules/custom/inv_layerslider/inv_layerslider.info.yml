@@ -1,8 +1,9 @@
 name: Innovation LayerSlider
 type: module
 description: LayerSlider for building visual slider based on Revolution Slider
-core: 8.x
-version: 8.x-1.1
+#core: 8.x
+core_version_requirement: ^8 || ^9
+version: 9.x-1.0
 package: Innovation
 dependencies:
   - inv_image_browser

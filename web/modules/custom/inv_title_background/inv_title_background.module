@@ -101,7 +101,6 @@ function inv_title_background_node_form_submit(&$form, FormStateInterface $form_
 	$settings->set('node_title_background_size', $node_title_background_size);
 	$settings->set('node_title_padding', $node_title_padding);
 	$settings->set('node_title_color', $node_title_color);
-	$settings->set('node_title_color', $node_title_color);
   }
 }
 

@@ -1,0 +1,150 @@
+<?php
+
+/**
+ * @file
+ * Module for page setting.
+ */
+
+#define( "APP_ROOT", realpath( dirname( __FILE__ ) ).'/' );
+#require_once( APP_ROOT.'../../themes/innovation/includes/innovation.php' );
+use Drupal\node\Entity\Node;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\file\Entity\File;
+use Drupal\inv_page_settings\InvPageSettings;
+use Drupal\innovation\InnovationTheme;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+
+function inv_page_settings_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+	$node = \Drupal::routeMatch()->getParameter('node');
+
+	$nid = 0;
+	if($node instanceof \Drupal\node\NodeInterface){
+		$nid = $node->id();
+	}
+	$settings = new InvPageSettings($nid);
+	$preset_options = array('not-set'=>'Default');
+
+	if(!isset($form['advanced']['inv_page_settings'])){
+		$form['advanced']['inv_page_settings'] = array();
+	}
+	$form['advanced']['inv_page_settings'] += array(
+		'#type' => 'details',
+		'#title' => t('Innovation Settings'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#weight' => 100
+	);
+
+  
+  // Preset settings
+    $defaultThemeName = \Drupal::config('system.theme')->get('default');
+	$p = \Drupal::config($defaultThemeName.'.settings')->get('innovation_presets');
+    $presets = json_decode(base64_decode($p));
+    if(is_array($presets)){
+      $options = ['' => '- not set -'];
+      foreach($presets as $key => $preset){
+        $options[$key.'--'.$preset->key] = $preset->key;
+      }
+      $form['advanced']['inv_page_settings']['node_custom_preset'] = array(
+        '#type' => 'select',
+        '#title' => t('Custom Preset'),
+        '#options' => $options,
+        '#default_value' => $settings->get('node_custom_preset', ''),
+      );
+    }
+  
+  $form['advanced']['inv_page_settings']['node_custom_wapper_class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom HTML class'),
+    '#default_value' => $settings->get('node_custom_wapper_class', ''),
+    '#description' => t('Add Custom class(es) to body tag'),
+  );
+  
+  $form['advanced']['inv_page_settings']['node_custom_header_style'] = array(
+    '#type' => 'select',
+	'#options' => ['' => 'Unset','header-classic'=> 'Classic', 'header-transparent' => 'Header Transparent', 'header-semi-transparent' => 'Header Semi Transparent'],
+    '#title' => t('Header Style'),
+    '#default_value' => $settings->get('node_custom_header_style', ''),
+    '#description' => t('Set header for specific page.'),
+  );
+  
+  $form['advanced']['inv_page_settings']['node_custom_logo'] = array(
+    '#type' => 'image_browser',
+    '#title' => t('Custom logo'),
+    '#attributes' => ['class' =>['image-browser']],
+    '#default_value' => $settings->get('node_custom_logo', 0),
+  );
+  
+  $form['#attached']['library'][] = 'inv_image_browser/image_browser';
+  
+  foreach (array_keys($form['actions']) as $action) {
+		if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+			$form['actions'][$action]['#submit'][] = 'inv_page_settings_node_form_submit';
+		}
+	}
+}
+
+function inv_page_settings_node_form_submit(&$form, FormStateInterface $form_state){
+  if($nid = $form_state->getValue('nid')){
+
+    $node_custom_logo = $form_state->getValue('node_custom_logo');
+    $node_custom_preset = $form_state->getValue('node_custom_preset');
+	$header_style = $form_state->getValue('node_custom_header_style');
+    $fid = str_replace('file:', '', $node_custom_logo);
+    $file = File::load($fid);
+    if($file){
+      $file->setPermanent();
+      $file->save();
+      $file_usage = \Drupal::service('file.usage');
+      $file_usage->add($file, 'inv_page_settings', 'node', $nid);
+    }
+    $settings = new InvPageSettings($nid);
+
+    $settings->set('node_custom_logo',$node_custom_logo);
+    $settings->set('node_custom_preset',$node_custom_preset);
+	$settings->set('node_custom_header_style',$header_style);
+	
+    $settings->set('node_custom_wapper_class',$form_state->getValue('node_custom_wapper_class'));
+	
+  }
+}
+
+/**
+ * Implement hook_preprocess_html()
+ */
+function inv_page_settings_preprocess_html(&$variables){
+  if($nid = \Drupal::routeMatch()->getRawParameter('node')){
+    $page_settings = new InvPageSettings($nid);
+    if($custom_class = $page_settings->get('node_custom_wapper_class','')){
+      $variables['attributes']['class'][] = $custom_class;
+    }
+	if($header_class = $page_settings->get('node_custom_header_style','')){
+      $variables['attributes']['class'][] = $header_class;
+    }
+  }
+}
+
+/**
+ * Implement hook_preprocess_block()
+ */
+function inv_page_settings_preprocess_block(&$variables){
+  if($variables['plugin_id'] == 'system_branding_block'){
+    $variables['#cache']['max-age'] = 0;
+    if($nid = \Drupal::routeMatch()->getRawParameter('node')){
+      $page_settings = new InvPageSettings($nid);
+      if($custom_logo = $page_settings->get('node_custom_logo','')){
+        $fid = str_replace('file:', '', $custom_logo);
+        $file = File::load($fid);
+        if($file){
+          $variables['content']['site_logo']['#uri'] = file_create_url($file->getFileUri());
+        }
+      }
+    }
+  }
+}

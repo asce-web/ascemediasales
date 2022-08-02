@@ -48,7 +48,7 @@ class SliderImportForm extends FormBase{
     $file_content = file_get_contents($file->getFileUri());
     $slider_data = json_decode($file_content);
     if($slider_data == null){
-      drupal_set_message( $this->t('Invalid file'), 'error');
+      \Drupal::messenger()->addMessage( $this->t('Invalid file'), 'error');
       return false;
     }
     $slider = Slider::create();
@@ -69,6 +69,6 @@ class SliderImportForm extends FormBase{
     $slider->set('data', $data);
     $slider->save();
     $form_state->setRedirect('entity.inv_slider.collection');
-    drupal_set_message('Slider has been imported.');
+    \Drupal::messenger()->addMessage('Slider has been imported.');
   }
 }

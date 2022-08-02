@@ -15,23 +15,32 @@ use Drupal\Core\Template\Attribute;
  * )
  */
 class BuilderContainer extends BuilderElement{
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrObj = $this->createAttribute($attributes);
     $attrs = $this->getAttributes(array(
       'class' => '',
+	  'id' => '',
         ), $attributes
     );
+	if ($attrs['id']) {
+		$attrObj['id'] = $attrs['id'];
+	}
     $attrObj->addClass($attrs['class']);
     return '<div' . $attrObj->__toString() . '>' . $text . '</div>';
   }
   
-  public function processBuilder($attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function processBuilder(array $attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     return $text;
   }
   
   public function settingsForm(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
-    $form['general_options']['class'] = array(
+    $form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Container Id'),
+      '#default_value' => $this->get('id', ''),
+    );
+	$form['general_options']['class'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Custom class'),
       '#default_value' => $this->get('class', ''),

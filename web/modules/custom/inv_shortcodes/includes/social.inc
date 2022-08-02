@@ -27,7 +27,7 @@ function inv_shortcodes_process_social($attrs, $text) {
 		'#type' => $attributes['type'],
         '#content' => $text
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_social_theme(&$themes, $path) {

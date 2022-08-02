@@ -9,7 +9,7 @@ namespace Drupal\inv_layerslider;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 /**
@@ -18,7 +18,7 @@ use Drupal\Core\Url;
  * @ingroup inv_layerslider
  */
 class SliderListBuilder extends EntityListBuilder {
-  use LinkGeneratorTrait;
+//  use Link;
   /**
    * {@inheritdoc}
    */
@@ -34,14 +34,14 @@ class SliderListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\inv_layerslider\Entity\Slider */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
-      $this->getLabel($entity),
+	$row['name'] = Link::fromTextAndUrl(
+		$entity->label(),
       new Url(
         'entity.inv_slider.edit_form', array(
           'inv_slider' => $entity->id(),
         )
       )
-    );
+	);
     $row += parent::buildRow($entity);
     
     $row['operations']['data']['#links']['edit_slides'] = [

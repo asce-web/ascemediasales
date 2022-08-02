@@ -7,6 +7,7 @@
 
 namespace Drupal\carousel_formatter\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Entity\EntityMalformedException;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -58,7 +59,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
       $configuration['view_mode'],
       $configuration['third_party_settings'],
       $container->get('current_user'),
-      $container->get('entity.manager')->getStorage('image_style')
+      $container->get('entity_type.manager')->getStorage('image_style')
     );
   }
 
@@ -113,7 +114,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
         'thumbnail' => t('Thumbnail'),
       ),
 	  '#default_value' => $this->getSetting('pager'),
-	  '#description' => t('Show control pager'),	
+	  '#description' => t('Show control pager'),
     );
 
     $element['interval'] = array(
@@ -154,9 +155,10 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
     );
     return  $settings + parent::defaultSettings();
   }
-  
+
   /**
    * {@inheritdoc}
+   * @throws EntityMalformedException
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
 	$elements = array();
@@ -172,7 +174,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
     if ($image_link_setting == 'content') {
       $entity = $items->getEntity();
       if (!$entity->isNew()) {
-        $url = $entity->urlInfo();
+        $url = $entity->toUrl();
       }
     }
     elseif ($image_link_setting == 'file' || $image_link_setting == 'popup') {
@@ -190,10 +192,10 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
 	$thumbs = array();
     foreach ($files as $delta => $file) {
 	  $image_uri = $file->getFileUri();
-	  $url_image = file_create_url($image_uri);
+	  $url_image = \Drupal::service('file_url_generator')->generateAbsoluteString($image_uri);
 	  $thumbs[$delta] = $url_image;
       if (isset($link_file)) {
-        $url = Url::fromUri(file_create_url($image_uri));
+        $url = \Drupal::service('file_url_generator')->generate($image_uri);
       }
       $cache_tags = Cache::mergeTags($cache_tags, $file->getCacheTags());
 
@@ -203,7 +205,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
       $item = $file->_referringItem;
       $item_attributes = $item->_attributes;
       unset($item->_attributes);
-		
+
       $elements[$delta] = array(
         '#theme' => 'image_formatter',
         '#item' => $item,
@@ -220,7 +222,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
     $settings['control'] = $this->getSetting('control');
     $settings['pager'] = $this->getSetting('pager');
     $settings['interval'] = $this->getSetting('interval');
-	
+
 	if ($this->getSetting('image_link') == 'popup') {
 		$settings['popup'] = true;
 	}
@@ -233,7 +235,7 @@ class CarouselFormatter extends EntityReferenceFormatterBase implements Containe
 	  '#attached' => array('library' => array('carousel_formatter/custom-carousel'))
     );
   }
-  
+
     /**
    * {@inheritdoc}
    */

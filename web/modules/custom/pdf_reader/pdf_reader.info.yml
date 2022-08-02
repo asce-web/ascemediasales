@@ -1,0 +1,6 @@
+name: "PDF Readers"
+description: "Create a new display format for the field that render the pdf file using PDF Reader."
+core: 8.x
+package: pdf_reader
+core_version_requirement: ^8 || ^9
+type: module

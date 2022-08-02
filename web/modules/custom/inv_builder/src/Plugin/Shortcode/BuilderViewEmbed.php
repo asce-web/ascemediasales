@@ -18,7 +18,7 @@ use Drupal\views\Views;
  */
 class BuilderViewEmbed extends BuilderElement {
 
-  function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrs = $this->getAttributes(array('view' => ''), $attributes);
     $value = explode(':', $attrs['view']);
     $view = Views::getView($value[0]);

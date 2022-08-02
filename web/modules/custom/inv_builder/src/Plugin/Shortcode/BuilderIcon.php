@@ -17,7 +17,7 @@ use Drupal\inv_builder\Plugin\Shortcode\BuilderElement;
  */
 class BuilderIcon extends BuilderElement {
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     parent::process($attributes, $text, $langcode);
     $css = $this->getCSS($attributes);
     $attributes = $this->getAttributes(array(
@@ -34,11 +34,15 @@ class BuilderIcon extends BuilderElement {
       'link' => '',
       'target' => '_self',  
       'class' => '',
+	  'id' => '',
       'icon_style' => '',      
         ), $attributes
     );
 
     $attribute = new Attribute();
+	if ($attributes['id']) {
+		$attribute['id'] = $attributes['id'];
+	}
     $attribute->addClass('inv-icon');
     $attribute->addClass($attributes['class']);
     $attribute->addClass($attributes['icon_style']);
@@ -48,7 +52,21 @@ class BuilderIcon extends BuilderElement {
     $icon_css = [];
     if($attributes['fontsize']){
       $icon_css[] = 'font-size:' . $attributes['fontsize'];
-    }   
+    }
+	
+	$link = '';
+    if($attributes['link']){
+      if($attributes['link'] == '#'){
+        $link = $attributes['link'];
+      }else{
+        try{
+          $link = \Drupal\Core\Url::fromUserInput($attributes['link'])->toString();
+        }catch (\Exception $e){
+          $link = $attributes['link'];
+        }
+      }
+    }
+
     if($attributes['icon_width']){
       $icon_css[] = 'width:' . $attributes['icon_width'];
       $icon_css[] = 'text-align: center';
@@ -69,24 +87,27 @@ class BuilderIcon extends BuilderElement {
     }
     $icon_attribute = new Attribute();
     $icon_attribute->addClass($attributes['icon']);
-    $icon_attribute->setAttribute('style', implode(';', $icon_css));
-
+	if (!empty($icon_css)) {
+		$icon_attribute->setAttribute('style', implode(';', $icon_css));
+	}
     $output = array(
       '#theme' => 'inv_builder_icon',
       '#icon' =>  $attributes['icon'],
       '#title' => $attributes['title'],
       '#tooltip' => $attributes['tooltip'],
-      '#link' => $attributes['link'],
+      '#link' => $link,
       '#target' => $attributes['target'],
       '#icon_attributes' => $icon_attribute,  
       '#attributes' => $attribute,
 	  '#icon_style' =>$attributes['icon_style'], 
     );
     if($attributes['icon_library'] && ($icon_plugin = \Drupal::service('inv_builder.fonticon')->getFontIconPlugin($attributes['icon_library']))){
-      $output['#attached']['library'] = $icon_plugin->library();
+      $output['#attached']['library'][] = $icon_plugin->library();
     }
-    if(strpos($attributes['class'], 'inv-video-popup') !== false){
-      $output['#attached']['library'][] = 'inv_builder/video-popup';
+	if($attributes['target'] == 'popup'){
+      $icon_attribute->addClass('inv-video-popup');
+      $output['#target'] = '_self';
+	  $output['#attached']['library'][] = 'inv_builder/video-popup';
     }
     
     return $this->render($output);
@@ -165,6 +186,12 @@ class BuilderIcon extends BuilderElement {
       '#default_value' => $this->get('target'),
     );
 
+	$form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('HTML ID'),
+      '#default_value' => $this->get('id'),
+    );
+
     $form['general_options']['class'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Custom class'),
@@ -182,9 +209,11 @@ class BuilderIcon extends BuilderElement {
       'icon_library' => ''  
       ), $attributes
     );
+	$icon_attribute = new Attribute();
+    $icon_attribute->addClass($attributes['icon']);
     $output = array(
       '#theme' => 'inv_builder_icon',
-      '#icon' =>  $attrs['icon'],
+      '#icon_attributes' =>  $icon_attribute,
     );
     if($attrs['icon_library'] && ($icon_plugin = \Drupal::service('inv_builder.fonticon')->getFontIconPlugin($attrs['icon_library']))){
       $output['#attached']['library'] = $icon_plugin->library();

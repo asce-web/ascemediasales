@@ -94,7 +94,7 @@ class InvGridStyle extends StylePluginBase {
         '#attributes' => array('class' => array('grid-style')),
     );
       $field_options = array();
-      $fields = \Drupal::entityManager()->getFieldMapByFieldType('image');
+      $fields = \Drupal::service('entity_field.manager')->getFieldMapByFieldType('image');
 
       foreach($fields as $field){
           foreach($field as $key => $value){

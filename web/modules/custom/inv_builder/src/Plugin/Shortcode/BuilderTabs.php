@@ -18,10 +18,11 @@ use Drupal\Core\Language\Language;
  */
 class BuilderTabs extends BuilderElement {
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     parent::process($attributes, $text, $langcode);
     
     $attributes = $this->getAttributes(array(
+	  'id' => '',
       'class' => '',
       'fade' => '',
 	  'tab_style' => '',
@@ -33,6 +34,7 @@ class BuilderTabs extends BuilderElement {
       '#theme' => 'inv_builder_tabs',
       '#tabs' => $builder_tabs_stack,
       '#fade' => $attributes['fade'],
+	  '#id' => $attributes['id'],
       '#class' => $attributes['class'],
 	  '#tab_style' => $attributes['tab_style'],
     );
@@ -50,6 +52,12 @@ class BuilderTabs extends BuilderElement {
       '#default_value' => $this->get('fade'),
     );
     
+	$form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('HTML ID'),
+      '#default_value' => $this->get('id'),
+    );
+
     $form['general_options']['class'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Custom class'),

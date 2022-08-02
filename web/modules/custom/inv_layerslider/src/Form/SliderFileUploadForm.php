@@ -38,7 +38,8 @@ class SliderFileUploadForm extends FormBase {
       '#type' => 'image_browser',
       '#default_value' => $default_value,
     );
-
+	$form['#prefix'] = '<div>';
+	$form['#suffix'] = '</div>';
     return $form;
   }
   

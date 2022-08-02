@@ -26,7 +26,7 @@ function inv_shortcodes_process_button($attrs, $text) {
         '#type' => $attributes['type'],
         '#content' => $text,
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_button_theme(&$themes, $path) {
