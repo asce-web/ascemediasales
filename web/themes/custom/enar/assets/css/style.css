@@ -3677,52 +3677,7 @@ h2.title2 span.red {
 .c_detail .c_desc {
   color: #9ea3a3;
 }
-.block.contact-us .block-title {
-  font-weight: 400;
-  margin-bottom: 30px;
-}
-.block.contact-us .block-title:before {
-  margin-right: 15px;
-  font-size: 32px;
-  font-family: 'idealtheme';
-  font-style: normal;
-  font-weight: 400;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  content: "\e06e";
-}
-.block.contact-us label {
-  float: left;
-  width: 20%;
-}
-.block.contact-us input[type="text"],
-.block.contact-us input[type="date"],
-.block.contact-us input[type="email"],
-.block.contact-us input[type="number"],
-.block.contact-us textarea {
-  width: 80%;
-  float: left;
-}
-.block.contact-us .form-wrapper .form-item {
-  clear: both;
-  overflow: auto;
-  margin-bottom: 27px;
-}
-.block.contact-us input[type="submit"] {
-  background: #0c5fa8;
-  border: 1px solid #0c5fa8;
-  color: #fff;
-  padding: 8px 12px;
-  font-size: 14px;
-  display: inline-block;
-  width: 80%;
-  margin-left: 20%;
-}
-.block.contact-us #edit-preview {
-  display: none;
-}
+
 .fs_block {
   border: 5px solid rgba(0,0,0,0.5);
   background: none;

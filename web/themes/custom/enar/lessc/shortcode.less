@@ -367,37 +367,37 @@
     }
   }
   &.style03, &.style04{
-     .nav-tabs {
-       > li {
-         &.active {
-           a {
-             background:@base_color;
-             color:#FFF;
-             &:before {
-               background: transparent;
-             }
-           }
-         }
-       }
-     }
-   }
+    .nav-tabs {
+      > li {
+        &.active {
+          a {
+            background:@base_color;
+            color:#FFF;
+            &:before {
+              background: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
   &.style04 {
     .nav-tabs {
       > li {
         &.active {
           a {
-           &:before {
-             background: none;
-             border-color: transparent transparent #fff;
-             border-style: solid;
-             border-width: 7px;
-             bottom: -3px;
-             content: "";
-             display: block;
-             position: absolute;
-             width: 10px;
-             top:unset;
-             left:unset;
+            &:before {
+              background: none;
+              border-color: transparent transparent #fff;
+              border-style: solid;
+              border-width: 7px;
+              bottom: -3px;
+              content: "";
+              display: block;
+              position: absolute;
+              width: 10px;
+              top:unset;
+              left:unset;
             }
           }
         }
@@ -487,27 +487,27 @@
   &.vertical {
     background: #fff;
     border: 1px solid #E5E5E5;
-      .nav-tabs {
-        float:left;
-        width:30%;
-        > li {
-          display:block;
-          width:100%;
-          &.active {
-            > a {
-              border-right: 0;
-              &:before {
-                content: "";
-                height: 100%;
-                left: -1px;
-                position: absolute;
-                top: 0;
-                width: 3px;
-              }
+    .nav-tabs {
+      float:left;
+      width:30%;
+      > li {
+        display:block;
+        width:100%;
+        &.active {
+          > a {
+            border-right: 0;
+            &:before {
+              content: "";
+              height: 100%;
+              left: -1px;
+              position: absolute;
+              top: 0;
+              width: 3px;
             }
           }
         }
       }
+    }
     .tab-content {
       width:70%;
       float:left;
@@ -634,16 +634,16 @@
         overflow: hidden;
         left: 1px;
         &:before {
-            background: rgba(0, 0, 0, 0.1);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, -1px -1px 0 rgba(255, 255, 255, 0.2);
-            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, -1px -1px 0 rgba(255, 255, 255, 0.2);
-            content: "";
-            height: 6px;
-            position: absolute;
-            right: 7px;
-            top: 6px;
-            width: 6px;
-            .border-radius(3px,3px,3px,3px);
+          background: rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, -1px -1px 0 rgba(255, 255, 255, 0.2);
+          -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, -1px -1px 0 rgba(255, 255, 255, 0.2);
+          content: "";
+          height: 6px;
+          position: absolute;
+          right: 7px;
+          top: 6px;
+          width: 6px;
+          .border-radius(3px,3px,3px,3px);
         }
         &:after {
           box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2) inset;
@@ -866,17 +866,17 @@
     }
   }
   &.thick-border-transparent {
-	.box-icon {
-		border: solid 7px #593652;
-	}
-	&:hover {
-		.box-icon {
-			background-color: #FFF;
-		}
-		i {
-			color: @base_color;
-		}
-	}
+    .box-icon {
+      border: solid 7px #593652;
+    }
+    &:hover {
+      .box-icon {
+        background-color: #FFF;
+      }
+      i {
+        color: @base_color;
+      }
+    }
   }
   &.style01,&.style02 {
     margin-top:40px;
@@ -1406,22 +1406,22 @@ PIECHARTS
     .inv-pie-chart-title {
       color:#FFF;
     }
-   .inv-pie-chart {
+    .inv-pie-chart {
       &.gt-50 {
         .ppc-progress .ppc-progress-fill {
           border-color: #666666;
         }
       }
-     .ppc-percents {
-       span {
-         width: 100px;
-         height: 100px;
-         background-color: #FFF;
-         line-height: 100px;
-         margin: 0 auto;
-         .border-radius(100%,100%,100%,100%);
-       }
-     }
+      .ppc-percents {
+        span {
+          width: 100px;
+          height: 100px;
+          background-color: #FFF;
+          line-height: 100px;
+          margin: 0 auto;
+          .border-radius(100%,100%,100%,100%);
+        }
+      }
     }
   }
 
@@ -1479,8 +1479,8 @@ Title
 }
 .title1 {
   .title, .block-title {
-  color: @base_color;
-  font-weight:400;
+    color: @base_color;
+    font-weight:400;
     i {
       font-size: 32px;
       margin-right: 15px;
@@ -1488,67 +1488,67 @@ Title
   }
 }
 .mt0 {
-	.title {
-		margin-top:0;
-	}
+  .title {
+    margin-top:0;
+  }
 }
 .main_title_c1 {
-    color: @base_color;
+  color: @base_color;
 }
 .banner-title {
-    position: relative;
-    margin-bottom: 1px;
-	h2 {
-		color: #FFF;
-		margin: 0;
-		text-transform: uppercase;
-		padding: 25px 0 27px;
-		text-align:center;
-	}
-	&.bg-title-purple {
-		h2 {
-			background-color: #684962;
-		}
-	}
-	&.bg-title-color {
-		h2 {
-			background-color: @base_color;
-		}
-	}
+  position: relative;
+  margin-bottom: 1px;
+  h2 {
+    color: #FFF;
+    margin: 0;
+    text-transform: uppercase;
+    padding: 25px 0 27px;
+    text-align:center;
+  }
+  &.bg-title-purple {
+    h2 {
+      background-color: #684962;
+    }
+  }
+  &.bg-title-color {
+    h2 {
+      background-color: @base_color;
+    }
+  }
 }
 .small_title {
-	margin-bottom: 20px;
-    margin-top: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  position: relative;
+  &:after {
+    background: #eee;
+    content: "";
+    display: block;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
+  .small_title_con {
+    background: #fff;
+    display: inline-block;
+    padding-right: 15px;
     position: relative;
-	&:after {
-		background: #eee;
-		content: "";
-		display: block;
-		height: 1px;
-		left: 0;
-		position: absolute;
-		top: 50%;
-		width: 100%;
-	}
-	.small_title_con {
-		background: #fff;
-		display: inline-block;
-		padding-right: 15px;
-		position: relative;
-		z-index: 1;
-		&.s_icon {
-			color: #b5b5b5;
-			display: inline-block;
-			font-size: 15px;
-			height: 40px;
-			line-height: 40px;
-			text-align: left;
-			margin-right: 7px;
-		}
-		&.s_text {
-			color: #555555;
-		}
-	}
+    z-index: 1;
+    &.s_icon {
+      color: #b5b5b5;
+      display: inline-block;
+      font-size: 15px;
+      height: 40px;
+      line-height: 40px;
+      text-align: left;
+      margin-right: 7px;
+    }
+    &.s_text {
+      color: #555555;
+    }
+  }
 }
 .title-wrapper {
   &.text-center {
@@ -1586,15 +1586,15 @@ Title
       height: 1px;
       position: absolute;
       width: 33%;
-     &:before {
+      &:before {
         background: @base_color;
         content: "";
         display: block;
         height: 1px;
         position: absolute;
         width: 100px;
-       .transition(all,0.4s,ease);
-     }
+        .transition(all,0.4s,ease);
+      }
       i {
         background: #fff;
         color: @base_color;
@@ -1679,7 +1679,7 @@ Title
     &.bg_color {
       h3 {
         background: @base_color;
-     }
+      }
       .line-style{
         border-color: @base_color transparent transparent;
       }
@@ -1853,13 +1853,13 @@ Pricing table
     color: #fff;
   }
   .plan_col.plan_column1:hover {
-     > h6:after {
+    > h6:after {
       opacity: 1;
     }
   }
   .hm-pricing-list {
     margin: 2em 0 0;
-	list-style:none;
+    list-style: none;
     & > li {
       margin-bottom: 15px;
       position: relative;
@@ -2297,7 +2297,7 @@ Pricing table
     border: 0 none;
   }
   &.text-color {
-	color: @base_color;
+    color: @base_color;
   }
 }
 
@@ -2309,9 +2309,9 @@ Pricing table
   overflow: hidden;
   color: #888;
   &.text-color {
-	color: @base_color;
+    color: @base_color;
   }
-	& > span {
+  & > span {
     background: #fff;
     display: block;
     overflow: hidden;
@@ -2779,19 +2779,6 @@ Pricing table
   display: inline-block;
 }
 
-.pdf_reader_btn {
-  a:not(.btn) {
-    color: #fff
-  }
-  a:not(.btn):hover {
-    color: #0099CC;
-  }
-  margin-top:  20px;
-  i {
-    margin-left: 6px;
-  }
-}
-
 /******************************************************/
 /** Banner Text                                        *
 *******************************************************/
@@ -2815,7 +2802,7 @@ Pricing table
     font-style: normal;
     font-weight: 300;
     line-height: 34px;
-	}
+  }
 }
 .bg-color, .bg-gray1,.bg-gray2 {
   .welcome_banner {
@@ -2829,7 +2816,7 @@ Pricing table
   }
 }
 .bg-gray2 {
-	.intro_text {
-	  color: #aaa;
-	}
+  .intro_text {
+    color: #aaa;
+  }
 }

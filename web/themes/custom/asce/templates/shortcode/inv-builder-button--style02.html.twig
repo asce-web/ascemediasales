@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Override template for button style01
+ *
+ * Available variables:
+ * - class
+ * - icon
+ * - title
+ */
+#}
+<a {{ attributes }}>
+    <span>
+    {% if icon %}<i class="in_left {{ icon }}"></i>{% endif %}<span>{{ title }}</span>
+    {% if icon %}<i class="in_right {{ icon }}"></i>{% endif %}
+    </span>
+</a>

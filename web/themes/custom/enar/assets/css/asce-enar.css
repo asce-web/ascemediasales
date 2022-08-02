@@ -1,0 +1,18 @@
+.pdf_reader_btn {
+  margin-top: 20px;
+}
+.pdf_reader_btn a:not(.btn) {
+  color: #fff;
+}
+.pdf_reader_btn a:not(.btn):hover {
+  color: #0099CC;
+}
+.pdf_reader_btn i {
+  margin-left: 6px;
+}
+
+.media-kit a {
+  background-color: #0c5fa8 !important;
+  color: white !important;
+}
+/*# sourceMappingURL=asce-enar.css.map */

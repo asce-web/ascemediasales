@@ -1,0 +1,20 @@
+.pdf_reader_btn {
+  a:not(.btn) {
+    color: #fff
+  }
+
+  a:not(.btn):hover {
+    color: #0099CC;
+  }
+
+  margin-top: 20px;
+
+  i {
+    margin-left: 6px;
+  }
+}
+
+.media-kit a{
+  background-color: #0c5fa8 !important;
+  color: white !important;
+}

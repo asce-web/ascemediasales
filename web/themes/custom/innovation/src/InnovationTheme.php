@@ -1,10 +1,11 @@
 <?php
 
+namespace Drupal\innovation;
 use \Drupal\Component\Utility\Html;
 use \Drupal\Core\Render\Element;
 use \Drupal\Core\Render\Markup;
 
-class InnovationTheme extends stdClass{
+class InnovationTheme extends \stdClass {
   var $layouts = null;
   var $layout = 0;
   var $theme = 'innovation';
@@ -28,7 +29,7 @@ class InnovationTheme extends stdClass{
         $p = call_user_func($func);
       } else{
         //Load presets form base theme
-        $themes = system_list('theme');
+        $themes = \Drupal::service('theme_handler')->listInfo();
         if(isset($themes[$this->theme]->info['base theme'])){
           $base_theme = $themes[$this->theme]->info['base theme'];
           if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme')){
@@ -48,7 +49,7 @@ class InnovationTheme extends stdClass{
     if(function_exists($infunc)){
       $init_presets = call_user_func($infunc);
     } else {
-		$themes = system_list('theme');
+		$themes = \Drupal::service('theme_handler')->listInfo();
         if(isset($themes[$this->theme]->info['base theme'])){
           $base_theme = $themes[$this->theme]->info['base theme'];
 		  $infunc = $base_theme . '_init_presets';
@@ -61,7 +62,7 @@ class InnovationTheme extends stdClass{
     $this->presets = array_slice($this->presets, 0, $init_presets);
     for($i=0; $i<$init_presets; $i++){
       if(!isset($this->presets[$i])){
-        $newpreset = new stdClass();
+        $newpreset = new \stdClass();
         $newpreset->key = 'Preset '.($i+1);
         $newpreset->base_color = '#666666';
         $newpreset->base_color_opposite = '#666666';
@@ -89,7 +90,7 @@ class InnovationTheme extends stdClass{
 
   public function getLessFiles() {
     $path = drupal_get_path('theme',$this->theme);
-	$themes = system_list('theme');
+	$themes = \Drupal::service('theme_handler')->listInfo();
 	$base_less_path = [];
 	if(isset($themes[$this->theme]->info['base theme'])){
 		$base_theme = $themes[$this->theme]->info['base theme'];
@@ -142,7 +143,7 @@ class InnovationTheme extends stdClass{
         return;
       }else{
         //Load layout from base theme
-        $themes = system_list('theme');
+        $themes = \Drupal::service('theme_handler')->listInfo();
         if(isset($themes[$this->theme]->info['base theme'])){
           $base_theme = $themes[$this->theme]->info['base theme'];
           if(file_exists(DRUPAL_ROOT.'/'.drupal_get_path('theme',$base_theme).'/'.$base_theme.'.theme')){
@@ -166,17 +167,17 @@ class InnovationTheme extends stdClass{
       $regions = array();
       $weight = 0;
       foreach ($theme_regions as $key => $title) {
-        $region = new stdClass();
+        $region = new \stdClass();
         $region->key = $key;
         $region->title = $title;
         $region->size = 6;
         $regions[] = $region;
       }
-      $unassignedsection = new stdClass();
+      $unassignedsection = new \stdClass();
       $unassignedsection->key = 'unassigned';
       $unassignedsection->title = 'Unassigned';
       $unassignedsection->regions = $regions;
-      $layout = new stdClass();
+      $layout = new \stdClass();
       $layout->key = 'default';
       $layout->title = 'Default';
       $layout->sections = array($unassignedsection);
@@ -208,7 +209,7 @@ class InnovationTheme extends stdClass{
           $section->regions = array_values($section->regions);
         }
         if (!$region_exists) {
-          $newregion = new stdClass();
+          $newregion = new \stdClass();
           $newregion->key = $key;
           $newregion->title = $title;
           $newregion->size = 6;
@@ -269,7 +270,7 @@ class InnovationTheme extends stdClass{
           'class' => [Html::getClass('inv-section')],
         ],
       ];
-      return drupal_render($render_array);
+      return \Drupal::service('renderer')->render($render_array);
     }
     return "";
   }
@@ -277,7 +278,7 @@ class InnovationTheme extends stdClass{
   function regionRender($region) {
     $drupal_static = &drupal_static(__FUNCTION__);
     if (!isset($drupal_static[$region->key])) {
-       $content = drupal_render($this->page['page'][$region->key]);
+       $content = \Drupal::service('renderer')->render($this->page['page'][$region->key]);
        if($content){
             $region_class = Html::getClass('region-'.$region->key);
             $drupal_static[$region->key] =  '<!-- .'.$region_class.'-->'.PHP_EOL.$content.'<!-- END .'.$region_class.'-->'.PHP_EOL;
@@ -298,7 +299,7 @@ class InnovationTheme extends stdClass{
         if ($region->key == $region_key) {
           $ret = $region;
           if ($region_key == 'content') {
-            innovation_calculate_primary($section_index, $region_index);
+            $this->innovation_calculate_primary($section_index, $region_index);
           }
         }
       }
@@ -308,7 +309,8 @@ class InnovationTheme extends stdClass{
   
   function get_layout() {
    $node_path = \Drupal::service('path.current')->getPath();
-   $alias_path = \Drupal::service('path.alias_manager')->getAliasByPath($node_path);
+//   $alias_path = \Drupal::service('path.alias_manager')->getAliasByPath($node_path);
+	$alias_path = \Drupal::service('path_alias.manager')->getAliasByPath($node_path);
    $return = 0;
     foreach ($this->layouts as $k => $layout) {
 		if (isset($layout->isdefault) && $layout->isdefault){
@@ -324,34 +326,38 @@ class InnovationTheme extends stdClass{
     }
     return $return;
   }
+   public static function innovation_get_theme(){
+	  $drupal_static = &drupal_static(__FUNCTION__);
+	  $key = \Drupal::theme()->getActiveTheme()->getName();
+	  if (!isset($drupal_static[$key])) {
+		$drupal_static[$key] = new InnovationTheme($key);
+	  }
+	  return $drupal_static[$key];
+	}
+	
+	/**
+	* Calculate primary column width
+	*/
+	function innovation_calculate_primary($section_index, $primary_region_index) {
+		$theme = InnovationTheme::innovation_get_theme();
+		$devices = array('colxs', 'colsm', 'colmd', 'collg');
+		foreach ($devices as $device) {
+			$theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device = 12;
+				foreach ($theme->layouts[$theme->layout]->sections[$section_index]->regions as $region_index => $region) {
+					if ($region_index != $primary_region_index) {
+						if (Element::children($theme->page['page'][$region->key])) {
+							$theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device -= $theme->layouts[$theme->layout]->sections[$section_index]->regions[$region_index]->$device;
+						if ($theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device <= 0) {
+							$theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device = 12;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-function innovation_get_theme(){
-  $drupal_static = &drupal_static(__FUNCTION__);
-  $key = \Drupal::theme()->getActiveTheme()->getName();
-  if (!isset($drupal_static[$key])) {
-    $drupal_static[$key] = new InnovationTheme($key);
-  }
-  return $drupal_static[$key];
-}
 
-/**
- * Calculate primary column width
- */
-function innovation_calculate_primary($section_index, $primary_region_index) {
-  $theme = innovation_get_theme();
-  $devices = array('colxs', 'colsm', 'colmd', 'collg');
-  foreach ($devices as $device) {
-    $theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device = 12;
-    foreach ($theme->layouts[$theme->layout]->sections[$section_index]->regions as $region_index => $region) {
-      if ($region_index != $primary_region_index) {
-        if (Element::children($theme->page['page'][$region->key])) {
-          $theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device -= $theme->layouts[$theme->layout]->sections[$section_index]->regions[$region_index]->$device;
-          if ($theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device <= 0) {
-            $theme->layouts[$theme->layout]->sections[$section_index]->regions[$primary_region_index]->$device = 12;
-          }
-        }
-      }
-    }
-  }
-}
+
+
+

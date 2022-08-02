@@ -45,7 +45,7 @@ function enar_preprocess_breadcrumb(&$variables){
    if(($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']){
 		$variables['breadcrumb'][] = array(
 		 'text' => $node->getTitle(),
-		 'url' => $node->URL()
+		 'url' => $node->toUrl()->toString(),
 	   );
 	   $variables['#cache']['contexts'][] = 'url';
    }
@@ -67,7 +67,7 @@ function enar_theme_suggestions_image_formatter_alter(array &$suggestions, array
   $entity = $variables['item']->getEntity();
   $field_name = $variables['item']->getParent()->getName();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId();
-  $suggestions[] = 'image_formatter__' . $entity->bundle(); 
+  $suggestions[] = 'image_formatter__' . $entity->bundle();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
 }
@@ -75,7 +75,7 @@ function enar_theme_suggestions_image_formatter_alter(array &$suggestions, array
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function enar_theme_suggestions_block_alter(array &$suggestions, array $variables) 
+function enar_theme_suggestions_block_alter(array &$suggestions, array $variables)
 {
     $block = $variables['elements'];
 	$blockType = $block['#configuration']['provider'];

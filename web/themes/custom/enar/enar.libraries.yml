@@ -31,4 +31,4 @@ revolution-slider:
     assets/js/jquery.themepunch.tools.min.js: {}
     assets/js/enar-revolution.js: {}
   dependencies:
-    - core/jquery    
+    - core/jquery

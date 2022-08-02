@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__FILE__) . '/includes/innovation.php';
-require_once dirname(__FILE__) . '/includes/layout_settings.php';
-require_once dirname(__FILE__) . '/includes/preset_settings.php';
-require_once dirname(__FILE__) . '/includes/fonts_settings.php';
-require_once dirname(__FILE__) . '/includes/basic_settings.php';
+
+use Drupal\innovation\LayoutSetting;
+use Drupal\innovation\PresetSetting;
+use Drupal\innovation\FontsSetting;
+use Drupal\innovation\BasicSetting;
 
 function innovation_form_system_theme_settings_alter(&$form, &$form_state){
   $form['innovation_theme_settings'] = [
@@ -12,10 +12,10 @@ function innovation_form_system_theme_settings_alter(&$form, &$form_state){
   ];
   $form['theme_settings']['#group'] = 'innovation_theme_settings';
   $form['favicon']['#group'] = 'innovation_theme_settings';
-  innovation_layout_settings_form_alter($form);
-  innovation_preset_settings_form_alter($form);
-  innovation_fonts_settings_form_alter($form);
-  innovation_basic_settings_form_alter($form);
+  LayoutSetting::innovation_layout_settings_form_alter($form);
+  PresetSetting::innovation_preset_settings_form_alter($form);
+  FontsSetting::innovation_fonts_settings_form_alter($form);
+  BasicSetting::innovation_basic_settings_form_alter($form);
   $form['#submit'][] = 'innovation_theme_settings_submit';
   $form['#validate'][] = 'innovation_theme_settings_validate';
 
