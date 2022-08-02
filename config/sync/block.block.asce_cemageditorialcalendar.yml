@@ -1,0 +1,36 @@
+uuid: 6e9928eb-61e6-4fb4-b900-e2b18d55c10f
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:86dbefd7-ee26-42e9-b3f3-5f0626d914d2'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_classes: container
+id: asce_cemageditorialcalendar
+theme: asce
+region: header_top_left
+weight: -17
+provider: null
+plugin: 'block_content:86dbefd7-ee26-42e9-b3f3-5f0626d914d2'
+settings:
+  id: 'block_content:86dbefd7-ee26-42e9-b3f3-5f0626d914d2'
+  label: 'CE Mag Editorial Calendar Test'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: '/node/*'

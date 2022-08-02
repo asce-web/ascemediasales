@@ -1,0 +1,30 @@
+uuid: d1bfafc1-dce7-4c09-82f3-43333bd69184
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ad2c9ce2-00c8-453c-989f-2e47a0c61b40'
+  module:
+    - block_content
+    - inv_block_custom
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_classes: social-top
+id: asce_socialheader
+theme: asce
+region: header_top_right
+weight: 0
+provider: null
+plugin: 'block_content:ad2c9ce2-00c8-453c-989f-2e47a0c61b40'
+settings:
+  id: 'block_content:ad2c9ce2-00c8-453c-989f-2e47a0c61b40'
+  label: 'Social Header'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

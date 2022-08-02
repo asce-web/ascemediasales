@@ -1,0 +1,40 @@
+uuid: 8182dd82-5ef1-4c03-99f3-4220a1b2010a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '7'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+    block_container_class: container
+id: asce_enewslettersbanner
+theme: asce
+region: banner
+weight: -20
+provider: null
+plugin: 'block_content:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+settings:
+  id: 'block_content:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+  label: 'E-Newsletters banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/5

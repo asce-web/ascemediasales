@@ -1,0 +1,36 @@
+uuid: 0ee0b7b3-8553-4ecf-b1d4-03b20c616b92
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:7b980303-1ed3-46d0-a0cd-12e8f5197b2c'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+id: asce_contactformtitle
+theme: asce
+region: haft_content_second
+weight: -26
+provider: null
+plugin: 'block_content:7b980303-1ed3-46d0-a0cd-12e8f5197b2c'
+settings:
+  id: 'block_content:7b980303-1ed3-46d0-a0cd-12e8f5197b2c'
+  label: 'Contact Form Title'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/9

@@ -1,0 +1,29 @@
+uuid: d660525a-e659-48c0-b682-e11b11120a1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_appears_on
+    - node.type.page
+    - node.type.testimonial
+id: node.testimonial.field_appears_on
+field_name: field_appears_on
+entity_type: node
+bundle: testimonial
+label: 'Appears on...'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

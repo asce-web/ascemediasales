@@ -1,0 +1,15 @@
+uuid: 8b06e38b-3b91-4e56-9490-40033a8be0b7
+langcode: en
+status: true
+dependencies: {  }
+name: testimonial
+label: 'Testimonial (170x170)'
+effects:
+  6a8abebe-86c8-4ce0-b5db-79ca88e99c34:
+    uuid: 6a8abebe-86c8-4ce0-b5db-79ca88e99c34
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 170
+      height: 170
+      anchor: center-center

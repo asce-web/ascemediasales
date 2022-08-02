@@ -1,0 +1,37 @@
+uuid: 5a746f64-3695-4a52-a08f-bfd9be3dc340
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:83dcedd7-f623-4015-928c-443a7c5eba45'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+    block_classes: bg-gray
+id: asce_homealittleaboutus
+theme: asce
+region: bottom_content
+weight: -13
+provider: null
+plugin: 'block_content:83dcedd7-f623-4015-928c-443a7c5eba45'
+settings:
+  id: 'block_content:83dcedd7-f623-4015-928c-443a7c5eba45'
+  label: 'Home A Little About Us'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/28

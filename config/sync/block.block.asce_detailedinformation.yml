@@ -1,0 +1,37 @@
+uuid: 2f0dc540-727b-4116-b696-1db34b0edc87
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:86db1b0d-a9fa-4fa7-a8b9-016edec19af9'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+    block_container_class: container
+id: asce_detailedinformation
+theme: asce
+region: bottom_content
+weight: -26
+provider: null
+plugin: 'block_content:86db1b0d-a9fa-4fa7-a8b9-016edec19af9'
+settings:
+  id: 'block_content:86db1b0d-a9fa-4fa7-a8b9-016edec19af9'
+  label: 'Detailed Information'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/node/1\r\n"

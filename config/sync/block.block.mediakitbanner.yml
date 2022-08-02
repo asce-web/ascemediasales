@@ -1,0 +1,58 @@
+uuid: 560d863b-872f-4b0f-a231-242562f2a5ed
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d728f66d-3836-4ca8-a520-4d170dea7a8d'
+  module:
+    - block_content
+    - ctools
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '145'
+    background_image_type: cover
+    background_image_position: 'top center'
+    background_video_mute: '0'
+    block_padding: '110px 0'
+    overlay_color: '#000000'
+    overlay_opacity: '.2'
+    responsive:
+      hphone: 0
+      vphone: 0
+      htablet: 0
+      vtablet: 0
+      hdesktop: 0
+      vdesktop: 0
+    block_container_class: container
+id: mediakitbanner
+theme: enar
+region: banner
+weight: 0
+provider: null
+plugin: 'block_content:d728f66d-3836-4ca8-a520-4d170dea7a8d'
+settings:
+  id: 'block_content:d728f66d-3836-4ca8-a520-4d170dea7a8d'
+  label: 'Media Kit Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      media_kit: media_kit
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /download-media-kit

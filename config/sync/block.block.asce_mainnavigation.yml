@@ -1,0 +1,24 @@
+uuid: 9eab0b85-91bd-45ae-a9cf-0ecaeecc97eb
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - tb_megamenu
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: asce_mainnavigation
+theme: asce
+region: primary_menu
+weight: -27
+provider: null
+plugin: 'tb_megamenu_menu_block:main'
+settings:
+  id: 'tb_megamenu_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: tb_megamenu
+visibility: {  }

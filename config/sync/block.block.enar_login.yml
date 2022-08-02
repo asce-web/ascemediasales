@@ -1,0 +1,22 @@
+uuid: e65ab05e-5435-48cb-9149-52668921cacf
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - enar
+_core:
+  default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
+id: enar_login
+theme: enar
+region: header_top_left
+weight: -18
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: visible
+  provider: user
+visibility: {  }

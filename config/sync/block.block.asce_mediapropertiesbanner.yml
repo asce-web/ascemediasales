@@ -1,0 +1,40 @@
+uuid: b27ad6fc-0947-4630-abf0-2be21928faa9
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:fad76c3c-7570-4b65-8a80-daf3f5718865'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '67'
+    background_image_type: cover
+    background_image_position: 'top center'
+    block_padding: '110px 0'
+    block_container_class: container
+id: asce_mediapropertiesbanner
+theme: asce
+region: banner
+weight: -15
+provider: null
+plugin: 'block_content:fad76c3c-7570-4b65-8a80-daf3f5718865'
+settings:
+  id: 'block_content:fad76c3c-7570-4b65-8a80-daf3f5718865'
+  label: 'Media Properties Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/2

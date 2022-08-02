@@ -1,0 +1,42 @@
+uuid: 2fc71b2a-600f-4e76-a051-7a37db9bf986
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:142390f1-4c5a-42d3-9280-6924bfaad1b2'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '88'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+    block_container_class: container
+    overlay_color: '#000000'
+    overlay_opacity: '.2'
+id: asce_asce.orgbanner
+theme: asce
+region: banner
+weight: -21
+provider: null
+plugin: 'block_content:142390f1-4c5a-42d3-9280-6924bfaad1b2'
+settings:
+  id: 'block_content:142390f1-4c5a-42d3-9280-6924bfaad1b2'
+  label: 'ASCE.org banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/4

@@ -1,0 +1,41 @@
+uuid: 355dbf21-1bf6-4de5-a4d2-1237385f4cdb
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image_position: 'top center'
+    background_video_mute: '0'
+    block_container_class: container
+    responsive:
+      hphone: 0
+      vphone: 0
+      htablet: 0
+      vtablet: 0
+      hdesktop: 0
+      vdesktop: 0
+_core:
+  default_config_hash: 8yptDf6WrXxeyevUz4nP5vfr7BtxQqCBMninhV2IJ1g
+id: asce_page_title
+theme: asce
+region: page_title
+weight: -4
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: "<front>\r\n/node/32\r\n/node/33"

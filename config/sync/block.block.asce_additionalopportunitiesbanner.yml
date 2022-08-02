@@ -1,0 +1,42 @@
+uuid: 29843407-6d84-4a76-a0aa-0f22ccccfd8c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:4eda9007-a75c-4a83-9551-4949b9508357'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '9'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+    block_container_class: container
+    overlay_color: '#000000'
+    overlay_opacity: '0.1'
+id: asce_additionalopportunitiesbanner
+theme: asce
+region: banner
+weight: -19
+provider: null
+plugin: 'block_content:4eda9007-a75c-4a83-9551-4949b9508357'
+settings:
+  id: 'block_content:4eda9007-a75c-4a83-9551-4949b9508357'
+  label: 'Additional Opportunities banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/7

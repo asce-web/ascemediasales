@@ -1,0 +1,35 @@
+uuid: 50b6a681-ca3c-4255-aedf-76fb9f8dedf4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:0a669da7-4147-43d3-8528-38fa938d2ae9'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: asce_footerfirst
+theme: asce
+region: footer_first
+weight: 0
+provider: null
+plugin: 'block_content:0a669da7-4147-43d3-8528-38fa938d2ae9'
+settings:
+  id: 'block_content:0a669da7-4147-43d3-8528-38fa938d2ae9'
+  label: 'Footer First'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: '/node/*'

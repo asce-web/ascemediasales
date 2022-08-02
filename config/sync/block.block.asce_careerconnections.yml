@@ -1,0 +1,39 @@
+uuid: d18c7c0d-8d17-4386-acfa-0a98c43806ae
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:4d3626cb-f62e-450a-80b5-6255d8582e35'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '10'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+id: asce_careerconnections
+theme: asce
+region: banner
+weight: -17
+provider: null
+plugin: 'block_content:4d3626cb-f62e-450a-80b5-6255d8582e35'
+settings:
+  id: 'block_content:4d3626cb-f62e-450a-80b5-6255d8582e35'
+  label: 'Career Connections'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/6

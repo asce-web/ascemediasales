@@ -1,0 +1,39 @@
+uuid: ea3532cf-8593-479b-802f-d4b3f6b4f0ad
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:77be8b58-6177-468a-8865-941e6f09b219'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_text_align: left
+    block_padding: '55px 0'
+    block_container_class: container
+    block_classes: 'block welcome_banner content clearfix bg-gray2 white-section callout'
+id: asce_careerconnectionscontact
+theme: asce
+region: bottom_content
+weight: -19
+provider: null
+plugin: 'block_content:77be8b58-6177-468a-8865-941e6f09b219'
+settings:
+  id: 'block_content:77be8b58-6177-468a-8865-941e6f09b219'
+  label: 'Career Connections Contact'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/6

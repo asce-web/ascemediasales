@@ -1,0 +1,19 @@
+uuid: cab9f7a8-6bd0-4305-a41d-f48bf884bba8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kit_subtitle
+    - node.type.media_kit
+id: node.media_kit.field_kit_subtitle
+field_name: field_kit_subtitle
+entity_type: node
+bundle: media_kit
+label: 'Kit Subtitle'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

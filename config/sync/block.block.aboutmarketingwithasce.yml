@@ -1,0 +1,37 @@
+uuid: 42c38d36-2040-4a67-b2bc-f9ea2ef6d572
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:a9bf7b41-b366-4f20-8a9a-7a0ecfd659c4'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+    block_container_class: container
+id: aboutmarketingwithasce
+theme: enar
+region: top_content
+weight: -19
+provider: null
+plugin: 'block_content:a9bf7b41-b366-4f20-8a9a-7a0ecfd659c4'
+settings:
+  id: 'block_content:a9bf7b41-b366-4f20-8a9a-7a0ecfd659c4'
+  label: 'About Marketing with ASCE'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/10

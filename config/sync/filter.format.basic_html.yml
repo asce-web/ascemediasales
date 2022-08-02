@@ -1,0 +1,97 @@
+uuid: e8d65a8d-c03e-4b00-98e1-0ae22907869c
+langcode: en
+status: true
+dependencies:
+  module:
+    - editor
+    - shortcode
+name: 'Basic HTML'
+format: basic_html
+weight: 0
+filters:
+  filter_shortcode:
+    id: filter_shortcode
+    provider: shortcode
+    status: false
+    weight: -42
+    settings:
+      row: '0'
+      col: '0'
+      accordions: '0'
+      accordion: '0'
+      tabs: '0'
+      tab: '0'
+      progress: '0'
+      stat: '0'
+      box: '0'
+      maps: '0'
+      map: '0'
+      flipbox: '0'
+      video: '0'
+      carousels: '0'
+      carousel: '0'
+      social: '0'
+      animation: '0'
+      icon: '0'
+      button: '0'
+      title: '0'
+      pie: '0'
+      embed: '0'
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: -46
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: true
+    weight: -49
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: true
+    weight: -48
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -50
+    settings:
+      allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: true
+    weight: -47
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -44
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: false
+    weight: -41
+    settings: {  }
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -45
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: false
+    weight: -43
+    settings:
+      filter_url_length: 72
