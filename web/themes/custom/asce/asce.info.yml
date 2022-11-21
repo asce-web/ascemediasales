@@ -1,0 +1,38 @@
+name: ASCE
+type: theme
+base theme: enar
+description: Custom ASCE Mediasales theme
+core: 8.x
+core_version_requirement: ^8 || ^9
+version: 9.x-1.0
+logo: logo.png
+
+libraries:
+  - asce/global-styling
+
+regions:
+  header_top_left: "Header Top Left"
+  header_top_right: "Header Top Right"
+  banner: "Banner"
+  logo: "Logo"
+  slider: "Slider"
+  primary_menu: "Navigation"
+  secondary_menu: "Secondary menu"
+  highlighted: "Highlighted"
+  featured_top: "Featured top"
+  breadcrumb: "Breadcrumb"
+  page_title: "Page Title"
+  top_content: "Top Content"
+  content: "Content"
+  bottom_content: "Bottom Content"
+  portfolio: "Portfolio"
+  haft_content_first: "Haft Content First"
+  haft_content_second: "Haft Content Second"
+  sidebar_first: "Sidebar first"
+  sidebar_second: "Sidebar second"
+  footer_first: "Footer first"
+  footer_second: "Footer second"
+  footer_third: "Footer third"
+  footer_fourth: "Footer fourth"
+  bottom_first: "Bottom first"
+  bottom_second: "Bottom second"
