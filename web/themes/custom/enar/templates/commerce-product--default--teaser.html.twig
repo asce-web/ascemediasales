@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ *
+ * Default product template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product: The rendered product fields.
+ *   Use 'product' to print them all, or print a subset such as
+ *   'product.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ product|without('title') }}
+ *   @endcode
+ * - product_entity: The product entity.
+ * - product_url: The product URL.
+ * {{- product|without('variation_attributes')|without('variation_sku')|without('title') -}}
+ * title variations variation_title variation_attributes variation_field_product_image variation_price variation_sku
+ * @ingroup themeable
+ */
+#}
+<article{{ attributes.addClass('product-item') }}>
+	<div class="add2cart_image">
+		{% if product.field_characteristic[0] is not null%}
+			<div class="characteristic">{{ product.field_characteristic }}</div>
+		{% endif %}
+		{{  product.variation_field_product_image }}
+	</div>
+	<div class="add2cart_details">
+		<div class="con_cont">
+			<div class="add2cart_prod_name"><a href="{{ product_url }}">{{ product.title }}</a></div>
+			<div class="add2cart_prod_price">{{ product.variation_price }}</div>
+			{{ product.field_rating }}
+		</div>
+		<div class="add2cart_buttons clearfix">
+			{{- product.variations -}}
+			 <a href="{{ product_url }}" class="pro_add2cart_details"><i class="ico-angle-right"></i>{% trans 'Show Details' %}</a>
+		</div>
+	</div>
+</article>

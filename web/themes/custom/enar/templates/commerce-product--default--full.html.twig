@@ -1,0 +1,61 @@
+{#
+/**
+ * @file
+ *
+ * Default product template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product: The rendered product fields.
+ *   Use 'product' to print them all, or print a subset such as
+ *   'product.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ product|without('title') }}
+ *   @endcode
+ * - product_entity: The product entity.
+ * - product_url: The product URL.
+ * {{- product|without('variation_attributes')|without('variation_sku')|without('title') -}}
+ * title variations variation_title variation_attributes variation_field_product_image variation_price variation_sku
+ * @ingroup themeable
+ */
+#}
+<article{{ attributes.addClass('product-single') }}>
+	<div class="row">
+		<div class="col-md-5">
+			<div class="single_product_slider">
+				{{ product.variation_field_product_image }}
+			</div>
+		</div>
+		<div class="single_product_details col-md-7">
+			<div class="single_product_title">{{ product.title }}</div>
+			<div class="single_product_sku">{{ product.variation_sku }}</div>
+			<div class="single_product_price_con">{{ product.variation_price }}</div>
+			{{ product.field_rating }}
+			{{ product.field_product_category }}
+			<div class="clearfix">{{ product.field_characteristic }}</div>
+			<div class="single-cart"> {{ product.variations }}</div>
+			<div class="prod_summary">{{ product.body['#object'].body.summary }}</div>
+			{{ product.share_everywhere }}
+		</div>
+		<div class="col-md-12">
+			<div id="product-single-tabs" class="inv-tab-wrapper clearfix"> 
+				<ul class="nav nav-tabs ">
+					<li class="active first"><a href="#product_single_description" data-toggle="tab">Description</a></li>
+					{% if product.field_additional_information is not empty %}
+					<li class="last"><a href="#addtional_infor" data-toggle="tab">Additional Information</a></li>
+					{% endif %}
+				</ul>
+				<div class="tab-content">
+					<div id="product_single_description" class="active tab-pane fade in">
+					{{ product.body }}
+					</div>
+					{% if product.field_additional_information is not empty %}
+					<div id="addtional_infor" class="tab-pane fade">{{ product.field_additional_information }}</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	<div>
+
+</article>

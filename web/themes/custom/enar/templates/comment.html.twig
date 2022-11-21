@@ -75,13 +75,13 @@
   #}
 
   <div{{ content_attributes.addClass('comment-container comment-box') }}>
-	<a href="#" class="avatar">
-		{% if user_picture is empty %}
-			{{ user_picture }}
-		{% else %}
-			<span class="default-user"></span>
-		{% endif %}
-	</a>
+	
+	{% if user_picture['#user'].user_picture.entity.uri.0.value != "" %}
+		{{ user_picture }}
+	{% else %}
+		<a href="#" class="avatar"><span class="default-user"></span></a>
+	{% endif %}
+	
 	<div class="comment_content">
 		<h4 class="author_name">{{ author }}</h4>
 		{% if title %}

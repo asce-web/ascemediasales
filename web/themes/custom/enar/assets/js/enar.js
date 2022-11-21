@@ -181,9 +181,8 @@
 			removalDelay:300,
 			mainClass:'my-mfp-slide-bottom'
 		});
-    $('.nav.level-0 .dropdown .dropdown-toggle').append('&nbsp;<i class="ico-caret-down dd-indicator"></i>');
-    $('.media-kit a').append('&nbsp;<i class="ico-file-pdf-o"></i>');
 	}
 });
 })(window.jQuery);
+
 
