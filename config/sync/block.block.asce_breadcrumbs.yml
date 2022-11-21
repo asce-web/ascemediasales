@@ -12,7 +12,7 @@ third_party_settings:
     background_image_position: 'top left'
     block_container_class: container
     block_classes: 'hidden-xs hidden-sm'
-id: asce_breadcrumbs_2
+id: asce_breadcrumbs
 theme: asce
 region: breadcrumb
 weight: 0

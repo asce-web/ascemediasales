@@ -56,7 +56,6 @@
         "drupal/sharethis": "^2.0@beta",
         "drupal/simplenews": "^2.0@beta",
         "drupal/token": "^1.6",
-        "drupal/upgrade_status": "^3.17",
         "drupal/webform": "^6.1",
         "drush/drush": "^10",
         "vlucas/phpdotenv": "^2.4",
