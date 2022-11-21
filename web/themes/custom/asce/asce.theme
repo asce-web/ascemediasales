@@ -41,7 +41,7 @@ function asce_preprocess_html(&$variables) {
   $variables['goto'] = $goto;
 }
 
-function asce_preprocess_breadcrumb(&$variables){
+/*function asce_preprocess_breadcrumb(&$variables){
   if(($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']){
     $variables['breadcrumb'][] = array(
       'text' => $node->getTitle(),
@@ -49,7 +49,7 @@ function asce_preprocess_breadcrumb(&$variables){
     );
     $variables['#cache']['contexts'][] = 'url';
   }
-}
+}*/
 
 /**
  * Implements hook_page_attachments_alter
