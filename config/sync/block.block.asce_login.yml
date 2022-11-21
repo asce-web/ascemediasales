@@ -1,0 +1,22 @@
+uuid: 8742b650-7830-4fe0-b3d1-5ca6d30702a9
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - asce
+_core:
+  default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
+id: asce_login
+theme: asce
+region: header_top_left
+weight: -18
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: visible
+  provider: user
+visibility: {  }

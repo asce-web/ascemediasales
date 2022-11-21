@@ -1,0 +1,27 @@
+uuid: dad92729-a916-4989-80af-9303a8cbbbac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_kit_file
+    - node.type.media_kit
+  module:
+    - file
+id: node.media_kit.field_media_kit_file
+field_name: field_media_kit_file
+entity_type: node
+bundle: media_kit
+label: 'Media Kit File'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: inline-files
+  file_extensions: 'txt pdf'
+  max_filesize: 8MB
+  description_field: false
+field_type: file

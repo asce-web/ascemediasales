@@ -1,0 +1,23 @@
+uuid: ad4f7ef4-a333-4d3d-8952-e2bf578c354a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_member_count
+    - node.type.specialty
+id: node.specialty.field_member_count
+field_name: field_member_count
+entity_type: node
+bundle: specialty
+label: 'Member Count'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ' Members'
+field_type: integer

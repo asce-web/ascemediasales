@@ -1,0 +1,38 @@
+uuid: f37907e6-7e7b-410e-827c-3d2f30f5e5ac
+langcode: en
+status: true
+dependencies: {  }
+id: windows_dc01
+label: 'Windows DC01'
+type: ad
+address: 'ldaps://208.184.140.26'
+port: 636
+timeout: 10
+encryption: ssl
+weight: null
+bind_method: service_account
+binddn: 'CN=LDAPADM,OU=Service Accounts,DC=asce,DC=org'
+bindpw: SONY2000
+basedn:
+  - 'OU=ASCE Users,DC=asce,DC=org'
+user_attr: samaccountname
+account_name_attr: ''
+mail_attr: mail
+mail_template: ''
+picture_attr: ''
+unique_persistent_attr: objectguid
+unique_persistent_attr_binary: true
+user_dn_expression: ''
+testing_drupal_username: ''
+testing_drupal_user_dn: ''
+grp_unused: true
+grp_object_cat: ''
+grp_nested: false
+grp_user_memb_attr_exists: false
+grp_user_memb_attr: ''
+grp_memb_attr: ''
+grp_memb_attr_match_user_attr: ''
+grp_derive_from_dn: false
+grp_derive_from_dn_attr: ''
+grp_test_grp_dn: ''
+grp_test_grp_dn_writeable: ''

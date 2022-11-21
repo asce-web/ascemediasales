@@ -1,0 +1,24 @@
+uuid: 8cea4d4c-b193-468e-84c7-0555328f9cb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - system
+  theme:
+    - seven
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: breadcrumbs
+theme: seven
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

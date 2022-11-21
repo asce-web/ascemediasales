@@ -1,0 +1,56 @@
+uuid: 10209520-4ccb-4bcc-9c08-964635ab08b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.get_in_touch
+    - field.field.contact_message.get_in_touch.field_company_or_organization
+    - field.field.contact_message.get_in_touch.field_email
+    - field.field.contact_message.get_in_touch.field_message
+    - field.field.contact_message.get_in_touch.field_name
+    - field.field.contact_message.get_in_touch.field_position_or_title
+id: contact_message.get_in_touch.default
+targetEntityType: contact_message
+bundle: get_in_touch
+mode: default
+content:
+  field_company_or_organization:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_email:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_message:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_name:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_position_or_title:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  message: true

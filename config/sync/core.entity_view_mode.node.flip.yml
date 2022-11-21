@@ -1,0 +1,10 @@
+uuid: 831243c1-816e-4740-a64c-3e4682b9ce29
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.flip
+label: Flip
+targetEntityType: node
+cache: true

@@ -1,0 +1,37 @@
+uuid: f9760c93-a686-43f9-96a1-8deab2d52529
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:9019b954-1e79-4018-aa94-5c4288106925'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_container_class: container
+    block_classes: top-padding
+id: asce_nonmemberjobpostingoptions
+theme: asce
+region: bottom_content
+weight: -21
+provider: null
+plugin: 'block_content:9019b954-1e79-4018-aa94-5c4288106925'
+settings:
+  id: 'block_content:9019b954-1e79-4018-aa94-5c4288106925'
+  label: 'Non-Member Job Posting Options'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/6

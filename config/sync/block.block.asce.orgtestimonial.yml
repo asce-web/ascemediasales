@@ -1,0 +1,39 @@
+uuid: 00e515b2-44b1-4966-a9e5-035509118d93
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:804bdc6c-5db4-402b-9ccb-d8a5983b486c'
+  module:
+    - block_content
+    - inv_block_custom
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    background_video_mute: '0'
+    block_margin: '0 55px'
+    block_container_class: container
+    responsive:
+      hphone: 0
+      vphone: 0
+      htablet: 0
+      vtablet: 0
+      hdesktop: 0
+      vdesktop: 0
+id: asce.orgtestimonial
+theme: enar
+region: bottom_content
+weight: -9
+provider: null
+plugin: 'block_content:804bdc6c-5db4-402b-9ccb-d8a5983b486c'
+settings:
+  id: 'block_content:804bdc6c-5db4-402b-9ccb-d8a5983b486c'
+  label: 'ASCE.org Testimonial'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

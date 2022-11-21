@@ -1,0 +1,35 @@
+uuid: 011c79c9-9d59-4b47-87a6-5858f6893a5f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:bcedcdad-53f2-4b7f-81fd-3180a27c0673'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: footersecond
+theme: enar
+region: footer_second
+weight: 0
+provider: null
+plugin: 'block_content:bcedcdad-53f2-4b7f-81fd-3180a27c0673'
+settings:
+  id: 'block_content:bcedcdad-53f2-4b7f-81fd-3180a27c0673'
+  label: 'Footer Second'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: '/node/*'

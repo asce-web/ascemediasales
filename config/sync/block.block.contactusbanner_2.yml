@@ -1,0 +1,41 @@
+uuid: dce7a64c-f0fd-4bca-a8bb-3a962d1fdc94
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5d26c2e4-0b91-46ab-bdf1-69bad4473eba'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '68'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+    block_classes: 'section-page-title inv-section has-banner section-inner'
+    block_container_class: container
+id: contactusbanner_2
+theme: enar
+region: banner
+weight: -16
+provider: null
+plugin: 'block_content:5d26c2e4-0b91-46ab-bdf1-69bad4473eba'
+settings:
+  id: 'block_content:5d26c2e4-0b91-46ab-bdf1-69bad4473eba'
+  label: 'Contact Us Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/node/9\r\n/contact/get_in_touch"

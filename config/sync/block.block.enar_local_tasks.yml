@@ -1,0 +1,33 @@
+uuid: 9da1e802-4f90-4679-a0be-9833e26acb4f
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+_core:
+  default_config_hash: c-06bbElRY5sKmglk74ppgTW93Et4-EJFyNiUZMb8JY
+id: enar_local_tasks
+theme: enar
+region: content
+weight: -15
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/5

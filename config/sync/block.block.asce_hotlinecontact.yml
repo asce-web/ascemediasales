@@ -1,0 +1,29 @@
+uuid: bcbc9b93-998f-4995-9216-dc53e41a798f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:0e412f2d-b349-4444-8374-c548dfc229db'
+  module:
+    - block_content
+    - inv_block_custom
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: asce_hotlinecontact
+theme: asce
+region: header_top_left
+weight: 0
+provider: null
+plugin: 'block_content:0e412f2d-b349-4444-8374-c548dfc229db'
+settings:
+  id: 'block_content:0e412f2d-b349-4444-8374-c548dfc229db'
+  label: 'Hotline Contact'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
