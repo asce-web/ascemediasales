@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\block\Entity\Block;
 function inv_shortcodes_embed_shortcode_info(&$shortcodes) {
     $shortcodes['embed'] = array(
         'title' => t('Embed content'),
@@ -12,13 +13,13 @@ function inv_shortcodes_process_embed($attrs, $text) {
     $attributes = shortcode_attrs(array(
         'block_id' => ''), $attrs
     );
-    $block = \Drupal\block\Entity\Block::load($attributes['block_id']);
+    $block = Block::load($attributes['block_id']);
 	if ($block != null) {
-		$block_content = \Drupal::entityManager()
+		$block_content = \Drupal::service('entity_type.manager')
 			->getViewBuilder('block')
 			->view($block);
 
-		return drupal_render($block_content);
+		return \Drupal::service('renderer')->render($block_content);
 	}
 	return "";
 }

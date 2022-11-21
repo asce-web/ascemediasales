@@ -28,7 +28,7 @@ function inv_shortcodes_process_video($attrs, $text) {
         '#width' => $attributes['width'],
         '#height' => $attributes['height']
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 /**

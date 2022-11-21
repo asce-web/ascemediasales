@@ -21,7 +21,7 @@ function template_preprocess_views_view_invaccordion(&$variables) {
 	if($options['accordion_filter']){
         $vocab = $options['accordion_filter_vocabulary'];
         $categories = array();
-        $terms = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree($vocab, 0, NULL, false);
+        $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vocab, 0, NULL, false);
         foreach($terms as $term) {
             $categories[Html::getClass($term->name)] = $term->name;
         }
@@ -45,7 +45,7 @@ function template_preprocess_views_view_invaccordion(&$variables) {
 }
 
 function accordion_get_term_by_node_id_vocabulary_id($nid,$vid) {
-    $query = db_select('taxonomy_index','tx');
+    $query = \Drupal::service('database')->select('taxonomy_index','tx');
     $query->leftjoin('taxonomy_term_field_data','ttfd', 'tx.tid=ttfd.tid');
     $query->fields('tx',array('tid'));
     $query->fields('ttfd',array('name'));

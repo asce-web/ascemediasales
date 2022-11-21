@@ -3,7 +3,7 @@
 namespace Drupal\inv_builder\Plugin;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
-use Drupal\Component\Plugin\ConfigurablePluginInterface;
+use Drupal\Component\Plugin\ConfigurableInterface;
 
 /**
  * Defines the interface for text processing fonticon plugins.
@@ -13,7 +13,7 @@ use Drupal\Component\Plugin\ConfigurablePluginInterface;
  * @see \Drupal\shortcode\Plugin\ShortcodeBase
  * @see plugin_api
  */
-interface FontIconInterface extends ConfigurablePluginInterface, PluginInspectionInterface {
+interface FontIconInterface extends ConfigurableInterface, PluginInspectionInterface {
 
   /**
    * Returns the list of icons

@@ -353,7 +353,7 @@ function inv_block_custom_preprocess_block(&$variables) {
   // Blocks coming from page manager widget does not have id.
   if (!empty($variables['elements']['#id'])) {
       $block = Block::load($variables['elements']['#id']);
-
+	  if ($block != null) {	
       // Set animation block
       _set_animation($block, $variables);
 
@@ -373,6 +373,7 @@ function inv_block_custom_preprocess_block(&$variables) {
       _set_overlay_background($block, $variables);
       // Custom style block
       set_custom_style($block, $variables,$styles);
+	  }
   }
 }
 
@@ -395,7 +396,7 @@ function _set_image_background($block, &$variables, &$styles) {
     $background_position = $block->getThirdPartySetting('inv_block_custom', 'background_image_position');
 
     if ($fid) {
-        $file = file_load($fid);
+        $file = \Drupal\file\Entity\File::load($fid);
         if($file) {
             // Store file permanent
             $file->setPermanent();

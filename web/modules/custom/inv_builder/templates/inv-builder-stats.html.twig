@@ -1,4 +1,4 @@
-<div{{ attributes }}>
+<div{% if  id is not empty %} id = "{{ id }}" {% endif %}{{ attributes }}>
     <div class="stats-icon">
       <i class="{% if icon is not empty %} {{ icon }} {% endif %}"></i>
     </div>

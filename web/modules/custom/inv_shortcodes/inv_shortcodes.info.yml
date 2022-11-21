@@ -3,6 +3,5 @@ type: 'module'
 description: 'Provide list of shortcodes such as: accordion, tab, social, box, carousel and more...'
 package: 'Innovation'
 
-core: '8.x'
-version: '8.x-0.0'
+core_version_requirement: ^8 || ^9
 project: 'Innovation build core D8 theme'

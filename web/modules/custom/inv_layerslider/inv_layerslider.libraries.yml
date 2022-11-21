@@ -17,7 +17,7 @@ backend:
     - core/drupal.ajax
     - core/jquery.ui.autocomplete
     - core/jquery.ui.draggable
-    - core/jquery.ui.sortable
+    - core/sortable
     - core/drupal.vertical-tabs
     - core/drupal.states
 settings:

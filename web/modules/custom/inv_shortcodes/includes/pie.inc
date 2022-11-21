@@ -27,7 +27,7 @@ function inv_shortcodes_process_pie($attrs, $text) {
             'library' => array('inv_shortcodes/shortcode.pie')
         )
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_pie_theme(&$themes, $path) {

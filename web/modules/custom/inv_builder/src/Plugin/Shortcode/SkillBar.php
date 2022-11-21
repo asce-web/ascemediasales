@@ -17,7 +17,7 @@ use Drupal\Core\Language\Language;
  */
 class Skillbar extends BuilderElement {
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     parent::process($attributes, $text, $langcode);
 
     $attrs = $this->getAttributes(array(
@@ -27,6 +27,7 @@ class Skillbar extends BuilderElement {
 	  'skillbar_style' => '',
       'percent' => '0',
       'class' => '',
+	  'id' => '',
         ), $attributes
     );
 
@@ -38,7 +39,7 @@ class Skillbar extends BuilderElement {
       '#percent' => $attrs['percent'],
 	  '#skillbar_style' => $attrs['skillbar_style'],
       '#class' => $classes,
- 
+      '#id' => $attrs['id'],
     );
 	
 	if($attrs['icon_library'] && ($icon_plugin = \Drupal::service('inv_builder.fonticon')->getFontIconPlugin($attrs['icon_library']))){
@@ -85,11 +86,19 @@ class Skillbar extends BuilderElement {
 	  '#suffix' => '</div>',
     );
 
+	$form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('HTML ID'),
+      '#default_value' => $this->get('id'),
+	  '#prefix' => '<div class="col-md-3">',
+	  '#suffix' => '</div>',
+    );
+
     $form['general_options']['class'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Custom class'),
       '#default_value' => $this->get('class'),
-	  '#prefix' => '<div class="col-md-9">',
+	  '#prefix' => '<div class="col-md-6">',
 	  '#suffix' => '</div>',
     );
 

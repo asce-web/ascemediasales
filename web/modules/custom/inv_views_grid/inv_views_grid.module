@@ -53,7 +53,7 @@ function template_preprocess_views_view_invgrid(&$variables) {
         if($options['grid_style'] == 'masonry_resize' && isset($options['masonry_background']) && !empty($options['masonry_background'])){
             $nid = $view->result[$result_index]->nid;
             if($nid){
-                $node = node_load($nid);
+                $node = \Drupal\node\Entity\Node::load($nid);
 				$mansory_option = $options['masonry_background'];
                 if(is_array($node->$mansory_option) && is_array($node->$mansory_option->entity)){
                     $uri = $node->$mansory_option->entity->getFileUri();
@@ -70,7 +70,7 @@ function template_preprocess_views_view_invgrid(&$variables) {
     if($options['grid_filter']){
         $vocab = $options['grid_filter_vocabulary'];
         $categories = array();
-        $terms = \Drupal::entityManager()->getStorage('taxonomy_term')->loadTree($vocab, 0, NULL, false);
+        $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vocab, 0, NULL, false);
         foreach($terms as $term) {
             $categories[Html::getClass($term->name)] = $term->name;
         }
@@ -93,7 +93,7 @@ function template_preprocess_views_view_invgrid(&$variables) {
 }
 
 function _get_term_by_node_id_vocabulary_id($nid,$vid) {
-    $query = db_select('taxonomy_index','tx');
+    $query = \Drupal::service('database')->select('taxonomy_index','tx');
     $query->leftjoin('taxonomy_term_field_data','ttfd', 'tx.tid=ttfd.tid');
     $query->fields('tx',array('tid'));
     $query->fields('ttfd',array('name'));
@@ -103,7 +103,7 @@ function _get_term_by_node_id_vocabulary_id($nid,$vid) {
 }
 
 function _get_masonry_size($view, $item) {
-    $result = db_select('inv_masonry', 'm')
+    $result = \Drupal::service('database')->select('inv_masonry', 'm')
         ->fields('m')
         ->condition('view', $view, '=')
         ->condition('item', $item, '=')

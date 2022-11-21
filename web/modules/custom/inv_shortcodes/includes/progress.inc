@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Component\Utility\Html;
 function inv_shortcodes_progress_shortcode_info(&$shortcodes) {
     $shortcodes['progress'] = array(
         'title' => t('Progress Bar'),
@@ -18,7 +19,7 @@ function inv_shortcodes_process_progress($attrs, $text) {
     ), $attrs);
     $render_array = array(
         '#theme' => 'progress',
-        '#progress_id' => \Drupal\Component\Utility\Html::getId('inv_progress_bar'.uniqid()),
+        '#progress_id' => Html::getId('inv_progress_bar'.uniqid()),
         '#percent' => $attributes['percent'],
         '#icon' => $attributes['icon'],
         '#class' => $attributes['class'],
@@ -28,7 +29,7 @@ function inv_shortcodes_process_progress($attrs, $text) {
             'library' => array('inv_shortcodes/shortcode.progress')
         )
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_progress_theme(&$themes, $path) {
