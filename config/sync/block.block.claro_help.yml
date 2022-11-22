@@ -1,17 +1,15 @@
-uuid: dc258080-df79-4b11-8e64-661e0879413f
+uuid: 9b92c614-c58e-46e3-a9dd-6b95909b0783
 langcode: en
 status: true
 dependencies:
   module:
     - help
-    - inv_block_custom
   theme:
-    - seven
-third_party_settings:
-  inv_block_custom:
-    background_image_position: 'top left'
-id: help
-theme: seven
+    - claro
+_core:
+  default_config_hash: jccFSSVqV0WCDb6NtML1VWAWTtDbZ-zn5YgTRMgMrIM
+id: claro_help
+theme: claro
 region: help
 weight: 0
 provider: null

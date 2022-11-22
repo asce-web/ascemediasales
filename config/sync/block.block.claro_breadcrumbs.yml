@@ -1,17 +1,15 @@
-uuid: 8cea4d4c-b193-468e-84c7-0555328f9cb1
+uuid: 82364c08-186e-469e-b5e0-05956d9b87fc
 langcode: en
 status: true
 dependencies:
   module:
-    - inv_block_custom
     - system
   theme:
-    - seven
-third_party_settings:
-  inv_block_custom:
-    background_image_position: 'top left'
-id: breadcrumbs
-theme: seven
+    - claro
+_core:
+  default_config_hash: NjcxOBrPOiK5-38t56DwFBDVY4yer7YSlbRWXFuHe7A
+id: claro_breadcrumbs
+theme: claro
 region: breadcrumb
 weight: 0
 provider: null
