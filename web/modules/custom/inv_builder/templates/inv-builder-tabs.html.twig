@@ -1,4 +1,4 @@
-<div{{ attributes.addClass('inv-builder-tabs').addClass(class).addClass(tab_style) }}>
+<div {% if id is not empty %} id = "{{ id }}" {% endif %} {{ attributes.addClass('inv-builder-tabs').addClass(class).addClass(tab_style) }}>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     {% for tab in tabs %}

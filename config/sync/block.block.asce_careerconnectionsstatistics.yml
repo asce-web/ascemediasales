@@ -1,0 +1,38 @@
+uuid: 70bb5842-25f8-43d1-82da-3ba47ab3c2c0
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:e8a67a50-50c7-43f6-bd66-cbe99fe2d3cb'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '90px 0'
+    block_container_class: container
+    block_classes: 'inv-animate white-section cornflower-blue block animated fadeInDown'
+id: asce_careerconnectionsstatistics
+theme: asce
+region: bottom_content
+weight: -23
+provider: null
+plugin: 'block_content:e8a67a50-50c7-43f6-bd66-cbe99fe2d3cb'
+settings:
+  id: 'block_content:e8a67a50-50c7-43f6-bd66-cbe99fe2d3cb'
+  label: 'Career Connections Statistics'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/6

@@ -1,0 +1,40 @@
+uuid: 469faca6-9354-4052-802d-bf629b4891e5
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '7'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '110px 0'
+    block_container_class: container
+id: enewslettersbanner
+theme: enar
+region: banner
+weight: -20
+provider: null
+plugin: 'block_content:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+settings:
+  id: 'block_content:66eeb5df-9b20-4d8c-b637-d2d0c25adafe'
+  label: 'E-Newsletters banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/5

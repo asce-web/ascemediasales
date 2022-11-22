@@ -1,0 +1,12 @@
+uuid: 6c3715b2-d5bd-43fe-b2e3-7305b9d9c592
+langcode: en
+status: true
+dependencies: {  }
+id: get_in_touch
+label: 'get in touch'
+recipients:
+  - cross@asce.org
+reply: "Thank you for contacting ASCE Media Sales!\r\n\r\nOne of our team members will get back to you as soon as possible.\r\n\r\nHave a great day!"
+weight: 0
+message: "Thank you for your interest in ASCE’s media properties.\r\nWe will be in contact shortly.\r\nHave a great day!"
+redirect: /contact-us

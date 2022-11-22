@@ -20,7 +20,7 @@ use Drupal\Core\Template\Attribute;
  */
 class BuilderButton extends BuilderElement {
 
-    public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+    public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
 	    $attrs = $this->getAttributes(array(
 		  'title' => '',
 		  'icon' => '',
@@ -37,11 +37,15 @@ class BuilderButton extends BuilderElement {
 		  'radius' => '',
 		  'alignment' => '',
 		  'class' => '',
+		  'id' => '',
 		  'button_style' => '',
 			), $attributes
 		);
 
 		$attribute = new Attribute();
+		if ($attrs['id']) {
+			$attribute['id'] = $attrs['id'];
+		}
 		$attribute->addClass('inv-button btn');
 		$attribute->addClass($attrs['class']);
 		$attribute->addClass($attrs['type']);
@@ -187,6 +191,11 @@ class BuilderButton extends BuilderElement {
             '#options' => array('inline' => $this->t('Inline'), 'left' => $this->t('Left'), 'right' => $this->t('Right'), 'center' => $this->t('Center')),
             '#description' => $this->t('Select button alignment.'),
             '#default_value' => $this->get('alignment', ''),
+        );
+		$form['general_options']['id'] = array(
+            '#type' => 'textfield',
+            '#title' => $this->t('HTML ID'),
+            '#default_value' => $this->get('id', ''),
         );
         $form['general_options']['class'] = array(
             '#type' => 'textfield',

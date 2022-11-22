@@ -1,0 +1,34 @@
+uuid: a34b44ae-2f57-44e7-96e5-d653f49782e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.media_kit.body
+    - field.field.node.media_kit.field_kit_subtitle
+    - field.field.node.media_kit.field_media_kit_file
+    - node.type.media_kit
+  module:
+    - text
+    - user
+id: node.media_kit.teaser
+targetEntityType: node
+bundle: media_kit
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_kit_subtitle: true
+  field_media_kit_file: true

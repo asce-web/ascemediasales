@@ -1,0 +1,31 @@
+uuid: 91b50c4e-c121-4ce7-9c17-6685cd5bc567
+langcode: en
+status: true
+dependencies:
+  module:
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_container_class: container
+    block_classes: 'hidden-xs hidden-sm'
+id: asce_breadcrumbs
+theme: asce
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: '<front>'

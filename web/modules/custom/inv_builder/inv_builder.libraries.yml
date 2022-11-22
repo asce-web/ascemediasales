@@ -14,7 +14,7 @@ backend:
   dependencies:
   - core/jquery
   - core/jquery.once
-  - core/jquery.ui.sortable
+  - core/sortable
   - core/jquery.ui.dialog
   - core/drupal.dialog
 frontend:

@@ -1,0 +1,35 @@
+uuid: cdc1f2fd-a6e5-4fe1-b2b8-9c769e64c6a2
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:886563a8-532f-462f-bcd7-4cd1d8f0fdc8'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+id: geostrataeditorialcalendartest
+theme: enar
+region: header_top_left
+weight: -21
+provider: null
+plugin: 'block_content:886563a8-532f-462f-bcd7-4cd1d8f0fdc8'
+settings:
+  id: 'block_content:886563a8-532f-462f-bcd7-4cd1d8f0fdc8'
+  label: 'GEOSTRATA Editorial Calendar Test'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: '/node/*'

@@ -28,7 +28,7 @@ class BuilderCarousel extends BuilderElement {
       /**
    * {@inheritdoc}
    */
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
 	// Merge with default attributes.
     $attributes = $this->getAttributes(array(
         'image' => 0
@@ -41,6 +41,7 @@ class BuilderCarousel extends BuilderElement {
     $active = "";
     if (Count($shortcode_carousel_stack) == 0) $active = "active";
 
+	$item = "";
 	if($file = \Drupal\file\Entity\File::load($fid)){
 	  $path = file_create_url($file->getFileUri());
 	  $item = "<div class='item ".$active."'><img alt='' src='". $path ."'/>".$text."</div>";

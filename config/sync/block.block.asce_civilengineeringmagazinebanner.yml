@@ -1,0 +1,40 @@
+uuid: 6d413057-7209-4604-a8bc-2997cd552067
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3b7b6798-558c-461e-91f9-8619227ab568'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '66'
+    background_image_type: cover
+    background_image_position: 'top center'
+    block_padding: '110px 0'
+    block_container_class: container
+id: asce_civilengineeringmagazinebanner
+theme: asce
+region: banner
+weight: -23
+provider: null
+plugin: 'block_content:3b7b6798-558c-461e-91f9-8619227ab568'
+settings:
+  id: 'block_content:3b7b6798-558c-461e-91f9-8619227ab568'
+  label: 'Civil Engineering Magazine Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/1

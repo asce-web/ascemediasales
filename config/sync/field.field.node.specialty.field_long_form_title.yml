@@ -1,0 +1,19 @@
+uuid: cd71bec8-d0af-40c9-8999-f86a93c35e69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_long_form_title
+    - node.type.specialty
+id: node.specialty.field_long_form_title
+field_name: field_long_form_title
+entity_type: node
+bundle: specialty
+label: 'Long Form Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

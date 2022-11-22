@@ -16,16 +16,20 @@ use Drupal\Core\Template\Attribute;
  */
 class BuilderColumn extends BuilderElement {
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrObj = $this->createAttribute($attributes);
     $attrs = $this->getAttributes(array(
       'class' => '',
+	  'id' => '',
       'xs' => '',
       'sm' => '',
       'md' => '',
       'lg' => '',
         ), $attributes
     );
+	if ($attrs['id']) {
+		$attrObj['id'] = $attrs['id'];
+	}
     $attrObj->addClass($attrs['class']);
     foreach (['xs', 'sm', 'md', 'lg'] as $size) {
       if ($attrs[$size]) {
@@ -71,6 +75,12 @@ class BuilderColumn extends BuilderElement {
       '#min' => 0,
       '#max' => 12,
       '#default_value' => $this->get('lg', 6),
+    );
+
+	$form['general_options']['id'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Column HTML ID'),
+      '#default_value' => $this->get('id', ''),
     );
     
     $form['general_options']['class'] = array(

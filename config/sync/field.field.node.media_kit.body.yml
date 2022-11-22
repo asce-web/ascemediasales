@@ -1,0 +1,23 @@
+uuid: bccdcc94-4606-41b4-8bb9-5267625d45e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.media_kit
+  module:
+    - text
+id: node.media_kit.body
+field_name: body
+entity_type: node
+bundle: media_kit
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

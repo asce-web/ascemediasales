@@ -1,0 +1,29 @@
+uuid: e3873085-f627-441c-aa26-b8d4668ce4c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.full_html
+    - node.type.media_kit
+    - node.type.page
+  module:
+    - field_ui
+    - filter
+    - node
+    - toolbar
+id: manager
+label: Manager
+weight: 2
+is_admin: null
+permissions:
+  - 'access toolbar'
+  - 'administer node display'
+  - 'administer node fields'
+  - 'administer node form display'
+  - 'delete any page content'
+  - 'edit any media_kit content'
+  - 'edit own media_kit content'
+  - 'revert media_kit revisions'
+  - 'use text format basic_html'
+  - 'use text format full_html'

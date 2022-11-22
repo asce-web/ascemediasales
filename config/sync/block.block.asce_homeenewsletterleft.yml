@@ -1,0 +1,43 @@
+uuid: 20a21631-7446-4f66-8e28-c8f9490661df
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3e85c1d6-f187-4a23-83a2-66d8d288791e'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '105'
+    background_image_type: cover
+    background_image_position: 'top center'
+    block_padding: '15px 0'
+    block_classes: 'white-section haft-full-con'
+    block_container_class: container
+    overlay_color: '#000000'
+    overlay_opacity: '.7'
+id: asce_homeenewsletterleft
+theme: asce
+region: bottom_content
+weight: -10
+provider: null
+plugin: 'block_content:3e85c1d6-f187-4a23-83a2-66d8d288791e'
+settings:
+  id: 'block_content:3e85c1d6-f187-4a23-83a2-66d8d288791e'
+  label: 'Home eNewsletter left'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: '<front>'

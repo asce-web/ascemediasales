@@ -3,7 +3,7 @@
   Drupal.behaviors.inv_builder = {
     attach: function (context, settings) {
       // Check to enable builder
-      $('select.filter-list', context).once('inv_builder_change').each(function () {
+      $('select.js-filter-list', context).once('inv_builder_change').each(function () {
         $(this).data('previous', $(this).val());
         $(this).on('focus', function(){
           $(this).data('previous', $(this).val());
@@ -81,7 +81,7 @@
             },
             selector: 'body',
             submit: {
-              format: $(this).closest('.text-format-wrapper').find('select.filter-list').val(),
+              format: $(this).closest('.text-format-wrapper').find('select.js-filter-list').val(),
               action: 'add',
               text: '',
               parent: $(this).closest('.builder-element').data('shortcodeId') || ''
@@ -108,7 +108,7 @@
             dialogType: 'modal',
             submit: {
 			  shortcode_id: element.data('shortcode-id'),
-              format: $(this).closest('.text-format-wrapper').find('select.filter-list').val(),
+              format: $(this).closest('.text-format-wrapper').find('select.js-filter-list').val(),
               selector: '.element-content.active-element',
               attr: element.data('attr'),
               text: Drupal.builderExport(element.find('.element-content:first'))
@@ -147,27 +147,55 @@
       });
       
       //Element sort
-      $('.element-content.has-child').sortable({
-        placeholder: 'inv-builder-sortable-placeholder',
-        connectWith: '.element-content, .inv-builder-inner > div',
-        handle: '.element-toolbar .fa-arrows',
-        start: function(e, ui){
-          var data = ui.item.data('attr');
-          if(data.hasOwnProperty('lg')){
-            ui.placeholder.addClass('col-lg-'+data.lg);
-          }
-          if(data.hasOwnProperty('md')){
-            ui.placeholder.addClass('col-md-'+data.md);
-          }
-          if(data.hasOwnProperty('sm')){
-            ui.placeholder.addClass('col-sm-'+data.sm);
-          }
-          if(data.hasOwnProperty('xs')){
-            ui.placeholder.addClass('col-xs-'+data.xs);
-          }
-        }
+
+	  var elemmenthasChildSelector = document.querySelectorAll('.element-content.has-child');
+      elemmenthasChildSelector.forEach(function (widget) {
+	    Sortable.create(widget, {
+		  handle: '.element-toolbar .fa-arrows',
+	  	  group:  'element-content',
+		  // Element dragging started
+		  onStart: function (/**Event*/evt) {
+			  var itemEl = evt.item;
+			  var data = itemEl.data('attr');
+			  if(data.hasOwnProperty('lg')){
+			//	ui.placeholder.addClass('col-lg-'+data.lg);
+			  }
+			  if(data.hasOwnProperty('md')){
+			//	ui.placeholder.addClass('col-md-'+data.md);
+			  }
+			  if(data.hasOwnProperty('sm')){
+			//	ui.placeholder.addClass('col-sm-'+data.sm);
+			  }
+			  if(data.hasOwnProperty('xs')){
+			//	ui.placeholder.addClass('col-xs-'+data.xs);
+			  }
+		   },
+	    });
       });
-      $('.inv-builder-inner').find('.builder-element:first').parent().sortable({
+	   var elemmentparentSelector = document.querySelector('.inv-builder-inner');
+	    Sortable.create(elemmentparentSelector, {
+		  handle: '.element-toolbar .fa-arrows',
+	  	  group:  'element-content',
+		  // Element dragging started
+		  onStart: function (/**Event*/evt) {
+			  var itemEl2 = evt.item;
+			  var data = itemEl2.data('attr');
+			  if(data.hasOwnProperty('lg')){
+			//	ui.placeholder.addClass('col-lg-'+data.lg);
+			  }
+			  if(data.hasOwnProperty('md')){
+			//	ui.placeholder.addClass('col-md-'+data.md);
+			  }
+			  if(data.hasOwnProperty('sm')){
+			//	ui.placeholder.addClass('col-sm-'+data.sm);
+			  }
+			  if(data.hasOwnProperty('xs')){
+			//	ui.placeholder.addClass('col-xs-'+data.xs);
+			  }
+		   },
+	    });
+
+/*       $('.inv-builder-inner').find('.builder-element:first').parent().sortable({
         placeholder: 'inv-builder-sortable-placeholder',
         connectWith: '.element-content',
         handle: '.element-toolbar .fa-arrows',
@@ -186,7 +214,7 @@
             ui.placeholder.addClass('col-xs-'+data.xs);
           }
         }
-      });
+      }); */
       
       //Export builder
       $('.inv-builder').once('form-submit').each(function () {

@@ -5,11 +5,14 @@
  * Functions to support theming in the Innovation theme.
  */
 
-use \Drupal\Core\Template\Attribute;
-use \Drupal\Core\Render\Markup;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Render\Markup;
 use Drupal\Component\Utility\Html;
-require_once 'includes/innovation.php';
-require_once 'includes/lessc.php';
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\innovation\InnovationTheme;
+use Drupal\innovation\InnovationLessc;
+#require_once 'includes/innovation.php';
+#require_once 'includes/lessc.php';
 
 function innovation_default_layouts() {
   return 'W3sia2V5IjoiZGVmYXVsdCIsInRpdGxlIjoiRGVmYXVsdCIsInNlY3Rpb25zIjpbeyJrZXkiOiJoZWFkZXIiLCJ0aXRsZSI6IkhlYWRlciIsIndlaWdodCI6MCwiZnVsbHdpZHRoIjoibm8iLCJiYWNrZ3JvdW5kY29sb3IiOiIiLCJzdGlja3kiOmZhbHNlLCJ2cGhvbmUiOmZhbHNlLCJ2dGFibGV0IjpmYWxzZSwidmRlc2t0b3AiOmZhbHNlLCJocGhvbmUiOmZhbHNlLCJodGFibGV0IjpmYWxzZSwiaGRlc2t0b3AiOmZhbHNlLCJyZWdpb25zIjpbeyJrZXkiOiJoZWFkZXIiLCJ0aXRsZSI6IkhlYWRlciIsIndlaWdodCI6MCwiY29seHMiOiIxMiIsImNvbHNtIjoiMTIiLCJjb2xtZCI6IjEyIiwiY29sbGciOiIxMiJ9XX0seyJrZXkiOiJoaWdobGlnaHRlZCIsInRpdGxlIjoiSGlnaGxpZ2h0ZWQiLCJ3ZWlnaHQiOjEsImZ1bGx3aWR0aCI6Im5vIiwiYmFja2dyb3VuZGNvbG9yIjoiIiwic3RpY2t5IjpmYWxzZSwidnBob25lIjpmYWxzZSwidnRhYmxldCI6ZmFsc2UsInZkZXNrdG9wIjpmYWxzZSwiaHBob25lIjpmYWxzZSwiaHRhYmxldCI6ZmFsc2UsImhkZXNrdG9wIjpmYWxzZSwicmVnaW9ucyI6W3sia2V5IjoiaGlnaGxpZ2h0ZWQiLCJ0aXRsZSI6IkhpZ2hsaWdodGVkIiwid2VpZ2h0IjowLCJjb2x4cyI6IjEyIiwiY29sc20iOiIxMiIsImNvbG1kIjoiMTIiLCJjb2xsZyI6IjEyIn1dfSx7ImtleSI6Im1haW4tY29udGVudCIsInRpdGxlIjoiTWFpbiBDb250ZW50Iiwid2VpZ2h0IjoyLCJmdWxsd2lkdGgiOiJubyIsImJhY2tncm91bmRjb2xvciI6IiIsInN0aWNreSI6ZmFsc2UsInZwaG9uZSI6ZmFsc2UsInZ0YWJsZXQiOmZhbHNlLCJ2ZGVza3RvcCI6ZmFsc2UsImhwaG9uZSI6ZmFsc2UsImh0YWJsZXQiOmZhbHNlLCJoZGVza3RvcCI6ZmFsc2UsInJlZ2lvbnMiOlt7ImtleSI6InNpZGViYXJfZmlyc3QiLCJ0aXRsZSI6IkxlZnQgc2lkZWJhciIsIndlaWdodCI6MCwiY29seHMiOiIxMiIsImNvbHNtIjoiMTIiLCJjb2xtZCI6IjMiLCJjb2xsZyI6IjMifSx7ImtleSI6ImNvbnRlbnQiLCJ0aXRsZSI6IkNvbnRlbnQiLCJ3ZWlnaHQiOjEsImNvbHhzIjoiMTIiLCJjb2xzbSI6IjEyIiwiY29sbWQiOiI2IiwiY29sbGciOiI2In0seyJrZXkiOiJzaWRlYmFyX3NlY29uZCIsInRpdGxlIjoiUmlnaHQgc2lkZWJhciIsIndlaWdodCI6MiwiY29seHMiOiIxMiIsImNvbHNtIjoiMTIiLCJjb2xtZCI6IjMiLCJjb2xsZyI6IjMifV19LHsia2V5IjoiZm9vdGVyIiwidGl0bGUiOiJGb290ZXIiLCJ3ZWlnaHQiOjMsImZ1bGx3aWR0aCI6Im5vIiwiYmFja2dyb3VuZGNvbG9yIjoiIiwic3RpY2t5IjpmYWxzZSwidnBob25lIjpmYWxzZSwidnRhYmxldCI6ZmFsc2UsInZkZXNrdG9wIjpmYWxzZSwiaHBob25lIjpmYWxzZSwiaHRhYmxldCI6ZmFsc2UsImhkZXNrdG9wIjpmYWxzZSwicmVnaW9ucyI6W3sia2V5IjoiZm9vdGVyIiwidGl0bGUiOiJGb290ZXIiLCJ3ZWlnaHQiOjAsImNvbHhzIjoiMTIiLCJjb2xzbSI6IjEyIiwiY29sbWQiOiIxMiIsImNvbGxnIjoiMTIifV19LHsia2V5IjoidW5hc3NpZ25lZCIsInRpdGxlIjoiVW5hc3NpZ25lZCIsIndlaWdodCI6NCwiZnVsbHdpZHRoIjoibm8iLCJiYWNrZ3JvdW5kY29sb3IiOiIiLCJzdGlja3kiOmZhbHNlLCJ2cGhvbmUiOmZhbHNlLCJ2dGFibGV0IjpmYWxzZSwidmRlc2t0b3AiOmZhbHNlLCJocGhvbmUiOmZhbHNlLCJodGFibGV0IjpmYWxzZSwiaGRlc2t0b3AiOmZhbHNlLCJyZWdpb25zIjpbeyJrZXkiOiJoZWxwIiwidGl0bGUiOiJIZWxwIiwid2VpZ2h0IjowLCJjb2x4cyI6MTIsImNvbHNtIjoxMiwiY29sbWQiOjYsImNvbGxnIjo2fSx7ImtleSI6InBhZ2VfdG9wIiwidGl0bGUiOiJQYWdlIHRvcCIsIndlaWdodCI6MSwiY29seHMiOjEyLCJjb2xzbSI6MTIsImNvbG1kIjo2LCJjb2xsZyI6Nn0seyJrZXkiOiJwYWdlX2JvdHRvbSIsInRpdGxlIjoiUGFnZSBib3R0b20iLCJ3ZWlnaHQiOjIsImNvbHhzIjoxMiwiY29sc20iOjEyLCJjb2xtZCI6NiwiY29sbGciOjZ9LHsia2V5IjoiZGFzaGJvYXJkX21haW4iLCJ0aXRsZSI6IkRhc2hib2FyZCAobWFpbikiLCJ3ZWlnaHQiOjMsImNvbHhzIjoxMiwiY29sc20iOjEyLCJjb2xtZCI6NiwiY29sbGciOjZ9LHsia2V5IjoiZGFzaGJvYXJkX3NpZGViYXIiLCJ0aXRsZSI6IkRhc2hib2FyZCAoc2lkZWJhcikiLCJ3ZWlnaHQiOjQsImNvbHhzIjoxMiwiY29sc20iOjEyLCJjb2xtZCI6NiwiY29sbGciOjZ9LHsia2V5IjoiZGFzaGJvYXJkX2luYWN0aXZlIiwidGl0bGUiOiJEYXNoYm9hcmQgKGluYWN0aXZlKSIsIndlaWdodCI6NSwiY29seHMiOjEyLCJjb2xzbSI6MTIsImNvbG1kIjo2LCJjb2xsZyI6Nn1dfV19XQ==';
@@ -46,10 +49,17 @@ function innovation_theme($existing, $type, $theme, $path) {
   ];
 }
 
+function innovation_page_attachments_alter(array &$attachments) {
+  if(isset($attachments['#attached']['drupalSettings']['colorbox'])){
+    $attachments['#attached']['drupalSettings']['colorbox']['returnFocus'] = false;
+  }
+}
+
+
 function innovation_preprocess_html(&$vars) {
   //$vars['#attached']['library'][] = 'innovation/bootstrap';
 
-  $theme = innovation_get_theme();
+  $theme = InnovationTheme::innovation_get_theme();
   $vars['#attached']['library'][] = 'innovation/font-awesome';
   
   $direction = theme_get_setting('innovation_direction');
@@ -68,7 +78,7 @@ function innovation_preprocess_html(&$vars) {
  * @return array
  */
 function innovation_library_info_build(){
-  $theme = innovation_get_theme();
+  $theme = InnovationTheme::innovation_get_theme();
   $libraries = [];
   foreach($theme->presets as $preset){
 	$preset_key = strtolower($preset->key);
@@ -91,7 +101,7 @@ function innovation_library_info_build(){
  * Implement hook_preprocess_page 
  */
 function innovation_preprocess_page(&$page){
-  $theme = innovation_get_theme();
+  $theme = InnovationTheme::innovation_get_theme();
   $theme->page = &$page;
   $preset_key = strtolower($theme->presets[$theme->preset]->key);
   $node = \Drupal::routeMatch()->getParameter('node');
@@ -112,12 +122,16 @@ function innovation_preprocess_page(&$page){
 	  }
     }
   }
-  $less = new innovation_lessc($theme);
+  $less = new InnovationLessc($theme);
   $page['#attached']['library'][] = 'innovation/innovation.'.$theme->theme .Html::getClass($preset_key);
   $asset_dir = 'public://innovation/'. $theme->theme;
   $css_dir =  $asset_dir.'/css';
-  file_prepare_directory($css_dir, FILE_CREATE_DIRECTORY);
-  file_prepare_directory($css_dir, FILE_MODIFY_PERMISSIONS);
+//  file_prepare_directory($css_dir, FILE_CREATE_DIRECTORY);
+
+  \Drupal::service('file_system')->prepareDirectory($css_dir, FileSystemInterface::CREATE_DIRECTORY);
+
+//  file_prepare_directory($css_dir, FILE_MODIFY_PERMISSIONS);
+  \Drupal::service('file_system')->prepareDirectory($css_dir, FileSystemInterface::MODIFY_PERMISSIONS);
   $css_file = $css_dir . '/style-'.Html::getClass($preset_key).'.css';
   $less->complie($css_file);  
   
@@ -167,7 +181,7 @@ function template_preprocess_section(&$variables){
 }
 
 function innovation_preprocess_region(&$variables) {
-  $theme = innovation_get_theme();
+  $theme = InnovationTheme::innovation_get_theme();
   $region_key = $variables['elements']['#region'];
   $region = $theme->getRegion($region_key);
   $variables['attributes']['class'][] = 'inv-region';
@@ -201,7 +215,7 @@ function innovation_preprocess_region(&$variables) {
  */
 
 function innovation_process_region(&$variables) {
-  $theme = innovation_get_theme();
+  $theme = InnovationTheme::innovation_get_theme();
   switch ($variables['elements']['#region']) {
     case 'content':
       $variables['messages'] = $theme->page['messages'];

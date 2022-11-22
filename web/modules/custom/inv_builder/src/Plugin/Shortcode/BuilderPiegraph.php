@@ -21,7 +21,7 @@ use Drupal\inv_builder\Plugin\Shortcode\BuilderElement;
  */
 class BuilderPiegraph extends BuilderElement {
 
-    public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+    public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
         parent::process($attributes, $text, $langcode);
 
         $attributes = $this->getAttributes(array(

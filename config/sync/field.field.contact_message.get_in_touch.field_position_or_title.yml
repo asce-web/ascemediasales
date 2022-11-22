@@ -1,0 +1,19 @@
+uuid: 8048c872-bdfc-40b2-a969-62da33666fed
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.get_in_touch
+    - field.storage.contact_message.field_position_or_title
+id: contact_message.get_in_touch.field_position_or_title
+field_name: field_position_or_title
+entity_type: contact_message
+bundle: get_in_touch
+label: 'Title / Position'
+description: '<span class="form-text text-muted">Your Role</span>'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

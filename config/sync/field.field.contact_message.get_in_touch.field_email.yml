@@ -1,0 +1,19 @@
+uuid: c3474704-ae27-40bd-b240-9bc046912d6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.get_in_touch
+    - field.storage.contact_message.field_email
+id: contact_message.get_in_touch.field_email
+field_name: field_email
+entity_type: contact_message
+bundle: get_in_touch
+label: Email
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

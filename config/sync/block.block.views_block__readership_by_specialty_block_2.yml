@@ -1,0 +1,37 @@
+uuid: df2ca7b8-a487-42fa-8aff-7c00eb69ab79
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.readership_by_specialty
+  module:
+    - inv_block_custom
+    - system
+    - views
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+    block_container_class: container
+    block_classes: bg-gray
+id: views_block__readership_by_specialty_block_2
+theme: enar
+region: bottom_content
+weight: -25
+provider: null
+plugin: 'views_block:readership_by_specialty-block_2'
+settings:
+  id: 'views_block:readership_by_specialty-block_2'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/1

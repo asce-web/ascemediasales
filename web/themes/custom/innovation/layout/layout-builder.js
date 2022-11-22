@@ -98,10 +98,17 @@
       section.append(sectionHeader);
       section.append('<ul class="inv-section-inner row"></ul>');
       $('ul#inv_sections').append(section);
-      $('ul#inv_sections').sortable({
-        handle: '.section-sortable',
-        cancel: '.inv-section-unassigned',
-      });
+//      $('ul#inv_sections').sortable({
+//        handle: '.section-sortable',
+//        cancel: '.inv-section-unassigned',
+ //     });
+	   var sectionEle = document.getElementById('inv_sections');
+	   Sortable.create(sectionEle, {
+		handle: '.section-sortable',
+ //       cancel: '.inv-section-unassigned',  
+	  });
+	  
+	  
       $(this.regions).each(function () {
         var region = $('<li>');
         region.addClass('inv-region');
@@ -138,10 +145,17 @@
         region.addClass('col-xs-offset-' + this.colxsoffset);
         section.find('.inv-section-inner').append(region);
       });
-      $('.inv-section-inner').sortable({
-        handle: '.region-sortable',
-        connectWith: '.inv-section-inner'
-      });
+    //  $('.inv-section-inner').sortable({
+    //    handle: '.region-sortable',
+    //    connectWith: '.inv-section-inner'
+    //  });
+    var regionSelector = document.querySelectorAll('.inv-section-inner');
+    regionSelector.forEach(function (widget) {
+	  Sortable.create(widget, {
+		handle: '.region-sortable',
+		group:  'region-section',
+	  });
+    });
     });
     Drupal.attachBehaviors(document.getElementById('inv_sections'));
   }

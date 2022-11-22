@@ -61,7 +61,7 @@ class SliderDuplicate extends FormBase {
     $slider_new = $slider->createDuplicate();
     $slider_new->set('name', $form_state->getValue('name'));
     $slider_new->save();
-    drupal_set_message('Slider has been duplicated.');
+    \Drupal::messenger()->addMessage('Slider has been duplicated.');
     $form_state->setRedirect('entity.inv_slider.collection');
   }
 

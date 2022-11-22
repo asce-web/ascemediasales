@@ -26,6 +26,7 @@ layout-builder:
     layout/layout-builder.js: {}
   dependencies:
   - core/jquery
+  - core/sortable
   css:
     component:
       vendor/font-awesome/css/font-awesome.css: {}

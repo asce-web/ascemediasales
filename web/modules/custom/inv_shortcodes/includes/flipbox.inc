@@ -24,7 +24,7 @@ function inv_shortcodes_process_flipbox($attrs, $text) {
         '#title' => $attributes['title'],
         '#content'=> $text
     );
-    return drupal_render($render_array);
+    return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_flipbox_theme(&$themes, $path) {

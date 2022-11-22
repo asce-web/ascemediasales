@@ -1,0 +1,38 @@
+uuid: 4e919e68-691d-4d85-823b-ec0e868f2dd3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:bc2a3124-fcdf-4287-9cb0-2982658b9235'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '15px 0'
+    block_container_class: container
+    block_classes: bg-gray
+id: asce_detailedinformationgeostrata
+theme: asce
+region: bottom_content
+weight: -24
+provider: null
+plugin: 'block_content:bc2a3124-fcdf-4287-9cb0-2982658b9235'
+settings:
+  id: 'block_content:bc2a3124-fcdf-4287-9cb0-2982658b9235'
+  label: 'Detailed Information Geostrata'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/3

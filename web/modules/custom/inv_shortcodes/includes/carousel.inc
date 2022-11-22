@@ -35,7 +35,7 @@ function inv_shortcodes_process_carousels($attrs, $content) {
     );
     $shortcode_carousel_stack = null;
     $thumbnail = null;
-	return drupal_render($render_array);
+	return \Drupal::service('renderer')->render($render_array);
 }
 
 function inv_shortcodes_carousels_theme(&$themes, $path) {
@@ -71,7 +71,7 @@ function inv_shortcodes_process_carousel($attrs, $content) {
         array('path' => ''), $attrs);
     $path = $attributes['path'];
     if (strpos($attributes['path'], "public://") !== false) {
-        $path = file_create_url($path);
+        $path = \Drupal::service('file_url_generator')->generateAbsoluteString($path);
     }
     global $shortcode_carousel_stack;
     global $thumbnail;

@@ -1,0 +1,38 @@
+uuid: e356de27-83d7-44c5-8ca8-e3fa76159364
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:64b09336-0cdd-4ef4-b30a-aad4be58838d'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_image_position: 'top left'
+    block_padding: '55px 0'
+    block_container_class: container
+    block_classes: 'block welcome_banner content clearfix bg-gray2 white-section callout'
+id: asce_awardwinning
+theme: asce
+region: bottom_content
+weight: -28
+provider: null
+plugin: 'block_content:64b09336-0cdd-4ef4-b30a-aad4be58838d'
+settings:
+  id: 'block_content:64b09336-0cdd-4ef4-b30a-aad4be58838d'
+  label: 'Award Winning'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/1

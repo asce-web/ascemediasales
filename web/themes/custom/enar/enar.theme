@@ -41,11 +41,15 @@ function enar_preprocess_html(&$variables) {
   $variables['goto'] = $goto;
 }
 
+function enar_preprocess_page(&$page){
+	$page['#attached']['library'][] = 'enar/override-css';
+}
+
 function enar_preprocess_breadcrumb(&$variables){
    if(($node = \Drupal::routeMatch()->getParameter('node')) && $variables['breadcrumb']){
 		$variables['breadcrumb'][] = array(
 		 'text' => $node->getTitle(),
-		 'url' => $node->URL()
+		 'url' => $node->toUrl()
 	   );
 	   $variables['#cache']['contexts'][] = 'url';
    }
@@ -96,4 +100,13 @@ function enar_form_alter(&$form, &$form_state, $form_id) {
 	if (strpos($form_id,"search_block_form") !== false) {
 		$form['actions']['submit']['#prefix'] = "<i class='search-action ico-search4'></i>";
 	}
+}
+
+function enar_theme_suggestions_user_alter(&$suggestions, $vars, $hook) {
+
+  // Define the view mode.
+  $mode = $vars['elements']['#view_mode'];
+
+  // Create a theme hook suggestion which has the view mode name in it.
+  $suggestions[] = 'user__' . $mode;
 }

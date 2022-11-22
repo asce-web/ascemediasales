@@ -1,0 +1,43 @@
+uuid: d8bf24ec-f072-407d-9f85-243ab0f21df3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d7b3da95-fa65-475c-9297-09beea0b6a7b'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - enar
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '51'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '50px 0 70px 0'
+    block_container_class: container
+    overlay_color: '#000000'
+    overlay_opacity: '0.4'
+    block_classes: 'readership-statistics-block white-section white-text'
+id: readershipstatistics
+theme: enar
+region: bottom_content
+weight: -16
+provider: null
+plugin: 'block_content:d7b3da95-fa65-475c-9297-09beea0b6a7b'
+settings:
+  id: 'block_content:d7b3da95-fa65-475c-9297-09beea0b6a7b'
+  label: 'Readership Statistics'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/3

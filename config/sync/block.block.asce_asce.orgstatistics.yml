@@ -1,0 +1,39 @@
+uuid: f035d5b5-dee8-444d-9e06-e80d0d7e6fb1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:e907c319-40bd-41c5-9859-2338a236b42e'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '1'
+    background_image_position: 'top left'
+    block_padding: '0 55px'
+    block_margin: '30px 0'
+    block_container_class: container
+id: asce_asce.orgstatistics
+theme: asce
+region: top_content
+weight: -21
+provider: null
+plugin: 'block_content:e907c319-40bd-41c5-9859-2338a236b42e'
+settings:
+  id: 'block_content:e907c319-40bd-41c5-9859-2338a236b42e'
+  label: 'ASCE.org Statistics'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/4

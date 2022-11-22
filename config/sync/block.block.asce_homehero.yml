@@ -1,0 +1,42 @@
+uuid: 193ec096-ff11-4977-b2a1-fe8fdf96726b
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:135ebd53-1c7c-4a11-8d6a-e6679c3fbde7'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '129'
+    background_image_type: cover
+    background_image_position: 'center center'
+    block_padding: '150px 0'
+    block_container_class: container
+    overlay_color: '#000000'
+    overlay_opacity: '.2'
+id: asce_homehero
+theme: asce
+region: banner
+weight: -14
+provider: null
+plugin: 'block_content:135ebd53-1c7c-4a11-8d6a-e6679c3fbde7'
+settings:
+  id: 'block_content:135ebd53-1c7c-4a11-8d6a-e6679c3fbde7'
+  label: 'Home Hero'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/28

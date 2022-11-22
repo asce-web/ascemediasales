@@ -18,7 +18,7 @@ class InvLayerSliderBlock extends DeriverBase {
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $select = db_select('inv_slider', 'slider');
+    $select = \Drupal::service('database')->select('inv_slider', 'slider');
     $select->fields('slider');
     $sliders = $select->execute()->fetchAll();
     

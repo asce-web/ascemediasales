@@ -123,11 +123,11 @@ class BuilderElement extends ShortcodeBase {
     return $attrObject;
   }
 
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     
   }
 
-  public function render(&$element) {
+  public function render(array &$element) {
     $renderer = \Drupal::service('renderer');
     return $renderer->render($element);
   }

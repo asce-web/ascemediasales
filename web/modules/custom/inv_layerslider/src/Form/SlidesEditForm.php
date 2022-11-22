@@ -58,14 +58,6 @@ class SlidesEditForm extends FormBase {
       '#title' => $this->t('Background Image'),
       '#attributes' => array('class' => array('image-browser-js','slide-option', 'hidden')),
       '#prefix' => '<div class="col-md-4">',
-      //'#suffix' => '</div>',
-    );
-    
-    $form['slide_options']['background_color'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Background Color'),
-      '#attributes' => array('class' => array('color','slide-option')),
-      //'#prefix' => '<div class="col-md-4">',
       '#suffix' => '</div>',
     );
     
@@ -74,6 +66,27 @@ class SlidesEditForm extends FormBase {
       '#title' => $this->t('Thumbnail Image'),
       '#attributes' => array('class' => array('image-browser-js', 'slide-option', 'hidden')),
       '#prefix' => '<div class="col-md-4">',
+      '#suffix' => '</div></div>',
+    );
+	
+    $form['slide_options']['data_bgfit'] = array(
+      '#type' => 'select',
+      '#title' => $this->t('Background Size'),
+      '#options' => [
+        'cover' => 'Cover',
+		'auto' => 'Auto',
+		'contain' => 'Contain',
+        ],
+      '#attributes' => ['class' => ['slide-option']],
+      '#prefix' => '<div class="row"><div class="col-md-6">',
+      '#suffix' => '</div>'
+    );
+	
+    $form['slide_options']['background_color'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Background Color'),
+      '#attributes' => array('class' => array('color','slide-option')),
+      '#prefix' => '<div class="col-md-6">',
       '#suffix' => '</div></div>',
     );
     
@@ -290,7 +303,7 @@ class SlidesEditForm extends FormBase {
       }
     }
     $form_state->setRedirect('entity.inv_slider.collection');
-    drupal_set_message('Slider has been saved.');
+    \Drupal::messenger()->addMessage('Slider has been saved.');
   }
   
   private  function saveFile($fid, $slider_id){

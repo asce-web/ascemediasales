@@ -1,0 +1,24 @@
+_core:
+  default_config_hash: hjgcuHpcsme6SW-7MKpZm3bhnR76f1yX2Y8Xe0STesw
+drupalAcctProvisionServer: windows_dc01
+ldapEntryProvisionServer: null
+drupalAcctProvisionTriggers:
+  drupal_on_login: drupal_on_login
+  drupal_on_update_create: drupal_on_update_create
+ldapEntryProvisionTriggers:
+  ldap_on_update_create: '0'
+  ldap_on_login: '0'
+  ldap_on_delete: '0'
+  drupal_on_manual_creation: '0'
+orphanedDrupalAcctBehavior: ldap_user_orphan_email
+orphanedCheckQty: 300
+orphanedAccountCheckInterval: weekly
+userConflictResolve: resolve
+manualAccountConflict: conflict_show_option
+acctCreation: ldap_behaviour
+disableAdminPasswordField: true
+userUpdateCronQuery: none
+userUpdateCronInterval: monthly
+ldapUserSyncMappings:
+  drupal: {  }
+  ldap: {  }

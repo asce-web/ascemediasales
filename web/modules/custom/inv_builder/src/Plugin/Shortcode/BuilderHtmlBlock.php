@@ -18,7 +18,7 @@ use Drupal\Core\Template\Attribute;
  */
 class BuilderHtmlBlock extends BuilderElement{
 
-  public function process($attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attrs, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $css = $this->getCSS($attrs);
     $attrs = $this->getAttributes(array(
       'class' => '',

@@ -1,0 +1,40 @@
+uuid: d7524891-81eb-49e7-a527-6f759a0ee814
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5b692f80-bfbd-4a26-908b-f6b9ba19a2b4'
+  module:
+    - block_content
+    - inv_block_custom
+    - system
+  theme:
+    - asce
+third_party_settings:
+  inv_block_custom:
+    background_type: '2'
+    background_image: '127'
+    background_image_type: cover
+    background_image_position: 'top left'
+    block_padding: '150px 0'
+    block_container_class: container
+id: asce_404banner
+theme: asce
+region: banner
+weight: -15
+provider: null
+plugin: 'block_content:5b692f80-bfbd-4a26-908b-f6b9ba19a2b4'
+settings:
+  id: 'block_content:5b692f80-bfbd-4a26-908b-f6b9ba19a2b4'
+  label: '404 Banner'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: /node/32

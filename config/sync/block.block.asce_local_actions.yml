@@ -1,0 +1,20 @@
+uuid: 101955e8-942d-4af7-99a6-51b91cbbaa9b
+langcode: en
+status: true
+dependencies:
+  theme:
+    - asce
+_core:
+  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
+id: asce_local_actions
+theme: asce
+region: content
+weight: -14
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

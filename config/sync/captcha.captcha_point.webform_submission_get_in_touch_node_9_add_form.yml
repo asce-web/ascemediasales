@@ -1,0 +1,7 @@
+uuid: 44b875ed-4671-4e6e-aeeb-abcb24cb8816
+langcode: en
+status: true
+dependencies: {  }
+formId: webform_submission_get_in_touch_node_9_add_form
+captchaType: recaptcha/reCAPTCHA
+label: webform_submission_get_in_touch_node_9_add_form

@@ -1,0 +1,20 @@
+uuid: e3045848-322f-4317-99d3-8b5b9543abf6
+langcode: en
+status: true
+dependencies:
+  theme:
+    - enar
+_core:
+  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
+id: enar_local_actions
+theme: enar
+region: content
+weight: -14
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

@@ -20,7 +20,7 @@ use Drupal\Core\Language\Language;
  * )
  */
 class BuilderStats extends BuilderElement{
-  public function process($attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
+  public function process(array $attributes, $text, $langcode = Language::LANGCODE_NOT_SPECIFIED) {
     $attrs = $this->getAttributes(array(
       'title' => '',
       'icon' => '',
@@ -28,19 +28,21 @@ class BuilderStats extends BuilderElement{
       'number' => '',
       'duration' => 2000,
       'class' => '',
+	  'id' => '',
         ), $attributes
     );
     $output = [
       '#theme' => 'inv_builder_stats',
       '#title' => $attrs['title'],
       '#class' => $attrs['class'],
+	  '#id' => $attrs['id'],
       '#icon' => $attrs['icon'],
       '#number' => $attrs['number'],
       '#duration' => $attrs['duration'],
-      '#attached' => ['library' => 'inv_builder/stats'],
+      '#attached' => ['library' => ['inv_builder/stats']],
     ];
     if($attrs['icon_library'] && ($icon_plugin = \Drupal::service('inv_builder.fonticon')->getFontIconPlugin($attrs['icon_library']))){
-      $output['#attached']['library'] = $icon_plugin->library();
+      $output['#attached']['library'][] = $icon_plugin->library();
     }
 
     return $this->render($output);
@@ -74,7 +76,13 @@ class BuilderStats extends BuilderElement{
       '#type' => 'number',
       '#default_value' => $this->get('duration', 3000),
     );
-    
+
+    $form['general_options']['id'] = array(
+      '#title' => $this->t('HTML ID'),
+      '#type' => 'textfield',
+      '#default_value' => $this->get('id'),
+    );
+	
     $form['general_options']['class'] = array(
       '#title' => $this->t('Custom class'),
       '#type' => 'textfield',
